@@ -1,80 +1,63 @@
-# <div align="center">Jiashu Yang (杨佳澍) 🚀</div>
+# <div align="center">Jiashu Yang (杨佳澍)</div>
 
 <div align="center">
-  <img src="https://img.shields.io/badge/-AI%20Researcher-red?style=flat-square&logo=brain&logoColor=white" />
-  <img src="https://img.shields.io/badge/-Computer%20Vision-blue?style=flat-square&logo=opencv&logoColor=white" />
-  <img src="https://img.shields.io/badge/-LLM%20%26%20Embodied%20AI-green?style=flat-square&logo=openai&logoColor=white" />
+  <img src="images/头像.jpg" width="150" style="border-radius: 50%;" />
 </div>
 
 <div align="center">
-  <a href="https://yang-jiashu.github.io/">
-    <img src="https://img.shields.io/badge/Website-Visit%20Homepage-4169E1?style=for-the-badge&logo=githubpages&logoColor=white" />
-  </a>
-  <a href="https://scholar.google.com/citations?user=BRXghWcAAAAJ&hl=en">
-    <img src="https://img.shields.io/badge/Scholar-Profile-4285F4?style=for-the-badge&logo=googlescholar&logoColor=white" />
-  </a>
-  <a href="https://www.zhihu.com/people/22-49-46-76/posts">
-    <img src="https://img.shields.io/badge/Zhihu-Posts-0084FF?style=for-the-badge&logo=zhihu&logoColor=white" />
-  </a>
+  <p>
+    <i class="fas fa-map-marker-alt"></i> Beijing, China &nbsp;&nbsp;
+    <a href="mailto:your.email@example.com">Email</a> &nbsp;&nbsp;
+    <a href="https://scholar.google.com/citations?user=BRXghWcAAAAJ&hl=en">Google Scholar</a> &nbsp;&nbsp;
+    <a href="https://www.zhihu.com/people/22-49-46-76/posts">Zhihu</a>
+  </p>
 </div>
 
 ---
 
-### 👨‍💻 About Me
+### 📝 About Me
+Hello, I'm **Jiashu Yang (杨佳澍)**. My research interests include **open-world visual understanding** and **large models** (language, vision, and action). I am committed to the research of practical and deployable intelligent algorithms.
 
-I am an AI researcher focused on **Open-World Visual Understanding** and **Large Models** (Vision, Language, and Action). Currently, I am a BEng student at **Dalian University of Technology** (2022-2026), and I am actively seeking **PhD positions for Fall 2026**.
-
-- 🔭 **Research Interests**: Multimodal LLMs, Embodied Intelligence, Robotic Manipulation.
-- 🎓 **Education**: BEng in AI @ DLUT (GPA ranking top tier).
-- 🏆 **Honors**: Multiple National Prizes in Robocup and Computer Competitions.
-- 📧 **Contact**: `jiashu.yang@example.com`
+- **LLM Leadership**: Led and open-sourced [Wenyuan Pavilion](https://github.com/Kongzi-Large-Model), a community focused on developing Chinese-culture-centered open-source LLMs.
+- **Embodied AI**: From November 2023 to September 2025, I conducted research on **embodied visual systems** and developed an **eyeball system**. [Paper link](https://arxiv.org/abs/2511.15279)
+- **Collaborations**: Worked with **Prof. Huchuan Lu (IEEE Fellow)** and **Prof. Xu Jia** on multimodal Retrieval-Augmented Generation (RAG).
 
 ---
 
-### 🔬 Research Highlights
-
-| Period | Project / Research | Key Contribution |
-| :--- | :--- | :--- |
-| **2023 - 2025** | **Embodied Visual Systems** | Developed an **active eyeball system** for robotic perception. [Paper](https://arxiv.org/abs/2511.15279) |
-| **2024 - Now** | **Wenyuan Pavilion** | Lead research on Chinese-culture-centered LLMs. [Repo](https://github.com/Kongzi-Large-Model) |
-| **2025** | **ICCV 2025** | Two papers accepted to the top-tier CV conference. |
+### 📖 Education
+- **Dalian University of Technology** | BEng., Artificial Intelligence | 2022.09 - 2026.06 (Expected)
+- 🚀 **Seeking PhD positions for Fall 2026 admission!**
 
 ---
 
-### 🛠️ Tech Stack & Skills
-
-<div align="center">
-  <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" />
-  <img src="https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white" />
-  <img src="https://img.shields.io/badge/C++-00599C?style=for-the-badge&logo=c%2B%2B&logoColor=white" />
-  <img src="https://img.shields.io/badge/ROS2-22314E?style=for-the-badge&logo=ros&logoColor=white" />
-</div>
-
-<div align="center">
-  <img src="https://img.shields.io/badge/OpenCV-5C3EE8?style=for-the-badge&logo=opencv&logoColor=white" />
-  <img src="https://img.shields.io/badge/HuggingFace-FFD21E?style=for-the-badge&logo=huggingface&logoColor=white" />
-  <img src="https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=white" />
-</div>
+### 📝 Publications
+- Two papers accepted to **ICCV 2025**!
 
 ---
 
-### 📊 Github Stats
+### 💼 Work Experience
+- **Meituan**, Beijing | Longcat Interaction | 2025.12 - Now
+- **IIAU Lab, Shanghai Jiao Tong University** | Research Assistant | 2025.07 - 2025.09
+- **ByteDance**, Beijing | Applications of Large Language Models | 2025.04 - 2025.07
+- **IIAU Lab, Dalian University of Technology** | Research Assistant | 2024.05 - 2025.01
+- **Institute of Automation, Chinese Academy of Sciences (CAS)** | Research Internship | 2023.11 - 2024.08
 
-<div align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=Yang-Jiashu&show_icons=true&theme=radical&count_private=true" alt="Jiashu's GitHub Stats" />
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Yang-Jiashu&layout=compact&theme=radical" alt="Top Langs" />
-</div>
+---
 
-<div align="center">
-  <img src="https://github-readme-streak-stats.herokuapp.com/?user=Yang-Jiashu&theme=radical" alt="GitHub Streak" />
-</div>
+### 💻 Projects
+- **Squirrel**: A multi-modal PDF interaction tool (Launched January 15, 2025).
+- **Wenyuan Pavilion**: Lead researcher for an Ancient Chinese Language Community and domain-specific LLMs. [GitHub](https://github.com/Kongzi-Large-Model)
+
+---
+
+### 🎖 Honors and Awards
+- **National First Prize** (2023): Robocup, Advanced Vision Track - Industrial Measurement
+- **National Third Prize** (2024): Robocup, Advanced Vision Track - 3D Detection
+- **National Third Prize** (2024): Robocup, Advanced Vision Track - Industrial Measurement
+- **National Third Prize** (2024): China University Computer Competition
 
 ---
 
 <div align="center">
-  <img src="https://komarev.com/ghpvc/?username=Yang-Jiashu&color=blue&style=flat-square&label=VISITORS" alt="Visitor Count" />
-</div>
-
-<div align="center">
-  <i>"Committed to the research of practical and deployable intelligent algorithms."</i>
+  <p><i>Visit my full academic homepage at <a href="https://yang-jiashu.github.io/">yang-jiashu.github.io</a></i></p>
 </div>
