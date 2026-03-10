@@ -32,11 +32,11 @@ Hello, I'm **Jiashu Yang (杨佳澍)**. My research interests include **open-wor
 
 ### 📝 Publications
 - **EvaGaussians: Event Stream Assisted Gaussian Splatting from Blurry Images** | *ICCV 2025* | [Paper](https://arxiv.org/abs/2405.20224) | Citations: 55
-- **Kongzi: A Historical Large Language Model with Fact Enhancement** | *COLM 2026* | [Paper](https://arxiv.org/abs/2504.09488) | Citations: 2
+- **Kongzi: A Historical Large Language Model with Fact Enhancement** | *COLM 2026 (Under Review)* | [Paper](https://arxiv.org/abs/2504.09488) | Citations: 2
 - **Tune-Your-Style: Intensity-tunable 3D Style Transfer with Gaussian Splatting** | *ICCV 2025* | [Paper](https://arxiv.org/abs/2602.00618) | Citations: 1
-- **Breaking the Vicious Cycle: Coherent 3D-GS from Sparse & Blurred Views** | *TCSVT 2025* | [Paper](https://arxiv.org/pdf/2512.10369)
-- **Look, Zoom, Understand: The Robotic Eyeball for Embodied Perception** | *ACMMM 2026* | [Paper](https://arxiv.org/abs/2511.15279)
-- **AutothinkRAG: Complexity-Aware Control of Retrieval-Augmented Reasoning for Image-Text Interaction** | *ACL 2026* | [Paper](https://arxiv.org/pdf/2603.05551)
+- **Breaking the Vicious Cycle: Coherent 3D-GS from Sparse & Blurred Views** | *TCSVT 2025 (Under Review)* | [Paper](https://arxiv.org/pdf/2512.10369)
+- **Look, Zoom, Understand: The Robotic Eyeball for Embodied Perception** | *ACMMM 2026 (Under Review)* | [Paper](https://arxiv.org/abs/2511.15279)
+- **AutothinkRAG: Complexity-Aware Control of Retrieval-Augmented Reasoning for Image-Text Interaction** | *ACL 2026 (Under Review)* | [Paper](https://arxiv.org/pdf/2603.05551)
 - **Prospective and intelligent antiviral drug design against potential viral variants** | *Bioinformatics*
 - **A survey of document understanding** | Project Leader
 - **A survey of activate perception** | Project Leader
