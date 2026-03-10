@@ -37,7 +37,7 @@ Hello, I'm **Jiashu Yang (杨佳澍)**. My research interests include **open-wor
 - **Breaking the Vicious Cycle: Coherent 3D-GS from Sparse & Blurred Views** | *TCSVT 2025 (Under Review)* | [Paper](https://arxiv.org/pdf/2512.10369)
 - **Look, Zoom, Understand: The Robotic Eyeball for Embodied Perception** | *ACMMM 2026 (Under Review)* | [Paper](https://arxiv.org/abs/2511.15279)
 - **AutothinkRAG: Complexity-Aware Control of Retrieval-Augmented Reasoning for Image-Text Interaction** | *ACL 2026 (Under Review)* | [Paper](https://arxiv.org/pdf/2603.05551)
-- **Prospective and intelligent antiviral drug design against potential viral variants** | *Bioinformatics*
+- **Prospective and intelligent antiviral drug design against potential viral variants** | *Bioinformatics (Under Review)*
 - **A survey of document understanding** | Project Leader
 - **A survey of activate perception** | Project Leader
 
