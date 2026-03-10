@@ -19,8 +19,8 @@
 Hello, I'm **Jiashu Yang (杨佳澍)**. My research interests include **open-world visual understanding** and **large models** (language, vision, and action). I am committed to the research of practical and deployable intelligent algorithms.
 
 - **LLM Leadership**: Led and open-sourced [Wenyuan Pavilion](https://github.com/Kongzi-Large-Model), a community focused on developing Chinese-culture-centered open-source LLMs.
-- **Embodied AI**: <b style="color: red;">2023.11 - 2025.09</b>, I conducted research on **embodied visual systems** and developed an [eyeball system](https://arxiv.org/abs/2511.15279).
-- **Collaborations**: <b style="color: red;">2024.05 - 2025.01</b>, I worked with **Prof. Huchuan Lu (IEEE Fellow)** and **Prof. Xu Jia** on research related to **multimodal document understanding**.
+- **Embodied AI**: <b style="color: red;">2023.11 - 2025.09</b>: Developed an [eyeball system](https://arxiv.org/abs/2511.15279) for embodied vision.
+- **Collaborations**: <b style="color: red;">2024.05 - 2025.01</b>: Research on **multimodal document understanding** with **Prof. Huchuan Lu** & **Prof. Xu Jia**.
 
 ---
 
