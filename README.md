@@ -1,76 +1,46 @@
-# <div align="center">Hi there, I'm Jiashu Yang 👋</div>
+# <div align="center">Jiashu Yang (杨佳澍)</div>
 
 <div align="center">
 
-[![Homepage](https://img.shields.io/badge/Homepage-Live-4169E1?style=for-the-badge&logo=githubpages&logoColor=white)](https://yang-jiashu.github.io/)
-[![Status](https://img.shields.io/badge/Status-Actively%20Maintained-2EA44F?style=for-the-badge)](https://github.com/Yang-Jiashu/Yang-Jiashu.github.io)
-[![Research](https://img.shields.io/badge/Focus-Open--World%20Vision%20%26%20LLM-8A2BE2?style=for-the-badge)](https://scholar.google.com/citations?user=BRXghWcAAAAJ&hl=en)
+[![Homepage](https://img.shields.io/badge/Homepage-Visit-4169E1?style=for-the-badge&logo=githubpages&logoColor=white)](https://yang-jiashu.github.io/)
+[![Google Scholar](https://img.shields.io/badge/Google%20Scholar-Profile-4285F4?style=for-the-badge&logo=googlescholar&logoColor=white)](https://scholar.google.com/citations?user=BRXghWcAAAAJ&hl=en)
+[![Zhihu](https://img.shields.io/badge/Zhihu-Posts-0084FF?style=for-the-badge&logo=zhihu&logoColor=white)](https://www.zhihu.com/people/22-49-46-76/posts)
 
 </div>
 
 <div align="center">
-Personal academic homepage source code · 简洁、现代、可部署的个人学术主页
+Research on open-world visual understanding and large models (language, vision, and action)
 </div>
 
 ---
 
-## ✨ About This Repo
+## 👨‍💻 About Me
 
-This repository hosts my personal website, including:
+Hi, I’m Jiashu Yang.  
+My research focuses on open-world visual understanding and practical intelligent systems.
 
-- Research interests and selected publications
-- Education and work experience timeline
+- BEng in Artificial Intelligence, Dalian University of Technology (2022.09 - 2026.06)
+- Looking for PhD positions for Fall 2026
+- Research interest: LLM, multimodal understanding, embodied intelligence
+
+---
+
+## 🔬 Selected Research
+
+- From Nov. 2023 to Sep. 2025, I worked on embodied visual systems and developed an eyeball system. [Paper](https://arxiv.org/abs/2511.15279)
+- Led and open-sourced Wenyuan Pavilion, a Chinese-culture-centered open-source LLM community: [Kongzi-Large-Model](https://github.com/Kongzi-Large-Model)
+- Two papers accepted to ICCV 2025
+
+---
+
+## 🧭 Current Website Content
+
+This homepage includes:
+
+- Biography and research interests
+- Publications and academic updates
+- Education and work experience
 - Projects and honors
-- Contact links (Email / Google Scholar / Zhihu)
-
-页面入口在 `index.html`，样式文件位于 `css/style.css`。
-
----
-
-## 🧩 Tech Stack
-
-<div align="center">
-
-![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white)
-![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white)
-![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-121013?style=flat-square&logo=github&logoColor=white)
-
-</div>
-
----
-
-## 🚀 Quick Start
-
-```bash
-git clone https://github.com/Yang-Jiashu/Yang-Jiashu.github.io.git
-cd Yang-Jiashu.github.io
-```
-
-Then open `index.html` directly in your browser.
-
----
-
-## 📁 Project Structure
-
-```text
-Yang-Jiashu.github.io
-├─ index.html
-├─ css/
-│  └─ style.css
-├─ images/
-│  └─ ...
-└─ assets/
-   └─ images/
-      └─ ...
-```
-
----
-
-## 🔧 Customization Guide
-
-- **Personal info**: edit profile text and sections in `index.html`
-- **Style tuning**: update colors and layout in `css/style.css`
-- **Media assets**: replace images under `images/` and `assets/images/`
 
 ---
 
@@ -83,5 +53,5 @@ Yang-Jiashu.github.io
 ---
 
 <div align="center">
-If this repo is helpful, feel free to ⭐ it.
+Thanks for visiting my page ⭐
 </div>
