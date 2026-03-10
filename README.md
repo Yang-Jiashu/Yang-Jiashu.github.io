@@ -1,57 +1,80 @@
-# <div align="center">Jiashu Yang (杨佳澍)</div>
+# <div align="center">Jiashu Yang (杨佳澍) 🚀</div>
 
 <div align="center">
-
-[![Homepage](https://img.shields.io/badge/Homepage-Visit-4169E1?style=for-the-badge&logo=githubpages&logoColor=white)](https://yang-jiashu.github.io/)
-[![Google Scholar](https://img.shields.io/badge/Google%20Scholar-Profile-4285F4?style=for-the-badge&logo=googlescholar&logoColor=white)](https://scholar.google.com/citations?user=BRXghWcAAAAJ&hl=en)
-[![Zhihu](https://img.shields.io/badge/Zhihu-Posts-0084FF?style=for-the-badge&logo=zhihu&logoColor=white)](https://www.zhihu.com/people/22-49-46-76/posts)
-
+  <img src="https://img.shields.io/badge/-AI%20Researcher-red?style=flat-square&logo=brain&logoColor=white" />
+  <img src="https://img.shields.io/badge/-Computer%20Vision-blue?style=flat-square&logo=opencv&logoColor=white" />
+  <img src="https://img.shields.io/badge/-LLM%20%26%20Embodied%20AI-green?style=flat-square&logo=openai&logoColor=white" />
 </div>
 
 <div align="center">
-Research on open-world visual understanding and large models (language, vision, and action)
+  <a href="https://yang-jiashu.github.io/">
+    <img src="https://img.shields.io/badge/Website-Visit%20Homepage-4169E1?style=for-the-badge&logo=githubpages&logoColor=white" />
+  </a>
+  <a href="https://scholar.google.com/citations?user=BRXghWcAAAAJ&hl=en">
+    <img src="https://img.shields.io/badge/Scholar-Profile-4285F4?style=for-the-badge&logo=googlescholar&logoColor=white" />
+  </a>
+  <a href="https://www.zhihu.com/people/22-49-46-76/posts">
+    <img src="https://img.shields.io/badge/Zhihu-Posts-0084FF?style=for-the-badge&logo=zhihu&logoColor=white" />
+  </a>
 </div>
 
 ---
 
-## 👨‍💻 About Me
+### 👨‍💻 About Me
 
-Hi, I’m Jiashu Yang.  
-My research focuses on open-world visual understanding and practical intelligent systems.
+I am an AI researcher focused on **Open-World Visual Understanding** and **Large Models** (Vision, Language, and Action). Currently, I am a BEng student at **Dalian University of Technology** (2022-2026), and I am actively seeking **PhD positions for Fall 2026**.
 
-- BEng in Artificial Intelligence, Dalian University of Technology (2022.09 - 2026.06)
-- Looking for PhD positions for Fall 2026
-- Research interest: LLM, multimodal understanding, embodied intelligence
-
----
-
-## 🔬 Selected Research
-
-- From Nov. 2023 to Sep. 2025, I worked on embodied visual systems and developed an eyeball system. [Paper](https://arxiv.org/abs/2511.15279)
-- Led and open-sourced Wenyuan Pavilion, a Chinese-culture-centered open-source LLM community: [Kongzi-Large-Model](https://github.com/Kongzi-Large-Model)
-- Two papers accepted to ICCV 2025
+- 🔭 **Research Interests**: Multimodal LLMs, Embodied Intelligence, Robotic Manipulation.
+- 🎓 **Education**: BEng in AI @ DLUT (GPA ranking top tier).
+- 🏆 **Honors**: Multiple National Prizes in Robocup and Computer Competitions.
+- 📧 **Contact**: `jiashu.yang@example.com`
 
 ---
 
-## 🧭 Current Website Content
+### 🔬 Research Highlights
 
-This homepage includes:
-
-- Biography and research interests
-- Publications and academic updates
-- Education and work experience
-- Projects and honors
+| Period | Project / Research | Key Contribution |
+| :--- | :--- | :--- |
+| **2023 - 2025** | **Embodied Visual Systems** | Developed an **active eyeball system** for robotic perception. [Paper](https://arxiv.org/abs/2511.15279) |
+| **2024 - Now** | **Wenyuan Pavilion** | Lead research on Chinese-culture-centered LLMs. [Repo](https://github.com/Kongzi-Large-Model) |
+| **2025** | **ICCV 2025** | Two papers accepted to the top-tier CV conference. |
 
 ---
 
-## 📬 Contact
+### 🛠️ Tech Stack & Skills
 
-- Email: `your.email@example.com`
-- Google Scholar: <https://scholar.google.com/citations?user=BRXghWcAAAAJ&hl=en>
-- Zhihu: <https://www.zhihu.com/people/22-49-46-76/posts>
+<div align="center">
+  <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" />
+  <img src="https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white" />
+  <img src="https://img.shields.io/badge/C++-00599C?style=for-the-badge&logo=c%2B%2B&logoColor=white" />
+  <img src="https://img.shields.io/badge/ROS2-22314E?style=for-the-badge&logo=ros&logoColor=white" />
+</div>
+
+<div align="center">
+  <img src="https://img.shields.io/badge/OpenCV-5C3EE8?style=for-the-badge&logo=opencv&logoColor=white" />
+  <img src="https://img.shields.io/badge/HuggingFace-FFD21E?style=for-the-badge&logo=huggingface&logoColor=white" />
+  <img src="https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=white" />
+</div>
+
+---
+
+### 📊 Github Stats
+
+<div align="center">
+  <img src="https://github-readme-stats.vercel.app/api?username=Yang-Jiashu&show_icons=true&theme=radical&count_private=true" alt="Jiashu's GitHub Stats" />
+  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Yang-Jiashu&layout=compact&theme=radical" alt="Top Langs" />
+</div>
+
+<div align="center">
+  <img src="https://github-readme-streak-stats.herokuapp.com/?user=Yang-Jiashu&theme=radical" alt="GitHub Streak" />
+</div>
 
 ---
 
 <div align="center">
-Thanks for visiting my page ⭐
+  <img src="https://komarev.com/ghpvc/?username=Yang-Jiashu&color=blue&style=flat-square&label=VISITORS" alt="Visitor Count" />
+</div>
+
+<div align="center">
+  <i>"Committed to the research of practical and deployable intelligent algorithms."</i>
 </div>
