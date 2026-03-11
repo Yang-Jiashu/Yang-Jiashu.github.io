@@ -18,7 +18,7 @@
 ### 📝 About Me
 Hello, I'm <b>Jiashu Yang (杨佳澍)</b>. My research interests include <b>open-world visual understanding</b> and <b>large models</b> (language, vision, and action). I am committed to the research of practical and deployable intelligent algorithms.
 
-- <b>LLM Leadership</b>: Led and open-sourced [Wenyuan Pavilion](https://github.com/Kongzi-Large-Model), a community focused on developing Chinese-culture-centered open-source LLMs.
+- <b>LLM Leadership</b>: Led and open-sourced [Wenyuan Pavilion](https://wenyuan-ge.github.io/), a community focused on developing Chinese-culture-centered open-source LLMs.
 - <b>Embodied AI</b>: <b style="color: red;">2023.11 - 2025.09</b>: Developed an [eyeball system](https://arxiv.org/abs/2511.15279) for embodied vision.
 - <b>Collaborations</b>: <b style="color: red;">2024.05 - 2025.01</b>: Research on <b>multimodal document understanding</b> with <b>Prof. Huchuan Lu</b> & <b>Prof. Xu Jia</b>.
 
@@ -54,7 +54,7 @@ Hello, I'm <b>Jiashu Yang (杨佳澍)</b>. My research interests include <b>open
 
 ### 💻 Projects
 - <b>Squirrel</b>: A multi-modal PDF interaction tool (Launched January 15, 2025).
-- <img src="images/wyg.png" width="40" vertical-align="middle" /> <b>Wenyuan Pavilion</b>: Lead researcher for an Ancient Chinese Language Community and domain-specific LLMs. [GitHub](https://github.com/Kongzi-Large-Model)
+- <img src="images/wyg.png" width="40" vertical-align="middle" /> <b>Wenyuan Pavilion</b>: Lead researcher for an Ancient Chinese Language Community and domain-specific LLMs. [Website](https://wenyuan-ge.github.io/)
 
 ---
 
