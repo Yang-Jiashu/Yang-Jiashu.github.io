@@ -53,7 +53,7 @@ Hello, I'm <b>Jiashu Yang (杨佳澍)</b>. My research interests include <b>open
 ---
 
 ### 💻 Projects
-- <img src="https://raw.githubusercontent.com/Yang-Jiashu/Doc-thinker/main/assets/dog.png" width="40" vertical-align="middle" /> <b>DocThinker</b>: All-in-One RAG - document parsing, graph RAG, and evaluation. [GitHub](https://github.com/Yang-Jiashu/Doc-thinker)
+- <img src="images/docthinker.png" width="40" vertical-align="middle" /> <b>DocThinker</b>: All-in-One RAG - document parsing, graph RAG, and evaluation. [GitHub](https://github.com/Yang-Jiashu/Doc-thinker)
 - <img src="images/wyg.png" width="40" vertical-align="middle" /> <b>Wenyuan Pavilion</b>: Lead researcher for an Ancient Chinese Language Community and domain-specific LLMs. [Website](https://wenyuan-ge.github.io/)
 
 ---
