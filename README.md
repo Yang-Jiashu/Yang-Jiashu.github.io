@@ -46,7 +46,7 @@ Hello, I'm <b>Jiashu Yang (杨佳澍)</b>. My research interests focus on <b>ope
 
 ### 💼 Work Experience
 - <img src="images/mt.png" width="30" vertical-align="middle" /> <b>Meituan</b>, Beijing | Longcat Interaction | 2025.12 - Now
-- <img src="images/sjtuai.png" width="30" vertical-align="middle" /> <b>IIAU Lab, Shanghai Jiao Tong University</b> | Research Assistant | 2025.07 - 2025.09
+- <img src="images/sjtuai.png" width="30" vertical-align="middle" /> <b>Shanghai Jiao Tong University</b> | Research Assistant | 2025.07 - 2025.09
 - <img src="assets/images/byte.png" width="30" vertical-align="middle" /> <b>ByteDance</b>, Beijing | Applications of Large Language Models | 2025.04 - 2025.07
 - <img src="images/dlut_logo.png" width="30" vertical-align="middle" /> <b>IIAU Lab, Dalian University of Technology</b> | Research Assistant | 2024.05 - 2025.01
 - <img src="assets/images/CASIA.jpg" width="30" vertical-align="middle" /> <b>Institute of Automation, Chinese Academy of Sciences (CAS)</b> | Research Internship | 2023.11 - 2024.08
