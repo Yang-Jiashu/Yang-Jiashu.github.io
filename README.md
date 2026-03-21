@@ -18,7 +18,7 @@
 ### 📝 About Me
 Hello, I'm <b>Jiashu Yang (杨佳澍)</b>. My research interests focus on <b>open-world visual understanding</b> and <b>large-scale foundation models</b> (language, vision, and action), with a commitment to developing practical and deployable intelligent algorithms.
 
-- <b>Supervision</b>: Since 2023, my Computer Vision research has been supervised by [Yian Zhao](https://zhao-yian.github.io/) and [Chaoran Feng](https://www.falcary.com/). My work on Large Language Models (LLMs) has been mentored by [Xuxin Cheng](https://www.linkedin.com/in/chengxx/) since 2024.
+- <b>Supervision</b>: Since 2023, my Computer Vision research has been supervised by [Yian Zhao](https://zhao-yian.github.io/) and [Chaoran Feng](https://www.falcary.com/). My work on LLMs has been mentored by [Xuxin Cheng](https://www.linkedin.com/in/chengxx/) since 2024.
 - <b>LLM Leadership</b>: Led and open-sourced [Wenyuan Pavilion](https://wenyuan-ge.github.io/), a community focused on developing Chinese-culture-centered open-source LLMs.
 - <b>Embodied AI</b>: <b style="color: red;">2023.11 - 2025.09</b>: Developed an [eyeball system](https://arxiv.org/abs/2511.15279) for embodied vision.
 - <b>Collaborations</b>: <b style="color: red;">2024.05 - 2025.01</b>: Research on <b>multimodal document understanding</b> with <b>Prof. Huchuan Lu</b> & <b>Prof. Xu Jia</b>.
