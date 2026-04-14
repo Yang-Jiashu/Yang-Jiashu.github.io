@@ -24,11 +24,11 @@ body {
 
 .container {
     display: grid;
-    grid-template-columns: 180px 1fr;
-    max-width: 1200px;
+    grid-template-columns: 220px 1fr;
+    max-width: 1600px;
     margin: 0 auto;
-    padding: 60px 40px;
-    gap: 60px;
+    padding: 60px 80px;
+    gap: 80px;
 }
 
 /* Sidebar Navigation */
@@ -36,11 +36,16 @@ nav {
     position: sticky;
     top: 60px;
     height: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 nav ul {
     list-style: none;
     margin-top: 30px;
+    width: 100%;
+    text-align: center;
 }
 
 nav ul li {
@@ -72,6 +77,10 @@ nav ul li a.active {
 /* Profile Section in Sidebar */
 .profile-section {
     margin-bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
 }
 
 .profile-image {
@@ -94,6 +103,7 @@ nav ul li a.active {
 .contact-info {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 12px;
     margin-top: 24px;
 }
@@ -118,7 +128,8 @@ nav ul li a.active {
 
 /* Main Content Styles */
 .main-content {
-    max-width: 900px;
+    max-width: 1200px;
+    width: 100%;
 }
 
 .content-section > div {
