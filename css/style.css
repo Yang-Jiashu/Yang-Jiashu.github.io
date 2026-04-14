@@ -24,11 +24,11 @@ body {
 
 .container {
     display: grid;
-    grid-template-columns: 210px 1fr;
-    max-width: 1000px;
+    grid-template-columns: 180px 1fr;
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 40px 30px;
-    gap: 40px;
+    padding: 60px 40px;
+    gap: 60px;
 }
 
 /* Sidebar Navigation */
@@ -75,8 +75,8 @@ nav ul li a.active {
 }
 
 .profile-image {
-    width: 140px;
-    height: 140px;
+    width: 130px;
+    height: 130px;
     border-radius: 50%;
     margin-bottom: 20px;
     object-fit: cover;
@@ -118,7 +118,7 @@ nav ul li a.active {
 
 /* Main Content Styles */
 .main-content {
-    max-width: 720px;
+    max-width: 900px;
 }
 
 .content-section > div {
