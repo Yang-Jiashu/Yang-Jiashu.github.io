@@ -100,17 +100,6 @@ nav ul li a.active {
     line-height: 1.2;
 }
 
-.signature {
-    font-family: 'Ma Shan Zheng', cursive;
-    font-size: 3.2rem;
-    font-weight: 400;
-    color: #222; /* 接近墨色的深灰黑 */
-    display: inline-block;
-    margin-top: 4px;
-    letter-spacing: 4px;
-    transform: rotate(-2deg);
-}
-
 .contact-info {
     display: flex;
     flex-direction: column;
@@ -247,6 +236,20 @@ h2 {
     width: 45px;
     height: 45px;
     object-fit: contain;
+    flex-shrink: 0;
+}
+
+.experience-logo-text {
+    width: 45px;
+    height: 45px;
+    border-radius: 8px;
+    background-color: #eff6ff;
+    color: var(--accent-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    font-weight: 700;
     flex-shrink: 0;
 }
 

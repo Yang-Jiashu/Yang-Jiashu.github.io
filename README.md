@@ -20,8 +20,6 @@ Hello, I'm <b>Jiashu Yang (杨佳澍)</b>. My research interests focus on <b>ope
 
 - <b>Supervision</b>: Since 2023, my Computer Vision research has been supervised by [Yian Zhao](https://zhao-yian.github.io/) and [Chaoran Feng](https://www.falcary.com/). My work on LLMs has been mentored by [Xuxin Cheng](https://www.linkedin.com/in/chengxx/) since 2024.
 - <b>LLM Leadership</b>: Led and open-sourced [Wenyuan Pavilion](https://wenyuan-ge.github.io/), a community focused on developing Chinese-culture-centered open-source LLMs.
-- <b>Embodied AI</b>: <b style="color: red;">2023.11 - 2025.09</b>: Developed an [eyeball system](https://arxiv.org/abs/2511.15279) for embodied vision.
-- <b>Collaborations</b>: <b style="color: red;">2024.05 - 2025.01</b>: Research on <b>multimodal document understanding</b> with <b>Prof. Huchuan Lu</b> & <b>Prof. Xu Jia</b>.
 
 ---
 
@@ -45,8 +43,9 @@ Hello, I'm <b>Jiashu Yang (杨佳澍)</b>. My research interests focus on <b>ope
 ---
 
 ### 💼 Work Experience
-- <img src="images/mt.png" width="30" vertical-align="middle" /> <b>Meituan</b>, Beijing | Longcat Interaction | 2025.12 - Now
-- <img src="images/sjtuai.png" width="30" vertical-align="middle" /> <b>Shanghai Jiao Tong University</b> | Research Assistant | 2025.07 - 2025.09
+- <b>Qianli Technology</b> | Qianlima Talent Program | World models and VLA, including representation learning, data construction, model post-training, and RL frameworks | 2026.06 - Present
+- <img src="images/mt.png" width="30" vertical-align="middle" /> <b>Meituan</b>, Beijing | Longcat Interaction | 2025.12 - 2026.05
+- <img src="images/sjtuai.png" width="30" vertical-align="middle" /> <b>Shanghai Jiao Tong University</b> | Research Intern | 2025.07 - 2025.09
 - <img src="assets/images/byte.png" width="30" vertical-align="middle" /> <b>ByteDance</b>, Beijing | Applications of Large Language Models | 2025.04 - 2025.07
 - <img src="images/dlut_logo.png" width="30" vertical-align="middle" /> <b>IIAU Lab, Dalian University of Technology</b> | Research Assistant | 2024.05 - 2025.01
 - <img src="assets/images/CASIA.jpg" width="30" vertical-align="middle" /> <b>Institute of Automation, Chinese Academy of Sciences (CAS)</b> | Research Internship | 2023.11 - 2024.08
