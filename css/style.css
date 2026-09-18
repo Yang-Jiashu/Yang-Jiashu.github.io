@@ -122,8 +122,81 @@ nav ul li a.active {
     transition: color 0.2s;
 }
 
-.contact-info a:hover {
+.contact-info .contact-action {
+    color: var(--secondary-color);
+    text-decoration: none;
+    transition: color 0.2s;
+    cursor: pointer;
+}
+
+.contact-info a:hover,
+.contact-info .contact-action:hover {
     color: var(--accent-color);
+}
+
+.rednote-icon {
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+}
+
+.contact-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    background: rgba(15, 23, 42, 0.78);
+    backdrop-filter: blur(6px);
+    padding: 24px;
+}
+
+.contact-modal.is-open {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.contact-modal-card {
+    position: relative;
+    width: min(420px, 100%);
+    background: rgba(255, 255, 255, 0.96);
+    border: 1px solid rgba(229, 231, 235, 0.9);
+    border-radius: 24px;
+    box-shadow: 0 24px 60px rgba(15, 23, 42, 0.22);
+    padding: 24px 24px 20px;
+    text-align: center;
+}
+
+.contact-modal-close {
+    position: absolute;
+    top: 14px;
+    right: 16px;
+    border: 0;
+    background: transparent;
+    color: #6b7280;
+    font-size: 1.8rem;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.contact-modal-close:hover {
+    color: var(--primary-color);
+}
+
+.contact-modal-tip {
+    margin: 0 28px 18px;
+    color: var(--primary-color);
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+}
+
+.contact-modal-image {
+    width: 100%;
+    max-width: 320px;
+    border-radius: 18px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 16px 36px rgba(15, 23, 42, 0.12);
 }
 
 /* Main Content Styles */
@@ -262,6 +335,27 @@ h2 {
     margin-bottom: 4px;
 }
 
+.experience-description {
+    margin-top: 8px;
+}
+
+.experience-description a {
+    color: var(--accent-color);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.leadership-highlight {
+    color: #b91c1c;
+    font-weight: 700;
+}
+
+.team-invitation {
+    margin-top: 10px;
+    color: var(--secondary-color);
+    font-style: italic;
+}
+
 /* Honors */
 .honors-list {
     list-style: none;
@@ -304,5 +398,19 @@ h2 {
         flex-direction: column;
         align-items: center;
         text-align: center;
+    }
+
+    .contact-modal {
+        padding: 16px;
+    }
+
+    .contact-modal-card {
+        padding: 20px 18px 16px;
+        border-radius: 20px;
+    }
+
+    .contact-modal-tip {
+        margin: 0 24px 16px;
+        font-size: 0.95rem;
     }
 }
