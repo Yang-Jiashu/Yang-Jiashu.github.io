@@ -21,8 +21,11 @@
                     <p><i class="fas fa-map-marker-alt"></i> Beijing, China</p>
                     <p><i class="fas fa-envelope"></i> <a href="mailto:your.email@example.com">Email</a></p>
                     <p><i class="fab fa-github"></i> <a href="https://github.com/Yang-Jiashu">Github</a></p>
+                    <p><i class="fab fa-linkedin"></i> <a href="https://www.linkedin.com/in/yjs827/" target="_blank">LinkedIn</a></p>
                     <p><i class="fas fa-graduation-cap"></i> <a href="https://scholar.google.com/citations?user=BRXghWcAAAAJ&hl=en">Scholar</a></p>
+                    <p><i class="fab fa-weixin"></i> <a href="#" class="contact-action" onclick="openWeChatModal(); return false;">WeChat</a></p>
                     <p><img src="images/zhi.png" alt="Zhihu" style="width: 14px; height: 14px;"> <a href="https://www.zhihu.com/people/22-49-46-76/posts">Zhihu</a></p>
+                    <p><img src="images/rednote-logo.png" alt="" class="rednote-icon"> <a href="https://www.xiaohongshu.com/user/profile/627e80f600000000210280a2" target="_blank" rel="noopener noreferrer">rednote</a></p>
                 </div>
             </div>
             <ul>
@@ -109,7 +112,7 @@
                             </div>
                         </li>
                         <li style="color: #b91c1c; font-weight: 500; margin-top: 10px;">
-                            <i class="fas fa-search"></i> Sincerely looking for PhD positions for fall 2026 admission!
+                            <i class="fas fa-search"></i> Sincerely looking for PhD positions for fall admission!
                         </li>
                     </ul>
                 </div>
@@ -117,6 +120,20 @@
                 <div id="projects">
                     <h2>💻 Projects</h2>
                     <ul class="publications-list">
+                        <li class="experience-item">
+                            <img src="images/lhos-mark.svg" alt="LongHorizonOS" style="width: 100px; height: 100px; border-radius: 12px; object-fit: contain; background: #fafafa; padding: 8px;">
+                            <div class="experience-content">
+                                <span class="publication-title"><a href="https://github.com/Yang-Jiashu/LongHorizonOS" target="_blank">LongHorizonOS: The OS for Long-Running Agents</a></span>
+                                <p style="font-size: 0.95rem; color: var(--secondary-color);">An OS-like exoskeleton that wraps existing agent harnesses with time-sliced execution, investment-gated restarts, watchdog stop-loss, and versioned progress graphs. Evaluated on the 46-task LongHorizonBenchmark (LHTB), achieving ~2.4× fewer input tokens with 37/42 reward parity or better.</p>
+                            </div>
+                        </li>
+                        <li class="experience-item">
+                            <img src="images/doc-intel-logo.svg" alt="Document Intelligence Survey" style="width: 100px; height: 100px; border-radius: 12px; object-fit: cover;">
+                            <div class="experience-content">
+                                <span class="publication-title"><a href="https://github.com/Yang-Jiashu/document-intelligence-survey" target="_blank">Document Intelligence Survey</a></span>
+                                <p style="font-size: 0.95rem; color: var(--secondary-color);">Interactive web demo for the survey paper "Beyond OCR: A Survey of Document Intelligence from Structured Perception to Multimodal Question Answering". Provides a structured overview of document understanding techniques spanning OCR, layout analysis, information extraction, and multimodal QA.</p>
+                            </div>
+                        </li>
                         <li class="experience-item">
                             <img src="images/docthinker.png" alt="DocThinker" style="width: 100px; height: 100px; border-radius: 12px; object-fit: cover;">
                             <div class="experience-content">
@@ -138,11 +155,13 @@
                     <h2>💼 Experience</h2>
                     <ul class="experience-list">
                         <li class="experience-item">
-                            <div class="experience-logo-text">QL</div>
+                            <img src="images/qianli-logo.png" alt="Qianli Technology (Afari)" style="width: 55px; height: 45px; border-radius: 8px; object-fit: contain;">
                             <div class="experience-content">
                                 <span class="date">2026.06 - Present</span>
-                                <strong>Qianlima Talent Program</strong>, Qianli Technology<br>
+                                <strong>Qianlima Talent Program</strong>, Qianli Technology (Afari)<br>
                                 World models and VLA, including representation learning, data construction, model post-training, and RL frameworks.
+                                <p class="experience-description"><strong class="leadership-highlight">I lead a team of PhD research interns</strong> developing next-generation vision-language-action (VLA) architectures: <a href="https://iamxiaohuang.github.io/resume" target="_blank" rel="noopener noreferrer">Hefei Huang</a>, <a href="https://www.linkedin.com/in/jianyu-zhang-40b865145/" target="_blank" rel="noopener noreferrer">Jianyu Zhang</a>, and <a href="https://jerryliang24.github.io/" target="_blank" rel="noopener noreferrer">Zhiyuan Liang</a>.</p>
+                                <p class="team-invitation">I welcome talented and motivated researchers to join our team and help shape the next generation of VLA models. Feel free to reach out!</p>
                             </div>
                         </li>
                         <li class="experience-item">
@@ -191,7 +210,10 @@
 
                 <div id="about-life">
                     <h2>About Life</h2>
-                    <p style="text-align: center; color: var(--secondary-color); font-style: italic; margin-top: 20px;">🚧 This section is under construction... 🚧</p>
+                    <ul class="honors-list" style="margin-top: 20px;">
+                        <li><i class="fas fa-table-tennis-paddle-ball" style="color: #dc2626;"></i> <strong>Table Tennis</strong> — Regular player, enjoy the fast pace and tactical depth of the sport.</li>
+                        <li><i class="fas fa-yin-yang" style="color: #0369a1;"></i> <strong>Martial Arts</strong> — Practitioner, drawn to the discipline, tradition, and physical & mental cultivation.</li>
+                    </ul>
                 </div>                
             </div>
         </div>
@@ -200,6 +222,14 @@
     <div id="award-modal" style="display:none; position:fixed; z-index:100; left:0; top:0; width:100%; height:100%; overflow:auto; background-color:rgba(0,0,0,0.9);">
         <span onclick="closeModal()" style="position:absolute; top:15px; right:35px; color:#f1f1f1; font-size:40px; font-weight:bold; cursor:pointer;">&times;</span>
         <img id="award-image" style="margin:auto; display:block; width:80%; max-width:700px; padding-top: 50px;">
+    </div>
+
+    <div id="wechat-modal" class="contact-modal" onclick="handleWeChatBackdrop(event)">
+        <div class="contact-modal-card">
+            <button type="button" class="contact-modal-close" aria-label="Close WeChat modal" onclick="closeWeChatModal()">&times;</button>
+            <p class="contact-modal-tip">请注明来意和姓名</p>
+            <img src="images/weixin.jpg" alt="WeChat QR code" class="contact-modal-image">
+        </div>
     </div>
 
     <script>
@@ -212,6 +242,22 @@
 
         function closeModal() {
             document.getElementById('award-modal').style.display = "none";
+        }
+
+        function openWeChatModal() {
+            document.getElementById('wechat-modal').classList.add('is-open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeWeChatModal() {
+            document.getElementById('wechat-modal').classList.remove('is-open');
+            document.body.style.overflow = '';
+        }
+
+        function handleWeChatBackdrop(event) {
+            if (event.target.id === 'wechat-modal') {
+                closeWeChatModal();
+            }
         }
 
         // Active link handling
@@ -231,6 +277,12 @@
                     a.classList.add('active');
                 }
             });
+        });
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                closeWeChatModal();
+            }
         });
     </script>
 </body>
