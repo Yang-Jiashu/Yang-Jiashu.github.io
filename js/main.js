@@ -92,8 +92,79 @@
         sections.forEach(section => observer.observe(section));
     }
 
+    const artworks = [...document.querySelectorAll('[data-artwork]')];
+    const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const resetArtworks = [];
+    artworks.forEach(artwork => {
+        let frame = 0;
+        let x = 0;
+        let y = 0;
+        function reset() {
+            cancelAnimationFrame(frame);
+            frame = 0;
+            artwork.classList.remove('is-tracking');
+        }
+        resetArtworks.push(reset);
+        artwork.addEventListener('pointermove', event => {
+            if (event.pointerType !== 'mouse' || !finePointer.matches || reducedMotion.matches) return;
+            const box = artwork.getBoundingClientRect();
+            x = Math.max(-1, Math.min(1, (event.clientX - box.left) / box.width * 2 - 1));
+            y = Math.max(-1, Math.min(1, (event.clientY - box.top) / box.height * 2 - 1));
+            if (frame) return;
+            frame = requestAnimationFrame(() => {
+                frame = 0;
+                artwork.style.setProperty('--art-x', `${(x * 7).toFixed(2)}px`);
+                artwork.style.setProperty('--art-y', `${(y * 5).toFixed(2)}px`);
+                artwork.style.setProperty('--art-rx', `${(-y * 4).toFixed(2)}deg`);
+                artwork.style.setProperty('--art-ry', `${(x * 5).toFixed(2)}deg`);
+                artwork.classList.add('is-tracking');
+            });
+        });
+        artwork.addEventListener('pointerleave', reset);
+        artwork.addEventListener('pointercancel', reset);
+        artwork.addEventListener('blur', reset);
+    });
+    function resetArtworkMotion() {
+        resetArtworks.forEach(reset => reset());
+    }
+    finePointer.addEventListener('change', resetArtworkMotion);
+    reducedMotion.addEventListener('change', resetArtworkMotion);
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) resetArtworkMotion();
+    });
+
+    const artModal = document.querySelector('#research-art-modal');
+    const artImage = document.querySelector('#research-art-image');
+    let lastArtworkTrigger;
+    artworks.forEach(artwork => {
+        artwork.addEventListener('click', event => {
+            if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+            event.preventDefault();
+            resetArtworkMotion();
+            lastArtworkTrigger = artwork;
+            artImage.src = artwork.href;
+            artImage.alt = artwork.querySelector('img').alt;
+            document.querySelector('#research-art-title').textContent = artwork.closest('.research-view').querySelector('h2').textContent;
+            document.querySelector('#research-art-original').href = artwork.href;
+            artModal.showModal();
+            document.body.classList.add('modal-open');
+        });
+    });
+    artModal.querySelector('.research-art-close').addEventListener('click', () => artModal.close());
+    artModal.addEventListener('click', event => {
+        if (event.target !== artModal) return;
+        const box = artModal.getBoundingClientRect();
+        if (event.clientX < box.left || event.clientX > box.right || event.clientY < box.top || event.clientY > box.bottom) artModal.close();
+    });
+    artModal.addEventListener('close', () => {
+        document.body.classList.remove('modal-open');
+        lastArtworkTrigger?.focus({ preventScroll: true });
+    });
+
     const researchTabs = [...document.querySelectorAll('[data-direction]')];
     function selectDirection(tab, moveFocus = false) {
+        resetArtworkMotion();
         researchTabs.forEach(item => {
             const selected = item === tab;
             item.setAttribute('aria-selected', String(selected));

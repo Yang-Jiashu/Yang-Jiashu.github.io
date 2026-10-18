@@ -71,7 +71,9 @@ h1 { font-family: var(--serif); font-size: clamp(64px, 6.1vw, 88px); line-height
 .research-tabs button[aria-selected="true"] { border-bottom: 2px solid var(--lead); color: var(--ink); }
 .research-tabs button[aria-selected="true"] > span { color: var(--lead); }
 .research-tabs button:hover { color: var(--lead); }
-.research-drawing { display: block; width: 100%; height: auto; aspect-ratio: 520 / 330; object-fit: contain; margin-top: 8px; }
+.research-artwork { display: block; margin-top: 8px; cursor: zoom-in; }
+.research-drawing { display: block; width: 100%; height: auto; aspect-ratio: 520 / 330; object-fit: contain; transition: transform .18s ease-out; transform-origin: 50% 50%; }
+.research-artwork.is-tracking .research-drawing { transform: perspective(900px) translate3d(var(--art-x), var(--art-y), 0) rotateX(var(--art-rx)) rotateY(var(--art-ry)); will-change: transform; }
 .research-caption { border-top: 1px solid var(--line); padding-top: 17px; min-height: 122px; }
 .research-caption h2 { font-family: var(--serif); font-weight: 400; font-size: 28px; line-height: 1.3; letter-spacing: -.7px; }
 .research-caption p { color: #747b6d; font-size: 15px; line-height: 1.7; margin-top: 6px; }
@@ -155,6 +157,13 @@ h3 { font-size: 20px; line-height: 1.5; font-weight: 600; letter-spacing: -.25px
 .award-toolbar a { font-size: 16px; white-space: nowrap; }
 .award-modal-close { flex-shrink: 0; width: 36px; height: 36px; padding: 0; border: 0; background: none; color: var(--muted); font-size: 28px; line-height: 1; }
 .award-modal-image { display: block; width: auto; height: auto; max-width: 100%; max-height: calc(100dvh - 170px); margin: 16px auto 0; object-fit: contain; }
+.research-art-modal { width: min(1080px, calc(100% - 40px)); max-height: calc(100dvh - 40px); padding: 24px; border: 1px solid var(--line); border-radius: 5px; color: var(--ink); background: var(--paper); }
+.research-art-modal::backdrop { background: rgba(24, 35, 27, .45); }
+.research-art-toolbar { display: flex; align-items: center; gap: 16px; }
+.research-art-toolbar h2 { flex: 1; font-size: 24px; line-height: 1.4; letter-spacing: -.4px; }
+.research-art-toolbar a { font-size: 15px; white-space: nowrap; }
+.research-art-close { flex-shrink: 0; width: 36px; height: 36px; padding: 0; border: 0; background: none; font-size: 28px; line-height: 1; color: var(--muted); }
+.research-art-image { display: block; width: 100%; height: auto; max-height: calc(100dvh - 150px); object-fit: contain; margin: 12px auto 0; }
 @media (min-width: 1600px) {
     .intro { padding-block: 75px; }
 }
@@ -237,7 +246,7 @@ h3 { font-size: 20px; line-height: 1.5; font-weight: 600; letter-spacing: -.25px
     .research-panel { margin-top: 35px; padding-top: 0; }
     .research-topline { font-size: 12px; padding-bottom: 14px; }
     .research-tabs button { flex-direction: row; align-items: center; gap: 7px; padding-block: 13px; font-size: 14px; }
-    .research-drawing { margin-top: 2px; }
+    .research-artwork { margin-top: 2px; }
     .research-caption { padding-top: 15px; min-height: 0; }
     .research-caption h2 { font-size: 28px; }
     .research-caption p { font-size: 15px; }
@@ -286,8 +295,15 @@ h3 { font-size: 20px; line-height: 1.5; font-weight: 600; letter-spacing: -.25px
     .award-modal-close { order: 1; }
     .award-toolbar a { order: 2; }
     .award-modal-image { max-height: calc(100dvh - 200px); margin-top: 12px; }
+    .research-art-modal { padding: 16px; }
+    .research-art-toolbar { flex-wrap: wrap; gap: 8px 12px; }
+    .research-art-toolbar h2 { flex-basis: calc(100% - 48px); order: 0; font-size: 21px; }
+    .research-art-close { order: 1; }
+    .research-art-toolbar a { order: 2; }
+    .research-art-image { max-height: calc(100dvh - 190px); }
 }
 @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
+    .research-artwork.is-tracking .research-drawing { transform: none; }
     *, *::before, *::after { transition: none !important; }
 }
