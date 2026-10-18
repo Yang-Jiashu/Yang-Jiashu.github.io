@@ -24,8 +24,8 @@ Hello, I'm <b>Jiashu Yang (杨佳澍)</b>. My research interests focus on <b>ope
 ---
 
 ### 📖 Education
-- <img src="images/dlut_logo.png" width="30" vertical-align="middle" /> <b>Dalian University of Technology</b> | BEng., Artificial Intelligence | 2022.09 - 2026.06 (Expected)
-- 🚀 <b>Seeking PhD positions for Fall 2026 admission!</b>
+- <img src="images/dlut_logo.png" width="30" vertical-align="middle" /> <b>Dalian University of Technology</b> | BEng., Artificial Intelligence | 2022.09 - 2026.06
+- 🚀 <b>Sincerely looking for PhD positions for fall admission!</b>
 
 ---
 

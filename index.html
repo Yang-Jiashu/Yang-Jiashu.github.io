@@ -3,287 +3,155 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f8f7f2">
+    <meta name="description" content="Jiashu Yang — research in open-world visual understanding, foundation models, world models, and vision-language-action architectures.">
     <title>Jiashu Yang | Personal Homepage</title>
-    <!-- Google Fonts: Inter -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="images/favicon.ico?v=poplar1" sizes="16x16 32x32 48x48" type="image/x-icon">
+    <link rel="icon" href="images/favicon.svg?v=poplar1" sizes="any" type="image/svg+xml">
+    <link rel="stylesheet" href="css/style.css?v=portrait1">
+    <script src="js/main.js?v=fieldnotes2" defer></script>
 </head>
 <body>
-    <div class="container">
-        <nav>
-            <div class="profile-section">
-                <img src="images/头像.jpg" alt="Jiashu Yang" class="profile-image">
-                <h1>Jiashu Yang</h1>
-                <div class="contact-info">
-                    <p><i class="fas fa-map-marker-alt"></i> Beijing, China</p>
-                    <p><i class="fas fa-envelope"></i> <a href="mailto:your.email@example.com">Email</a></p>
-                    <p><i class="fab fa-github"></i> <a href="https://github.com/Yang-Jiashu">Github</a></p>
-                    <p><i class="fab fa-linkedin"></i> <a href="https://www.linkedin.com/in/yjs827/" target="_blank">LinkedIn</a></p>
-                    <p><i class="fas fa-graduation-cap"></i> <a href="https://scholar.google.com/citations?user=BRXghWcAAAAJ&hl=en">Scholar</a></p>
-                    <p><i class="fab fa-weixin"></i> <a href="#" class="contact-action" onclick="openWeChatModal(); return false;">WeChat</a></p>
-                    <p><img src="images/zhi.png" alt="Zhihu" style="width: 14px; height: 14px;"> <a href="https://www.zhihu.com/people/22-49-46-76/posts">Zhihu</a></p>
-                    <p><img src="images/rednote-logo.png" alt="" class="rednote-icon"> <a href="https://www.xiaohongshu.com/user/profile/627e80f600000000210280a2" target="_blank" rel="noopener noreferrer">rednote</a></p>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+        <div class="header-inner page-width">
+            <a class="wordmark" href="#about"><img src="images/favicon.svg?v=poplar1" alt="" width="25" height="25"><span>Jiashu Yang</span><span class="wordmark-note">Research &amp; open source</span></a>
+            <button class="menu-toggle" type="button" aria-label="Open navigation" aria-controls="site-nav" aria-expanded="false"><span></span><span></span></button>
+            <nav id="site-nav" class="site-nav" aria-label="Main navigation">
+                <a href="#about">About</a>
+                <a href="#experience">Experience</a>
+                <a href="#publications">Publications</a>
+                <a href="#projects">Projects</a>
+                <button type="button" data-contact>Contact</button>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main" class="page-width">
+        <section class="intro" id="about" aria-labelledby="intro-name">
+            <div class="intro-copy">
+                <div class="name-line"><h1 id="intro-name">Jiashu Yang</h1>
+                    <figure class="profile"><img src="images/jiashu-portrait-softened.png" alt="Illustrated portrait of Jiashu Yang" width="88" height="104"><figcaption><span class="chinese-name" lang="zh">杨佳澍</span><span class="profile-location"><img src="images/icons/location.svg" alt="" width="13" height="13"><span>Beijing, China</span></span></figcaption></figure>
+                </div>
+                <p class="intro-lead">I work on <strong>open-world visual understanding</strong> and <strong>large-scale foundation models</strong> that connect language, vision, and action.</p>
+                <div class="social-links" aria-label="Social profiles">
+                    <a href="https://github.com/Yang-Jiashu" target="_blank" rel="noopener noreferrer"><img src="images/icons/github.svg" alt="" width="18" height="18">GitHub</a>
+                    <a href="https://scholar.google.com/citations?user=BRXghWcAAAAJ&amp;hl=en" target="_blank" rel="noopener noreferrer"><img src="images/icons/scholar.svg" alt="" width="18" height="18">Google Scholar</a>
+                    <a href="https://www.linkedin.com/in/yjs827/" target="_blank" rel="noopener noreferrer"><img src="images/icons/linkedin.svg" alt="" width="18" height="18">LinkedIn</a>
+                    <a href="https://www.zhihu.com/people/22-49-46-76/posts" target="_blank" rel="noopener noreferrer"><img src="images/zhi.png" alt="" width="18" height="18">Zhihu</a>
+                    <a href="https://www.xiaohongshu.com/user/profile/627e80f600000000210280a2" target="_blank" rel="noopener noreferrer"><img src="images/rednote-logo.png" alt="" width="18" height="18">rednote</a>
+                    <button type="button" data-contact><img src="images/icons/wechat.svg" alt="" width="18" height="18">WeChat</button>
+                </div>
+
+            </div>
+            <aside class="research-panel" aria-label="Explore my research">
+                <div class="research-topline"><span>Three ways into my work</span><span class="research-plate-number" aria-hidden="true">FIG. <span id="research-number">02</span></span></div>
+                <div class="research-tabs" role="tablist" aria-label="Research directions">
+                    <button type="button" role="tab" id="tab-knowledge" aria-selected="false" aria-controls="panel-knowledge" tabindex="-1" data-direction="knowledge"><span lang="zh" aria-hidden="true">知</span> Knowledge</button>
+                    <button type="button" role="tab" id="tab-worlds" aria-selected="true" aria-controls="panel-worlds" tabindex="0" data-direction="worlds"><span lang="zh" aria-hidden="true">观</span> Worlds</button>
+                    <button type="button" role="tab" id="tab-action" aria-selected="false" aria-controls="panel-action" tabindex="-1" data-direction="action"><span lang="zh" aria-hidden="true">行</span> Action</button>
+                </div>
+                <div class="research-view" role="tabpanel" id="panel-knowledge" aria-labelledby="tab-knowledge" tabindex="0" hidden>
+                    <img class="research-drawing" src="images/research-knowledge.svg?v=etching1" alt="An original engraved folio opening into a structured constellation of ideas" width="520" height="330">
+                    <div class="research-caption"><h2>Knowledge into structure.</h2><p>Document intelligence, retrieval, and language models for Chinese culture.</p><div class="research-links"><a href="https://yang-jiashu.github.io/document-intelligence-survey/" target="_blank" rel="noopener noreferrer">Document Intelligence Survey <span aria-hidden="true">↗</span></a><a href="https://arxiv.org/abs/2504.09488" target="_blank" rel="noopener noreferrer">Kongzi <span aria-hidden="true">↗</span></a></div></div>
+                </div>
+                <div class="research-view" role="tabpanel" id="panel-worlds" aria-labelledby="tab-worlds" tabindex="0">
+                    <img class="research-drawing" src="images/research-worlds.svg?v=etching1" alt="An original contour landscape and spatial samples connected to a camera viewpoint" width="520" height="330">
+                    <div class="research-caption"><h2>Seeing beyond the image.</h2><p>3D representations, open-world perception, and world models.</p><div class="research-links"><a href="https://arxiv.org/abs/2511.15279" target="_blank" rel="noopener noreferrer">EyeVLA <span aria-hidden="true">↗</span></a><a href="https://arxiv.org/abs/2405.20224" target="_blank" rel="noopener noreferrer">EvaGaussians <span aria-hidden="true">↗</span></a><a href="https://arxiv.org/abs/2602.00618" target="_blank" rel="noopener noreferrer">Tune-Your-Style <span aria-hidden="true">↗</span></a></div></div>
+                </div>
+                <div class="research-view" role="tabpanel" id="panel-action" aria-labelledby="tab-action" tabindex="0" hidden>
+                    <img class="research-drawing" src="images/research-action.svg?v=etching1" alt="An original etched robotic arm observing an object and following an action trajectory" width="520" height="330">
+                    <div class="research-caption"><h2>From perception to action.</h2><p>Vision-language-action models and robotic active perception.</p><div class="research-links"><a href="https://arxiv.org/abs/2511.15279" target="_blank" rel="noopener noreferrer">EyeVLA <span aria-hidden="true">↗</span></a><a href="https://github.com/Yang-Jiashu/LongHorizonOS" target="_blank" rel="noopener noreferrer">LongHorizonOS <span aria-hidden="true">↗</span></a></div></div>
+                </div>
+                <p class="research-invitation"><span class="research-small-rule" aria-hidden="true"></span> Choose a direction to explore.</p>
+            </aside>
+            <div class="intro-background">
+                <p>My current focus is world models and vision-language-action (VLA), with an emphasis on practical, deployable intelligence.</p>
+                <p>I lead <a href="https://wenyuan-ge.github.io/" target="_blank" rel="noopener noreferrer">Wenyuan Pavilion</a>, an open-source community dedicated to Chinese-culture-centered language models.</p>
+                <p>I have pursued computer vision research with <a href="https://zhao-yian.github.io/" target="_blank" rel="noopener noreferrer">Yian Zhao</a> and <a href="https://www.falcary.com/" target="_blank" rel="noopener noreferrer">Chaoran Feng</a> since 2023, and explored LLMs with <a href="https://www.linkedin.com/in/chengxx/" target="_blank" rel="noopener noreferrer">Xuxin Cheng</a> since 2024.</p>
+
+            </div>
+        </section>
+
+        <section class="content-section" id="experience" aria-labelledby="experience-heading">
+            <div class="section-label"><span class="section-index">01</span><h2 id="experience-heading">Experience</h2></div>
+            <div class="section-content">
+                <article class="current-role"><p class="role-kicker"><span aria-hidden="true"></span> Currently</p>
+                    <div class="entry-heading"><img class="institution-logo" src="images/qianli-logo.png" alt="AFARI logo" width="44" height="44"><div class="entry-title"><h3>Qianli Technology <span class="muted">(Afari)</span></h3><p>Qianlima Talent Program</p></div><span class="date">2026.06 – Present</span></div>
+                    <p class="leadership-description"><strong class="leadership-highlight">I lead a PhD research intern team</strong> developing next-generation VLA architectures with <a href="https://iamxiaohuang.github.io/resume" target="_blank" rel="noopener noreferrer">Hefei Huang</a>, <a href="https://www.linkedin.com/in/jianyu-zhang-40b865145/" target="_blank" rel="noopener noreferrer">Jianyu Zhang</a>, and <a href="https://jerryliang24.github.io/" target="_blank" rel="noopener noreferrer">Zhiyuan Liang</a>.</p>
+                    <p class="role-description">World models and VLA: representation learning, data, post-training, and reinforcement learning.</p>
+                    <p class="team-invitation">We welcome talented researchers to join us. <button type="button" class="inline-link" data-contact>Get in touch.</button></p>
+                </article>
+                <div class="previous-roles">
+                    <article class="past-role">
+                        <div class="entry-heading"><img class="institution-logo" src="images/mt.png" alt="Meituan logo" width="36" height="36"><div class="entry-title"><h3>Meituan</h3><p>Research Intern · Longcat Interaction Team · Beijing</p></div><span class="date">2025.12 – 2026.05</span></div>
+                        <p class="work-details">Worked on <strong>ToB agentic RL</strong> for <strong>Table/Excel question answering</strong>. Led knowledge-graph-based data synthesis and developed <strong>Hindsight-guided Knowledge Distillation</strong> to reduce distillation steps and improve accuracy.</p>
+                    </article>
+                    <article class="past-role joint-role">
+                        <div class="entry-heading"><div class="institution-logos"><img src="assets/images/CASIA.jpg" alt="CASIA logo" width="36" height="36"><img src="images/sjtuai.png" alt="Shanghai Jiao Tong University logo" width="36" height="36"></div><div class="entry-title"><h3>CASIA &amp; Shanghai Jiao Tong University</h3><p>Institute of Automation, Chinese Academy of Sciences · Research Intern · 2023.11 – 2024.08</p><p>School of Artificial Intelligence, SJTU · Research Intern · 2025.07 – 2025.09</p></div></div>
+                        <p class="work-details">Developed <a href="https://arxiv.org/abs/2511.15279" target="_blank" rel="noopener noreferrer">EyeVLA</a> for language-guided rotation and zoom, combining VLMs, 500 real-world examples, and RL post-training for robotic active perception.</p>
+                    </article>
+                    <article class="past-role">
+                        <div class="entry-heading"><img class="institution-logo" src="assets/images/byte.png" alt="ByteDance logo" width="36" height="36"><div class="entry-title"><h3>ByteDance</h3><p>Research Intern · Applications of LLMs · Beijing</p></div><span class="date">2025.04 – 2025.07</span></div>
+                        <p class="work-details">Designed <strong>Deep Research</strong> data synthesis, supporting BrowseComp SOTA; contributed to <strong>LabelGPT</strong> video understanding and structured annotation.</p>
+                    </article>
+                    <article class="past-role">
+                        <div class="entry-heading"><img class="institution-logo" src="images/dlut_logo.png" alt="Dalian University of Technology logo" width="36" height="36"><div class="entry-title"><h3>IIAU Lab, Dalian University of Technology</h3><p>Research Assistant</p></div><span class="date">2024.05 – 2025.01</span></div>
+                        <p class="work-details">Multimodal document understanding with <a href="https://scholar.google.com/citations?user=D3nE0agAAAAJ&amp;hl=zh-CN&amp;oi=ao" target="_blank" rel="noopener noreferrer">Prof. Huchuan Lu</a> and <a href="https://stephenjia.github.io/" target="_blank" rel="noopener noreferrer">Prof. Xu Jia</a>.</p>
+                    </article>
                 </div>
             </div>
-            <ul>
-                <li><a href="#about" class="active">About Me</a></li>
-                <li><a href="#publications">Publications</a></li>
-                <li><a href="#education">Education</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#experience">Experience</a></li>
-                <li><a href="#honors">Honors</a></li>
-                <li><a href="#about-life">About Life</a></li>
+        </section>
+
+        <section class="content-section" id="publications" aria-labelledby="publications-heading">
+            <div class="section-label"><span class="section-index">02</span><h2 id="publications-heading">Publications</h2><a class="section-note" href="https://scholar.google.com/citations?user=BRXghWcAAAAJ&amp;hl=en" target="_blank" rel="noopener noreferrer">Google Scholar</a></div>
+            <div class="section-content"><ol class="papers-list">
+<li class="paper-row"><div class="paper-content"><h3>EvaGaussians: Event Stream Assisted Gaussian Splatting from Blurry Images</h3><p class="paper-authors">W Yu, C Feng, J Tang, <strong>Jiashu Yang</strong>, X Jia, L Yuan, Y Tian</p></div><div class="paper-links"><a href="https://arxiv.org/abs/2405.20224" target="_blank" rel="noopener noreferrer">Paper</a></div></li>
+<li class="paper-row"><div class="paper-content"><h3>Kongzi: A Historical Large Language Model with Fact Enhancement</h3><p class="paper-authors"><strong>J Yang</strong>, N Wang, Y Zhao, C Feng, J Du, H Pang, Z Fang, X Cheng</p></div><div class="paper-links"><a href="https://arxiv.org/abs/2504.09488" target="_blank" rel="noopener noreferrer">Paper</a><a href="https://huggingface.co/Kongzi-LLM" target="_blank" rel="noopener noreferrer">Models</a></div></li>
+<li class="paper-row"><div class="paper-content"><h3>Tune-Your-Style: Intensity-tunable 3D Style Transfer with Gaussian Splatting</h3><p class="paper-authors">Y Zhao, R Ye, R Zheng, Z Cheng, C Feng, <strong>J Yang</strong>, P Qiao, C Liu, J Chen</p></div><div class="paper-links"><a href="https://arxiv.org/abs/2602.00618" target="_blank" rel="noopener noreferrer">Paper</a></div></li>
+<li class="paper-row"><div class="paper-content"><h3>Breaking the Vicious Cycle: Coherent 3D-GS from Sparse &amp; Blurred Views</h3><p class="paper-authors">Z Xu, C Feng, Y Li, J Zhao, <strong>J Yang</strong>, W Yu, L Yuan, Y Tian</p></div><div class="paper-links"><a href="https://arxiv.org/pdf/2512.10369" target="_blank" rel="noopener noreferrer">Paper</a></div></li>
+<li class="paper-row"><div class="paper-content"><h3>Look, Zoom, Understand: The Robotic Eyeball for Embodied Perception</h3><p class="paper-authors"><strong>J Yang</strong>, Y Han, Y Xie, N Guo, W Lian</p></div><div class="paper-links"><a href="https://arxiv.org/abs/2511.15279" target="_blank" rel="noopener noreferrer">Paper</a></div></li>
+<li class="paper-row"><div class="paper-content"><h3>AutothinkRAG: Complexity-Aware Control of Retrieval-Augmented Reasoning for Image-Text Interaction</h3><p class="paper-authors"><strong>J Yang</strong>, C Zhang, A Wuerkaixi, X Cheng, C Liu, K Zeng, X Jia, X Cai</p></div><div class="paper-links"><a href="https://arxiv.org/pdf/2603.05551" target="_blank" rel="noopener noreferrer">Paper</a></div></li>
+
+            </ol></div>
+        </section>
+
+        <section class="content-section" id="projects" aria-labelledby="projects-heading">
+            <div class="section-label"><span class="section-index">03</span><h2 id="projects-heading">Projects</h2></div>
+            <div class="section-content projects-list">
+                <article class="project"><img src="images/lhos-mark.svg" alt="LongHorizonOS logo" width="80" height="80"><div><h3><a href="https://github.com/Yang-Jiashu/LongHorizonOS" target="_blank" rel="noopener noreferrer">LongHorizonOS</a></h3><p>An OS-like exoskeleton for long-running agents, with time-sliced execution, gated restarts, and versioned progress graphs. Evaluated on the 46-task LongHorizonBenchmark, with ~2.4× fewer input tokens and reward parity or better on 37 of 42 tasks.</p></div></article>
+                <article class="project"><img src="images/doc-intel-logo.svg" alt="Document Intelligence Survey logo" width="80" height="80"><div><h3><a href="https://yang-jiashu.github.io/document-intelligence-survey/" target="_blank" rel="noopener noreferrer">Document Intelligence Survey</a></h3><p>An interactive survey of document understanding, spanning OCR, layout analysis, information extraction, and multimodal question answering.</p><div class="paper-links"><a href="https://yang-jiashu.github.io/document-intelligence-survey/" target="_blank" rel="noopener noreferrer">Website</a><a href="https://github.com/Yang-Jiashu/document-intelligence-survey" target="_blank" rel="noopener noreferrer">GitHub</a></div></div></article>
+                <article class="project"><img src="images/docthinker.png" alt="DocThinker logo" width="80" height="80"><div><h3><a href="https://github.com/Yang-Jiashu/Doc-thinker" target="_blank" rel="noopener noreferrer">DocThinker</a></h3><p>An all-in-one RAG system that builds structured, graph-based memory using knowledge graphs.</p></div></article>
+                <article class="project"><img class="project-logo-wenyuan" src="images/wyg.png" alt="Wenyuan Pavilion logo" width="80" height="80"><div><h3><a href="https://wenyuan-ge.github.io/" target="_blank" rel="noopener noreferrer">Wenyuan Pavilion</a></h3><p>I lead an open-source research community focused on Ancient Chinese and literature, with language models and datasets.</p></div></article>
+            </div>
+        </section>
+
+        <section class="content-section" id="education" aria-labelledby="education-heading">
+            <div class="section-label"><span class="section-index">04</span><h2 id="education-heading">Education</h2></div>
+            <div class="section-content"><div class="entry-heading"><img class="institution-logo" src="images/dlut_logo.png" alt="Dalian University of Technology logo" width="40" height="40"><div class="entry-title"><h3>BEng. in Artificial Intelligence</h3><p><a href="https://www.dlut.edu.cn/" target="_blank" rel="noopener noreferrer">Dalian University of Technology</a></p></div><span class="date">2022.09 – 2026.06</span></div><p class="education-note">Sincerely looking for PhD positions for fall admission!</p></div>
+        </section>
+
+        <section class="content-section" id="honors" aria-labelledby="honors-heading">
+            <div class="section-label"><span class="section-index">05</span><h2 id="honors-heading">Honors</h2></div>
+            <ul class="section-content honors-list">
+                <li><span class="date">2023</span><a href="images/award_1.png" data-award aria-haspopup="dialog" aria-controls="award-modal" title="View award certificate"><strong>National First Prize</strong> · RoboCup, Industrial Measurement</a></li>
+                <li><span class="date">2024</span><a href="images/award_4.png" data-award aria-haspopup="dialog" aria-controls="award-modal" title="View award certificate"><strong>National Third Prize</strong> · China University Computer Competition, AIGC Innovation</a></li>
+                <li><span class="date">2024</span><a href="images/award_2.png" data-award aria-haspopup="dialog" aria-controls="award-modal" title="View award certificate"><strong>National Third Prize</strong> · RoboCup, 3D Recognition</a></li>
+                <li><span class="date">2024</span><a href="images/award_3.jpg" data-award aria-haspopup="dialog" aria-controls="award-modal" title="View award certificate"><strong>National Third Prize</strong> · RoboCup, Industrial Measurement</a></li>
             </ul>
-        </nav>
+        </section>
 
-        <div class="main-content">
-            <div class="content-section">
-                <div id="about">
-                    <p class="intro">
-                        Hello, I'm Jiashu Yang (杨佳澍). My research interests focus on <strong>open-world visual understanding</strong> and <strong>large-scale foundation models</strong> (language, vision, and action), with a commitment to developing practical and deployable intelligent algorithms. In the realm of LLMs, I lead the open-source community <a href="https://wenyuan-ge.github.io/" target="_blank">Wenyuan Pavilion</a>, dedicated to Chinese-culture-centered language models. Since 2023, I have been pursuing Computer Vision research supervised by <a href="https://zhao-yian.github.io/" target="_blank">Yian Zhao</a> and <a href="https://www.falcary.com/" target="_blank">Chaoran Feng</a>. Additionally, I have been exploring LLMs mentored by <a href="https://www.linkedin.com/in/chengxx/" target="_blank">Xuxin Cheng</a> since 2024.
-                    </p>
-                    <p class="intro" style="font-style: italic; color: #b91c1c;">
-                        If you are interested in discussing or collaborating with me, please feel free to contact me via email.
-                    </p>
-                </div>
+        <section class="content-section" id="about-life" aria-labelledby="life-heading">
+            <div class="section-label"><span class="section-index">06</span><h2 id="life-heading">Beyond research</h2></div>
+            <div class="section-content life-notes"><p><strong>Table tennis.</strong> I enjoy the fast pace and tactical depth of the sport.</p><p><strong>Martial arts.</strong> I am drawn to the discipline, tradition, and physical and mental cultivation.</p></div>
+        </section>
+    </main>
 
-                <div id="publications">
-                    <h2>📝 Publications</h2>
-                    <ul class="publications-list">
-                        <li>
-                            <span class="publication-title">EvaGaussians: Event Stream Assisted Gaussian Splatting from Blurry Images</span>
-                            <div class="publication-authors">W Yu, C Feng, J Tang, <strong>Jiashu Yang</strong>, X Jia, L Yuan, Y Tian</div>
-                            <div class="pub-links">
-                                <a href="https://arxiv.org/abs/2405.20224" class="pub-link">Paper</a>
-                                <a href="#" class="pub-link">Code</a>
-                            </div>
-                        </li>
-                        <li>
-                            <span class="publication-title">Kongzi: A Historical Large Language Model with Fact Enhancement</span>
-                            <div class="publication-authors"><strong>J Yang</strong>, N Wang, Y Zhao, C Feng, J Du, H Pang, Z Fang, X Cheng</div>
-                            <div class="pub-links">
-                                <a href="https://arxiv.org/abs/2504.09488" class="pub-link">Paper</a>
-                                <a href="https://huggingface.co/Kongzi-LLM" class="pub-link" target="_blank">🤗 Huggingface</a>
-                            </div>
-                        </li>
-                        <li>
-                            <span class="publication-title">Tune-Your-Style: Intensity-tunable 3D Style Transfer with Gaussian Splatting</span>
-                            <div class="publication-authors">Y Zhao, R Ye, R Zheng, Z Cheng, C Feng, <strong>J Yang</strong>, P Qiao, C Liu, J Chen</div>
-                            <div class="pub-links">
-                                <a href="https://arxiv.org/abs/2602.00618" class="pub-link">Paper</a>
-                            </div>
-                        </li>
-                        <li>
-                            <span class="publication-title">Breaking the Vicious Cycle: Coherent 3D-GS from Sparse & Blurred Views</span>
-                            <div class="publication-authors">Z Xu, C Feng, Y Li, J Zhao, <strong>J Yang</strong>, W Yu, L Yuan, Y Tian</div>
-                            <div class="pub-links">
-                                <a href="https://arxiv.org/pdf/2512.10369" class="pub-link">Paper</a>
-                            </div>
-                        </li>
-                        <li>
-                            <span class="publication-title">Look, Zoom, Understand: The Robotic Eyeball for Embodied Perception</span>
-                            <div class="publication-authors"><strong>J Yang</strong>, Y Han, Y Xie, N Guo, W Lian</div>
-                            <div class="pub-links">
-                                <a href="https://arxiv.org/abs/2511.15279" class="pub-link">Paper</a>
-                            </div>
-                        </li>
-                        <li>
-                            <span class="publication-title">AutothinkRAG: Complexity-Aware Control of Retrieval-Augmented Reasoning for Image-Text Interaction</span>
-                            <div class="publication-authors"><strong>J Yang</strong>, C Zhang, A Wuerkaixi, X Cheng, C Liu, K Zeng, X Jia, X Cai</div>
-                            <div class="pub-links">
-                                <a href="https://arxiv.org/pdf/2603.05551" class="pub-link">Paper</a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-
-                <div id="education">
-                    <h2>📖 Education</h2>
-                    <ul class="education-list">
-                        <li class="education-item">
-                            <img src="images/dlut_logo.png" alt="DLUT">
-                            <div class="experience-content">
-                                <span class="date">2022.09 - 2026.06 (Expected)</span>
-                                <strong>BEng. in Artificial Intelligence</strong><br>
-                                <a href="https://www.dlut.edu.cn/">Dalian University of Technology</a>
-                            </div>
-                        </li>
-                        <li style="color: #b91c1c; font-weight: 500; margin-top: 10px;">
-                            <i class="fas fa-search"></i> Sincerely looking for PhD positions for fall admission!
-                        </li>
-                    </ul>
-                </div>
-
-                <div id="projects">
-                    <h2>💻 Projects</h2>
-                    <ul class="publications-list">
-                        <li class="experience-item">
-                            <img src="images/lhos-mark.svg" alt="LongHorizonOS" style="width: 100px; height: 100px; border-radius: 12px; object-fit: contain; background: #fafafa; padding: 8px;">
-                            <div class="experience-content">
-                                <span class="publication-title"><a href="https://github.com/Yang-Jiashu/LongHorizonOS" target="_blank">LongHorizonOS: The OS for Long-Running Agents</a></span>
-                                <p style="font-size: 0.95rem; color: var(--secondary-color);">An OS-like exoskeleton that wraps existing agent harnesses with time-sliced execution, investment-gated restarts, watchdog stop-loss, and versioned progress graphs. Evaluated on the 46-task LongHorizonBenchmark (LHTB), achieving ~2.4× fewer input tokens with 37/42 reward parity or better.</p>
-                            </div>
-                        </li>
-                        <li class="experience-item">
-                            <img src="images/doc-intel-logo.svg" alt="Document Intelligence Survey" style="width: 100px; height: 100px; border-radius: 12px; object-fit: cover;">
-                            <div class="experience-content">
-                                <span class="publication-title"><a href="https://github.com/Yang-Jiashu/document-intelligence-survey" target="_blank">Document Intelligence Survey</a></span>
-                                <p style="font-size: 0.95rem; color: var(--secondary-color);">Interactive web demo for the survey paper "Beyond OCR: A Survey of Document Intelligence from Structured Perception to Multimodal Question Answering". Provides a structured overview of document understanding techniques spanning OCR, layout analysis, information extraction, and multimodal QA.</p>
-                            </div>
-                        </li>
-                        <li class="experience-item">
-                            <img src="images/docthinker.png" alt="DocThinker" style="width: 100px; height: 100px; border-radius: 12px; object-fit: cover;">
-                            <div class="experience-content">
-                                <span class="publication-title"><a href="https://github.com/Yang-Jiashu/Doc-thinker" target="_blank">DocThinker: All-in-One RAG System</a></span>
-                                <p style="font-size: 0.95rem; color: var(--secondary-color);">DocThinker is a next-generation intelligent agent system designed to break the limitations of traditional RAG. It builds a structured, brain-like memory system using Knowledge Graphs.</p>
-                            </div>
-                        </li>
-                        <li class="experience-item">
-                            <img src="images/wyg.png" alt="Wenyuan Pavilion" style="width: 100px; height: 100px; border-radius: 12px; object-fit: cover;">
-                            <div class="experience-content">
-                                <span class="publication-title"><a href="https://wenyuan-ge.github.io/" target="_blank">Wenyuan Pavilion: Ancient Chinese Language Community</a></span>
-                                <p style="font-size: 0.95rem; color: var(--secondary-color);">I lead a research community focused on domain-specific models for Ancient Chinese and Literature. We have open-sourced various models and datasets.</p>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-
-                <div id="experience">
-                    <h2>💼 Experience</h2>
-                    <ul class="experience-list">
-                        <li class="experience-item">
-                            <img src="images/qianli-logo.png" alt="Qianli Technology (Afari)" style="width: 55px; height: 45px; border-radius: 8px; object-fit: contain;">
-                            <div class="experience-content">
-                                <span class="date">2026.06 - Present</span>
-                                <strong>Qianlima Talent Program</strong>, Qianli Technology (Afari)<br>
-                                World models and VLA, including representation learning, data construction, model post-training, and RL frameworks.
-                                <p class="experience-description"><strong class="leadership-highlight">I lead a team of PhD research interns</strong> developing next-generation vision-language-action (VLA) architectures: <a href="https://iamxiaohuang.github.io/resume" target="_blank" rel="noopener noreferrer">Hefei Huang</a>, <a href="https://www.linkedin.com/in/jianyu-zhang-40b865145/" target="_blank" rel="noopener noreferrer">Jianyu Zhang</a>, and <a href="https://jerryliang24.github.io/" target="_blank" rel="noopener noreferrer">Zhiyuan Liang</a>.</p>
-                                <p class="team-invitation">I welcome talented and motivated researchers to join our team and help shape the next generation of VLA models. Feel free to reach out!</p>
-                            </div>
-                        </li>
-                        <li class="experience-item">
-                            <img src="images/mt.png" alt="Meituan">
-                            <div class="experience-content">
-                                <span class="date">2025.12 - 2026.05</span>
-                                <strong>Research Intern</strong>, Meituan, Beijing<br>
-                                Longcat Interaction Team
-                            </div>
-                        </li>
-                        <li class="experience-item">
-                            <img src="images/sjtuai.png" alt="SJTU">
-                            <div class="experience-content">
-                                <span class="date">2025.07 - 2025.09</span>
-                                <strong>Research Intern</strong>, Shanghai Jiao Tong University<br>
-                                School of Artificial Intelligence
-                            </div>
-                        </li>
-                        <li class="experience-item">
-                            <img src="assets/images/byte.png" alt="ByteDance">
-                            <div class="experience-content">
-                                <span class="date">2025.04 - 2025.07</span>
-                                <strong>Research Intern</strong>, ByteDance, Beijing<br>
-                                Applications of Large Language Models
-                            </div>
-                        </li>
-                        <li class="experience-item">
-                            <img src="assets/images/CASIA.jpg" alt="CASIA">
-                            <div class="experience-content">
-                                <span class="date">2023.11 - 2024.08</span>
-                                <strong>Research Intern</strong>, CASIA<br>
-                                Institute of Automation, Chinese Academy of Sciences
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-
-                <div id="honors">
-                    <h2>🎖 Honors</h2>
-                    <ul class="honors-list">
-                        <li><i class="fas fa-trophy"></i> 2023: Robocup, Advanced Vision Track - National First Prize</li>
-                        <li><i class="fas fa-trophy"></i> 2024: China University Computer Competition - National Third Prize</li>
-                        <li><i class="fas fa-trophy"></i> 2024: Robocup, Advanced Vision Track - National Third Prize</li>
-                    </ul>
-                </div>
-
-                <div id="about-life">
-                    <h2>About Life</h2>
-                    <ul class="honors-list" style="margin-top: 20px;">
-                        <li><i class="fas fa-table-tennis-paddle-ball" style="color: #dc2626;"></i> <strong>Table Tennis</strong> — Regular player, enjoy the fast pace and tactical depth of the sport.</li>
-                        <li><i class="fas fa-yin-yang" style="color: #0369a1;"></i> <strong>Martial Arts</strong> — Practitioner, drawn to the discipline, tradition, and physical & mental cultivation.</li>
-                    </ul>
-                </div>                
-            </div>
-        </div>
-    </div>
-
-    <div id="award-modal" style="display:none; position:fixed; z-index:100; left:0; top:0; width:100%; height:100%; overflow:auto; background-color:rgba(0,0,0,0.9);">
-        <span onclick="closeModal()" style="position:absolute; top:15px; right:35px; color:#f1f1f1; font-size:40px; font-weight:bold; cursor:pointer;">&times;</span>
-        <img id="award-image" style="margin:auto; display:block; width:80%; max-width:700px; padding-top: 50px;">
-    </div>
-
-    <div id="wechat-modal" class="contact-modal" onclick="handleWeChatBackdrop(event)">
-        <div class="contact-modal-card">
-            <button type="button" class="contact-modal-close" aria-label="Close WeChat modal" onclick="closeWeChatModal()">&times;</button>
-            <p class="contact-modal-tip">请注明来意和姓名</p>
-            <img src="images/weixin.jpg" alt="WeChat QR code" class="contact-modal-image">
-        </div>
-    </div>
-
-    <script>
-        function showAward(awardImage) {
-            var modal = document.getElementById('award-modal');
-            var modalImg = document.getElementById('award-image');
-            modal.style.display = "block";
-            modalImg.src = 'images/' + awardImage;
-        }
-
-        function closeModal() {
-            document.getElementById('award-modal').style.display = "none";
-        }
-
-        function openWeChatModal() {
-            document.getElementById('wechat-modal').classList.add('is-open');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeWeChatModal() {
-            document.getElementById('wechat-modal').classList.remove('is-open');
-            document.body.style.overflow = '';
-        }
-
-        function handleWeChatBackdrop(event) {
-            if (event.target.id === 'wechat-modal') {
-                closeWeChatModal();
-            }
-        }
-
-        // Active link handling
-        window.addEventListener('scroll', () => {
-            let current = '';
-            const sections = document.querySelectorAll('.content-section > div');
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                if (pageYOffset >= sectionTop - 100) {
-                    current = section.getAttribute('id');
-                }
-            });
-
-            document.querySelectorAll('nav ul li a').forEach(a => {
-                a.classList.remove('active');
-                if (a.getAttribute('href').includes(current)) {
-                    a.classList.add('active');
-                }
-            });
-        });
-
-        document.addEventListener('keydown', (event) => {
-            if (event.key === 'Escape') {
-                closeWeChatModal();
-            }
-        });
-    </script>
+    <footer class="site-footer page-width"><span>Jiashu Yang <span lang="zh">杨佳澍</span></span><a href="#about">Back to top ↑</a></footer>
+    <dialog id="wechat-modal" class="contact-modal" aria-labelledby="contact-title"><div class="contact-modal-card"><button class="contact-modal-close" type="button" aria-label="Close contact dialog">×</button><h2 id="contact-title">WeChat</h2><p>Scan to connect with Jiashu Yang.</p><img src="images/weixin.jpg" alt="WeChat QR code to connect with Jiashu Yang" class="contact-modal-image" width="320" height="400"><p class="contact-modal-tip" lang="zh">请注明来意和姓名</p></div></dialog>
+    <dialog id="award-modal" class="award-modal" aria-labelledby="award-title">
+        <div class="award-toolbar"><h2 id="award-title">Award certificate</h2><a id="award-original" href="images/award_1.png" target="_blank" rel="noopener noreferrer">Open original ↗</a><button class="award-modal-close" type="button" aria-label="Close award certificate">×</button></div>
+        <img id="award-image" class="award-modal-image" alt="Award certificate">
+    </dialog>
 </body>
 </html>
