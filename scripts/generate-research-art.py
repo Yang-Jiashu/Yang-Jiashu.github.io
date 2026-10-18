@@ -59,9 +59,15 @@ def worlds():
     def visible(u,v):
         x,y=project(u,v)
         return u+v+.64*height(u,v)+3.2>=depth_buffer.get((round(x*2),round(y*2)),-10000)
-    body=[]
+    body=['<g data-motion-layer="world-terrain" data-depth="9" data-turn="2">']
+    contour_index=0
+    def terrain_contour(points, stroke=INK, width=.7, opacity=1):
+        nonlocal contour_index
+        result=path(points,stroke,width,opacity,data_terrain_contour=contour_index)
+        contour_index+=1
+        return result
     # A precise, floating sample boundary gives the landscape its scale.
-    body.append(path(ring(10),SOFT,.65,.34))
+    body.append(terrain_contour(ring(10),SOFT,.65,.34))
     envelope={}
     for xi,yi in depth_buffer:
         if xi not in envelope or yi<envelope[xi]: envelope[xi]=yi
@@ -70,7 +76,7 @@ def worlds():
     for i in range(0,len(cols),4):
         nearby=cols[max(0,i-3):min(len(cols),i+4)]
         edge.append((cols[i]/2,sum(envelope[k] for k in nearby)/len(nearby)/2))
-    body.append(path(edge,INK,.72,.68))
+    body.append(terrain_contour(edge,INK,.72,.68))
     # Etched profile lines form the terrain, without an ornamental grid.
     for index in range(58):
         u=-radius+2*radius*index/57
@@ -80,9 +86,9 @@ def worlds():
             v=-bound+2*bound*j/150
             if visible(u,v): segment.append(project(u,v))
             else:
-                if len(segment)>2: body.append(path(segment,INK,.52 if index%5 else .82,.50 if index%5 else .78))
+                if len(segment)>2: body.append(terrain_contour(segment,INK,.52 if index%5 else .82,.50 if index%5 else .78))
                 segment=[]
-        if len(segment)>2: body.append(path(segment,INK,.52 if index%5 else .82,.50 if index%5 else .78))
+        if len(segment)>2: body.append(terrain_contour(segment,INK,.52 if index%5 else .82,.50 if index%5 else .78))
     # Tiny samples become denser on the near-facing slopes, like an ink print.
     for _ in range(760):
         u=rng.uniform(-radius,radius); v=rng.uniform(-radius,radius)
@@ -91,14 +97,27 @@ def worlds():
         if not visible(u,v): continue
         x,y=project(u,v)
         body.append(dot(x+rng.uniform(-.4,.4),y+rng.uniform(-.4,.4),rng.uniform(.37,.72),INK,rng.uniform(.2,.58)))
+    body.append('</g>')
+    # Keep the rays in scene coordinates so their endpoints can follow both
+    # the separately moving camera and the terrain/target layers.
+    body.append('<g data-world-rays="">')
     # Three intentional sight lines connect the field to perception.
     sample=project(29,-5)
     camera=(68,225)
-    for target, opacity in [(project(-9,39),.28),(project(62,-39),.28),(sample,.7)]:
-        body.append(path([camera,target],ACCENT,.65,opacity,stroke_dasharray='2 4' if opacity>.5 else 'none'))
+    for index,(target, opacity) in enumerate([(project(-9,39),.28),(project(62,-39),.28),(sample,.7)]):
+        body.append(path([camera,target],ACCENT,.65,opacity,
+                         stroke_dasharray='2 4' if opacity>.5 else 'none',
+                         data_world_ray=index,
+                         data_end_x=f'{target[0]:.2f}',
+                         data_end_y=f'{target[1]:.2f}'))
+    body.append('</g>')
+    body.append('<g data-motion-layer="world-camera" data-depth="-6" data-turn="2.5" data-cx="68" data-cy="225">')
     body.append(f'<path d="M47 216h18v18H47ZM65 219l10-6v24l-10-6Z" fill="{PALE}" stroke="{INK}" stroke-width="1.2"/>')
+    body.append('</g>')
+    body.append(f'<g data-motion-layer="world-target" data-depth="13" data-turn="0" data-cx="{sample[0]:.2f}" data-cy="{sample[1]:.2f}">')
     body.append(dot(*sample,3.2,ACCENT))
     body.append(f'<circle cx="{sample[0]:.2f}" cy="{sample[1]:.2f}" r="8" stroke="{ACCENT}" stroke-width=".65"/>')
+    body.append('</g>')
     body.append(path([(409,253),(435,253),(435,231)],SOFT,.8,.8))
     body.append(dot(409,253,1.4,INK))
     return frame('worlds','A world taking shape','An original engraved landscape of curved spatial profiles and point samples, connected to a camera viewpoint.','02',''.join(body))
@@ -106,7 +125,7 @@ def worlds():
 
 def knowledge():
     rng=random.Random(207)
-    body=[]
+    body=['<g data-motion-layer="knowledge-book" data-depth="3" data-turn="1.5">']
     # An open folio, drawn with curved sections rather than a flat document icon.
     body.append(f'<path d="M58 120Q108 104 182 144Q245 104 286 121L279 247Q232 235 182 267Q119 236 65 247Z" fill="{PALE}" fill-opacity=".34"/>')
     for i in range(20):
@@ -114,32 +133,45 @@ def knowledge():
         y0=117+t*119
         mid=143+t*112
         right=119+t*119
-        body.append(f'<path d="M59 {y0:.2f}C103 {y0-15:.2f} 141 {mid-17:.2f} 182 {mid:.2f}C223 {mid-23:.2f} 258 {right-14:.2f} 286 {right:.2f}" stroke="{INK}" stroke-width="{.9 if i in (0,19) else .48}" opacity="{.85 if i in (0,19) else .36}"/>')
+        body.append(f'<path data-book-page="{i}" d="M59 {y0:.2f}C103 {y0-15:.2f} 141 {mid-17:.2f} 182 {mid:.2f}C223 {mid-23:.2f} 258 {right-14:.2f} 286 {right:.2f}" stroke="{INK}" stroke-width="{.9 if i in (0,19) else .48}" opacity="{.85 if i in (0,19) else .36}"/>')
     body.append(f'<path d="M58 117 65 246Q117 236 182 267Q234 236 279 247L286 119M182 143V267M65 251Q121 240 182 274Q234 244 278 253" stroke="{INK}" stroke-width=".95"/>')
     # One original outlined glyph refers to the Chinese-culture research thread.
     body.append(f'<g stroke="{INK}" stroke-width="2.5"><path d="m111 139 5 8M94 155l45 9M104 161q4 24 31 43M132 166q-7 19-37 30"/></g>')
+    body.append(f'<path d="M145 232q17 5 28 10" stroke="{ACCENT}" stroke-width="1.3"/>')
+    body.append('</g>')
     # Curving fibers leave the page and resolve into a small conceptual structure.
+    body.append('<g data-motion-layer="knowledge-fibers" data-depth="8" data-turn="2.5">')
     for i in range(17):
         t=i/16
         x=205+62*t; y=154-25*math.sin(t*math.pi)
         end_x=350+58*t; end_y=73+30*t
-        body.append(f'<path d="M{x:.2f} {y:.2f}C{245+30*t:.2f} {95-10*t:.2f} {292+36*t:.2f} {55+29*t:.2f} {end_x:.2f} {end_y:.2f}" stroke="{INK}" stroke-width=".48" opacity="{.25+.25*t:.2f}"/>')
-    links=[((370,86),(429,130)),((370,86),(334,157)),((334,157),(391,204)),((429,130),(391,204)),((429,130),(464,207)),((391,204),(416,259)),((334,157),(309,234))]
-    for index,(a,b) in enumerate(links):
+        body.append(f'<path data-fiber="{i}" d="M{x:.2f} {y:.2f}C{245+30*t:.2f} {95-10*t:.2f} {292+36*t:.2f} {55+29*t:.2f} {end_x:.2f} {end_y:.2f}" stroke="{INK}" stroke-width=".48" opacity="{.25+.25*t:.2f}"/>')
+    body.append('</g>')
+    nodes=[(370,86,11),(429,130,8),(334,157,7),(391,204,10),(464,207,5),(416,259,4),(309,234,5)]
+    links=[(0,1),(0,2),(2,3),(1,3),(1,4),(3,5),(2,6)]
+    # The edge group itself stays in scene coordinates; the animation updates
+    # each quadratic curve from its two indexed, independently moving nodes.
+    body.append('<g data-motion-layer="knowledge-graph-edges" data-depth="0" data-turn="0">')
+    for a_index,b_index in links:
+        a=nodes[a_index][:2]; b=nodes[b_index][:2]
         cx=(a[0]+b[0])/2+12
         cy=(a[1]+b[1])/2-8
-        body.append(f'<path d="M{a[0]} {a[1]}Q{cx} {cy} {b[0]} {b[1]}" stroke="{SOFT}" stroke-width=".8" opacity=".68"/>')
-    for x,y,r in [(370,86,11),(429,130,8),(334,157,7),(391,204,10),(464,207,5),(416,259,4),(309,234,5)]:
+        body.append(f'<path data-knowledge-edge="{a_index},{b_index}" d="M{a[0]} {a[1]}Q{cx} {cy} {b[0]} {b[1]}" stroke="{SOFT}" stroke-width=".8" opacity=".68"/>')
+    body.append('</g>')
+    for index,(x,y,r) in enumerate(nodes):
+        body.append(f'<g data-motion-layer="knowledge-node-{index}" data-depth="{11+index%3*2}" data-turn="0" data-knowledge-node="{index}" data-cx="{x}" data-cy="{y}" data-r="{r}">')
         body.append(f'<circle cx="{x}" cy="{y}" r="{r+4}" fill="{PALE}" fill-opacity=".55"/>')
         body.append(f'<circle cx="{x}" cy="{y}" r="{r}" stroke="{INK}" stroke-width=".85"/>')
         body.append(dot(x,y,1.5,ACCENT if x==391 else INK))
         for k in range(10):
             angle=rng.random()*math.tau; rad=rng.uniform(2,r-1)
             body.append(dot(x+math.cos(angle)*rad,y+math.sin(angle)*rad,.4,INK,.5))
+        body.append('</g>')
+    body.append('<g data-motion-layer="knowledge-grain" data-depth="6" data-turn="1.5">')
     for _ in range(90):
         t=rng.random(); x=269+86*t; y=126-39*t+rng.gauss(0,4)
         body.append(dot(x,y,rng.uniform(.3,.65),INK,.25))
-    body.append(f'<path d="M145 232q17 5 28 10" stroke="{ACCENT}" stroke-width="1.3"/>')
+    body.append('</g>')
     return frame('knowledge','From a page to a constellation of ideas','An original open folio rendered in fine curved lines, with knowledge fibers becoming a structured constellation.','01',''.join(body))
 
 

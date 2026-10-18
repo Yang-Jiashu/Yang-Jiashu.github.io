@@ -72,8 +72,9 @@ h1 { font-family: var(--serif); font-size: clamp(64px, 6.1vw, 88px); line-height
 .research-tabs button[aria-selected="true"] > span { color: var(--lead); }
 .research-tabs button:hover { color: var(--lead); }
 .research-artwork { display: block; margin-top: 8px; cursor: zoom-in; }
-.research-drawing { display: block; width: 100%; height: auto; aspect-ratio: 520 / 330; object-fit: contain; transition: transform .18s ease-out; transform-origin: 50% 50%; }
-.research-artwork.is-tracking .research-drawing { transform: perspective(900px) translate3d(var(--art-x), var(--art-y), 0) rotateX(var(--art-rx)) rotateY(var(--art-ry)); will-change: transform; }
+.research-drawing { display: block; width: 100%; height: auto; aspect-ratio: 520 / 330; object-fit: contain; }
+.research-live-drawing { overflow: visible; }
+.research-live-drawing [data-motion-layer], .research-live-drawing [data-joint] { will-change: transform; }
 .research-caption { border-top: 1px solid var(--line); padding-top: 17px; min-height: 122px; }
 .research-caption h2 { font-family: var(--serif); font-weight: 400; font-size: 28px; line-height: 1.3; letter-spacing: -.7px; }
 .research-caption p { color: #747b6d; font-size: 15px; line-height: 1.7; margin-top: 6px; }
@@ -304,6 +305,5 @@ h3 { font-size: 20px; line-height: 1.5; font-weight: 600; letter-spacing: -.25px
 }
 @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
-    .research-artwork.is-tracking .research-drawing { transform: none; }
-    *, *::before, *::after { transition: none !important; }
+        *, *::before, *::after { transition: none !important; }
 }

@@ -92,47 +92,36 @@
         sections.forEach(section => observer.observe(section));
     }
 
+    // Enhance older cached markup as well as the current page.
+    document.querySelectorAll('.research-view img.research-drawing').forEach(image => {
+        if (image.closest('[data-artwork]')) return;
+        const link = document.createElement('a');
+        link.className = 'research-artwork';
+        link.href = image.src;
+        link.setAttribute('data-artwork', '');
+        link.setAttribute('aria-label', `Enlarge the ${image.closest('.research-view').getAttribute('aria-labelledby').replace('tab-', '')} illustration`);
+        link.setAttribute('aria-haspopup', 'dialog');
+        link.setAttribute('aria-controls', 'research-art-modal');
+        image.replaceWith(link);
+        link.append(image);
+    });
     const artworks = [...document.querySelectorAll('[data-artwork]')];
-    const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const resetArtworks = [];
     artworks.forEach(artwork => {
-        let frame = 0;
-        let x = 0;
-        let y = 0;
-        function reset() {
-            cancelAnimationFrame(frame);
-            frame = 0;
-            artwork.classList.remove('is-tracking');
-        }
-        resetArtworks.push(reset);
-        artwork.addEventListener('pointermove', event => {
-            if (event.pointerType !== 'mouse' || !finePointer.matches || reducedMotion.matches) return;
-            const box = artwork.getBoundingClientRect();
-            x = Math.max(-1, Math.min(1, (event.clientX - box.left) / box.width * 2 - 1));
-            y = Math.max(-1, Math.min(1, (event.clientY - box.top) / box.height * 2 - 1));
-            if (frame) return;
-            frame = requestAnimationFrame(() => {
-                frame = 0;
-                artwork.style.setProperty('--art-x', `${(x * 7).toFixed(2)}px`);
-                artwork.style.setProperty('--art-y', `${(y * 5).toFixed(2)}px`);
-                artwork.style.setProperty('--art-rx', `${(-y * 4).toFixed(2)}deg`);
-                artwork.style.setProperty('--art-ry', `${(x * 5).toFixed(2)}deg`);
-                artwork.classList.add('is-tracking');
-            });
-        });
-        artwork.addEventListener('pointerleave', reset);
-        artwork.addEventListener('pointercancel', reset);
-        artwork.addEventListener('blur', reset);
+        artwork.dataset.artAlt = artwork.querySelector('img')?.alt || '';
+        const source = new URL(artwork.href);
+        source.searchParams.set('v', 'elastic2');
+        artwork.href = source.href;
     });
+    let artMotion;
     function resetArtworkMotion() {
-        resetArtworks.forEach(reset => reset());
+        artMotion?.reset();
     }
-    finePointer.addEventListener('change', resetArtworkMotion);
-    reducedMotion.addEventListener('change', resetArtworkMotion);
-    document.addEventListener('visibilitychange', () => {
-        if (document.hidden) resetArtworkMotion();
-    });
+    import('./research-motion.js?v=elastic2').then(({ createResearchMotion }) => {
+        artMotion = createResearchMotion(artworks);
+    }).catch(() => { /* The original images and links remain usable. */ });
+    if (!document.querySelector('#research-art-modal')) {
+        document.body.insertAdjacentHTML('beforeend', '<dialog id="research-art-modal" class="research-art-modal" aria-labelledby="research-art-title"><div class="research-art-toolbar"><h2 id="research-art-title">Research illustration</h2><a id="research-art-original" target="_blank" rel="noopener noreferrer">Open original ↗</a><button type="button" class="research-art-close" aria-label="Close illustration">×</button></div><img id="research-art-image" class="research-art-image" alt=""></dialog>');
+    }
 
     const artModal = document.querySelector('#research-art-modal');
     const artImage = document.querySelector('#research-art-image');
@@ -144,7 +133,7 @@
             resetArtworkMotion();
             lastArtworkTrigger = artwork;
             artImage.src = artwork.href;
-            artImage.alt = artwork.querySelector('img').alt;
+            artImage.alt = artwork.dataset.artAlt;
             document.querySelector('#research-art-title').textContent = artwork.closest('.research-view').querySelector('h2').textContent;
             document.querySelector('#research-art-original').href = artwork.href;
             artModal.showModal();
@@ -172,6 +161,7 @@
             document.getElementById(item.getAttribute('aria-controls')).hidden = !selected;
         });
         document.getElementById('research-number').textContent = String(researchTabs.indexOf(tab) + 1).padStart(2, '0');
+        artMotion?.activate(document.getElementById(tab.getAttribute('aria-controls')).querySelector('[data-artwork]'));
         if (moveFocus) tab.focus();
     }
     researchTabs.forEach((tab, index) => {
