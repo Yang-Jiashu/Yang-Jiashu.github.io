@@ -15,7 +15,7 @@
  <meta property="article:published_time" content="2026-10-22T00:00:00+08:00">
  <link rel="canonical" href="https://yang-jiashu.github.io/blog/longhorizonos/">
  <link rel="icon" href="/images/favicon.svg" type="image/svg+xml">
- <link rel="stylesheet" href="../blog.css?v=design3">
+ <link rel="stylesheet" href="../blog.css?v=design4">
  <title>LongHorizonOS 面向自我改进 Agent 的运行时 · Jiashu Yang</title>
 </head>
 <body class="visual-first">
@@ -25,24 +25,57 @@
    <a class="wordmark" href="/"><img src="/images/favicon.svg" alt="" width="25" height="25"><span>Jiashu Yang</span></a>
    <nav class="header-nav" aria-label="主导航"><a href="/">Home</a><a href="/blog/" aria-current="page">Blog</a><a class="repo-link" href="https://github.com/Yang-Jiashu" target="_blank" rel="noopener noreferrer">GitHub ↗</a></nav>
   </div>
-  <div class="reading-progress" aria-hidden="true"></div>
  </header>
  <main id="main" class="article-wrap">
-  <div class="breadcrumb"><a href="/blog/">Blog</a><span aria-hidden="true">/</span><span>LongHorizonOS</span></div>
   <header class="article-hero">
-   <p class="eyebrow">AI4AI · Agent 运行时 · 研究笔记</p>
    <h1><span class="project-name">LongHorizonOS</span>面向自我改进 Agent 的运行时</h1>
    <p class="hero-deck">维护实验依据，在预算内安排上下文、验证与恢复。</p>
    <div class="hero-meta"><div class="byline"><a href="/">Jiashu Yang</a><time datetime="2026-10-22">2026.10.22</time></div>
    <div class="article-links"><a href="https://github.com/Yang-Jiashu/LongHorizonOS" target="_blank" rel="noopener noreferrer">项目代码 ↗</a><a href="article.md">Markdown 原文 ↗</a></div></div>
   </header>
-  <nav class="article-nav" aria-label="文章目录"><a href="#conditions">问题</a><a href="#runtime">机制</a><a href="#ai4ai">AI4AI</a><a href="#status">验证</a></nav>
   <div class="article-grid">
-   <article class="article-body" aria-label="博客正文"><p>Agent 在版本 A 上测得“测试通过”，修改代码得到 B，换一次上下文后继续工作。<strong>旧结论还能用吗？哪些需要重验，哪些可以保留？</strong></p><p>LongHorizonOS 连接长期任务的状态、依据与资源，让后续行动能够检查自己的前提。</p><h2 id="conditions">结论需要适用条件</h2><figure class="article-figure"><a class="figure-open" href="assets/figure-1.svg?v=design3" target="_blank" rel="noopener noreferrer" aria-label="打开图 1 大图"><picture><source media="(max-width:680px)" srcset="assets/figure-1-mobile.svg?v=design3" width="360" height="448"><img src="assets/figure-1.svg?v=design3" alt="动机图" width="800" height="340" loading="eager" decoding="async"></picture></a><figcaption>图 1｜设计示意：版本变化后，历史仍被保留，当前可用性需要检查。</figcaption></figure><p>“测试通过”应关联来源版本、配置和验证器。只保留一句摘要，容易丢失这些条件；每次重读全部历史，又会增加成本。</p><p>目标是用图表达已声明依赖。来源变化后，区分受影响、条件未变与未知的结果，再准备下一步需要的信息。<strong>图维护已知关系，不自动证明语义正确。</strong> 未知仍需重新查证。</p><h2 id="runtime">让恢复参与调度</h2><p>缺少依据时，可以读取当前来源、重新验证，或恢复满足条件的历史结果。选择需要同时考虑准备成本和剩余预算，恢复之后还要留出有用执行的时间。</p><p>原始日志负责追溯，状态图表达依赖，当前上下文承载选取的工作信息。压缩、驻留与重读需要一起权衡；额外维护、失败和重试的成本也要记账。</p><figure class="article-figure"><a class="figure-open" href="assets/figure-2.svg?v=design3" target="_blank" rel="noopener noreferrer" aria-label="打开图 2 大图"><picture><source media="(max-width:680px)" srcset="assets/figure-2-mobile.svg?v=design3" width="360" height="530"><img src="assets/figure-2.svg?v=design3" alt="运行时闭环" width="800" height="340" loading="lazy" decoding="async"></picture></a><figcaption>图 2｜目标闭环：检查前提、准备信息、执行验证、提交状态；未完成的动作不提前记作进展。</figcaption></figure><h2 id="ai4ai">为 AI4AI 提供运行基础</h2><p><a href="https://ydove0324.github.io/hx_resume/blog/researchboost/" target="_blank" rel="noopener noreferrer">ResearchBoost</a> 用可靠反馈推进训练代码优化，<a href="https://arxiv.org/abs/2505.22954" target="_blank" rel="noopener noreferrer">Darwin Gödel Machine</a> 探索 Agent 的代码自修改。</p><p>LongHorizonOS 希望支撑这样的多轮过程：模型提出候选，运行时维护版本、执行和预算，独立评估器判断效果。评价条件发生变化，也应有明确记录，避免把不可比较的分数当成改进。</p><figure class="article-figure"><a class="figure-open" href="assets/figure-3.svg?v=design3" target="_blank" rel="noopener noreferrer" aria-label="打开图 3 大图"><picture><source media="(max-width:680px)" srcset="assets/figure-3-mobile.svg?v=design3" width="360" height="530"><img src="assets/figure-3.svg?v=design3" alt="AI4AI中的职责" width="800" height="340" loading="lazy" decoding="async"></picture></a><figcaption>图 3｜职责示意：AI4AI 是应用目标，OS 承担运行时责任，收益由独立评估验证。</figcaption></figure><h2 id="status">当前基础与验证目标</h2><p>当前代码已有显式依赖与版本状态、部分恢复和资源核算。动态需求与统一原生闭环仍在完善，尚不能宣称统一的 reward 或 token 收益。</p><p>接下来要验证：局部变化是否引起了可避免的大量重验与恢复？在相同信息和预算下，是否优于普通版本管理、checkpoint 和检索？完整比较需要计入 reward、时间、未缓存输入、缓存读取、输出及失败成本。</p><p><a href="https://arxiv.org/abs/2604.10352" target="_blank" rel="noopener noreferrer">ClawVM</a> 的状态驻留与写回、<a href="https://arxiv.org/abs/2609.03340" target="_blank" rel="noopener noreferrer">PlanFence</a> 的来源版本检查，是直接相关的基础。LongHorizonOS 将在此基础上检验调度的净收益。</p><p>项目：<a href="https://github.com/Yang-Jiashu/LongHorizonOS" target="_blank" rel="noopener noreferrer">LongHorizonOS</a></p>
+   <article class="article-body" aria-label="博客正文"><p>Agent 在版本 A 上测得“测试通过”，修改代码得到 B，换一次上下文后继续工作。<strong>旧结论还能用吗？哪些需要重验，哪些可以保留？</strong></p><p>LongHorizonOS 连接长期任务的状态、依据与资源，让后续行动能够检查自己的前提。</p><h2 id="conditions">结论需要适用条件</h2><figure class="article-figure" aria-labelledby="caption-1"><div class="native-diagram nd-dependencies" role="img" aria-label="目标示意：f 从 A 修改为 B，对应历史证据 T_A 待重验；g 的历史记录 U_A 保留，但仍需检查适用性。未声明依赖保持未知。">
+  <div class="nd-change"><svg class="nd-icon" viewBox="0 0 28 28" aria-hidden="true"><path d="M5 7h11M12 3l4 4-4 4M23 21H12M16 17l-4 4 4 4"/></svg><span>局部修改 f：A → B</span></div>
+  <div class="nd-lane nd-lane-changed">
+    <div class="nd-node nd-source"><svg class="nd-icon" viewBox="0 0 28 28" aria-hidden="true"><path d="M7 3h10l5 5v17H7zM17 3v6h5M11 14h7M11 19h7"/></svg><strong>f@A</strong></div>
+    <span class="nd-arrow" aria-hidden="true"></span>
+    <div class="nd-node nd-evidence"><svg class="nd-icon" viewBox="0 0 28 28" aria-hidden="true"><circle cx="14" cy="14" r="10"/><path d="m9 14 3 3 7-7"/></svg><strong>T_A</strong></div>
+    <span class="nd-arrow" aria-hidden="true"></span>
+    <div class="nd-outcome"><strong>待重验</strong><span>来源已变化</span></div>
+  </div>
+  <div class="nd-lane nd-lane-kept">
+    <div class="nd-node nd-source"><svg class="nd-icon" viewBox="0 0 28 28" aria-hidden="true"><path d="M7 3h10l5 5v17H7zM17 3v6h5M11 14h7M11 19h7"/></svg><strong>g@A</strong></div>
+    <span class="nd-arrow" aria-hidden="true"></span>
+    <div class="nd-node nd-evidence"><svg class="nd-icon" viewBox="0 0 28 28" aria-hidden="true"><circle cx="14" cy="14" r="10"/><path d="m9 14 3 3 7-7"/></svg><strong>U_A</strong></div>
+    <span class="nd-arrow" aria-hidden="true"></span>
+    <div class="nd-outcome"><strong>记录保留</strong><span>适用性另查</span></div>
+  </div>
+  <div class="nd-unknown"><span class="nd-dot" aria-hidden="true"></span><span>未声明依赖，仍为未知</span></div>
+</div><figcaption id="caption-1">图 1｜设计示意：来源变化后，相关证据待重验，历史记录仍保留。</figcaption></figure><p>“测试通过”应关联来源版本、配置和验证器。只保留一句摘要，容易丢失这些条件；每次重读全部历史，又会增加成本。</p><p>目标是用图表达已声明依赖。来源变化后，区分受影响、条件未变与未知的结果，再准备下一步需要的信息。<strong>图维护已知关系，不自动证明语义正确。</strong> 未知仍需重新查证。</p><h2 id="runtime">让恢复参与调度</h2><p>缺少依据时，可以读取当前来源、重新验证，或恢复满足条件的历史结果。选择需要同时考虑准备成本和剩余预算，恢复之后还要留出有用执行的时间。</p><p>原始日志负责追溯，状态图表达依赖，当前上下文承载选取的工作信息。压缩、驻留与重读需要一起权衡；额外维护、失败和重试的成本也要记账。</p><figure class="article-figure" aria-labelledby="caption-2"><div class="native-diagram nd-runtime" role="img" aria-label="目标闭环：检查前提，按需准备，执行验证，提交状态，然后重新检查。状态与预算共同记账，失败和重试也计入成本。">
+  <div class="nd-cycle">
+    <div class="nd-phase"><div class="nd-phase-symbol nd-blue"><svg class="nd-icon" viewBox="0 0 28 28" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m16 16 8 8M8 11h6M11 8v6"/></svg></div><strong>检查前提</strong><span>版本与需求</span></div>
+    <span class="nd-arrow" aria-hidden="true"></span>
+    <div class="nd-phase"><div class="nd-phase-symbol nd-green"><svg class="nd-icon" viewBox="0 0 28 28" aria-hidden="true"><path d="M4 9 14 4l10 5-10 5zM4 14l10 5 10-5M4 19l10 5 10-5"/></svg></div><strong>按需准备</strong><span>读取与恢复</span></div>
+    <span class="nd-arrow" aria-hidden="true"></span>
+    <div class="nd-phase"><div class="nd-phase-symbol nd-blue"><svg class="nd-icon" viewBox="0 0 28 28" aria-hidden="true"><path d="m11 6 11 8-11 8zM5 5v18"/></svg></div><strong>执行验证</strong><span>工具与评估</span></div>
+    <span class="nd-arrow" aria-hidden="true"></span>
+    <div class="nd-phase"><div class="nd-phase-symbol nd-green"><svg class="nd-icon" viewBox="0 0 28 28" aria-hidden="true"><path d="M6 4h16v20H6zM10 9h8M10 14h8M10 19h4"/></svg></div><strong>提交状态</strong><span>结果与来源</span></div>
+    <div class="nd-loop" aria-hidden="true"></div>
+  </div>
+  <div class="nd-ledger"><svg class="nd-icon" viewBox="0 0 28 28" aria-hidden="true"><path d="M4 6h20v17H4zM4 11h20M10 11v12M15 16h5M15 19h5"/></svg><span><strong>共享账本</strong>：状态、预算、失败与重试</span></div>
+</div><figcaption id="caption-2">图 2｜目标闭环：检查、准备、执行与提交；失败同样计入成本。</figcaption></figure><h2 id="ai4ai">为 AI4AI 提供运行基础</h2><p><a href="https://ydove0324.github.io/hx_resume/blog/researchboost/" target="_blank" rel="noopener noreferrer">ResearchBoost</a> 用可靠反馈推进训练代码优化，<a href="https://arxiv.org/abs/2505.22954" target="_blank" rel="noopener noreferrer">Darwin Gödel Machine</a> 探索 Agent 的代码自修改。</p><p>LongHorizonOS 希望支撑这样的多轮过程：模型提出候选，运行时维护版本、执行和预算，独立评估器判断效果。评价条件发生变化，也应有明确记录，避免把不可比较的分数当成改进。</p><figure class="article-figure" aria-labelledby="caption-3"><div class="native-diagram nd-ai4ai" role="img" aria-label="目标分工：Agent 提出候选，LongHorizonOS 管理版本、恢复与预算，独立评估器用固定口径检验效果，结果反馈下一轮候选。">
+  <div class="nd-roles">
+    <div class="nd-role nd-role-agent"><div class="nd-role-icon nd-blue"><svg class="nd-icon" viewBox="0 0 28 28" aria-hidden="true"><circle cx="14" cy="9" r="5"/><path d="M5 24v-3c0-5 18-5 18 0v3M5 12H2M26 12h-3"/></svg></div><strong>Agent</strong><span>提出代码候选</span></div>
+    <span class="nd-arrow" aria-hidden="true"></span>
+    <div class="nd-role nd-role-os"><div class="nd-role-icon nd-green"><svg class="nd-icon" viewBox="0 0 28 28" aria-hidden="true"><path d="M5 5h18v18H5zM10 10h8v8h-8zM10 1v4M18 1v4M10 23v4M18 23v4M1 10h4M1 18h4M23 10h4M23 18h4"/></svg></div><strong>LongHorizonOS</strong><span>安排运行与恢复</span><div class="nd-resource-track"><span>版本</span><span>恢复</span><span>预算</span></div></div>
+    <span class="nd-arrow" aria-hidden="true"></span>
+    <div class="nd-role nd-role-evaluator"><div class="nd-role-icon nd-blue"><svg class="nd-icon" viewBox="0 0 28 28" aria-hidden="true"><path d="M5 4h18v20H5zM9 9h10M9 14h4m2 5 2 2 4-5"/></svg></div><strong>独立评估</strong><span>固定口径检验</span></div>
+    <div class="nd-feedback" aria-hidden="true"></div><span class="nd-feedback-label">结果反馈</span>
+  </div>
+</div><figcaption id="caption-3">图 3｜目标分工：Agent 提出候选，运行时管理执行，独立评估器判断效果。</figcaption></figure><h2 id="status">当前基础与验证目标</h2><p>当前代码已有显式依赖与版本状态、部分恢复和资源核算。动态需求与统一原生闭环仍在完善，尚不能宣称统一的 reward 或 token 收益。</p><p>接下来要验证：局部变化是否引起了可避免的大量重验与恢复？在相同信息和预算下，是否优于普通版本管理、checkpoint 和检索？完整比较需要计入 reward、时间、未缓存输入、缓存读取、输出及失败成本。</p><p><a href="https://arxiv.org/abs/2604.10352" target="_blank" rel="noopener noreferrer">ClawVM</a> 的状态驻留与写回、<a href="https://arxiv.org/abs/2609.03340" target="_blank" rel="noopener noreferrer">PlanFence</a> 的来源版本检查，是直接相关的基础。LongHorizonOS 将在此基础上检验调度的净收益。</p><p>项目：<a href="https://github.com/Yang-Jiashu/LongHorizonOS" target="_blank" rel="noopener noreferrer">LongHorizonOS</a></p>
    </article>
   </div>
  </main>
  <footer class="site-footer"><span>Jiashu Yang · Research notes</span><a href="/blog/">所有文章 ←</a></footer>
- <script src="../blog.js?v=design3" defer></script>
 </body>
 </html>
