@@ -1,12 +1,5 @@
 (() => {
-  const toc = document.querySelector('.toc');
-  const narrow = window.matchMedia('(max-width:800px)');
-  if (toc) {
-    const setToc = () => { toc.open = !narrow.matches; };
-    setToc();
-    narrow.addEventListener('change', setToc);
-  }
-  const links = [...document.querySelectorAll('.toc a, .article-nav a')];
+  const links = [...document.querySelectorAll('.article-nav a')];
   const headings = links.map(link => document.getElementById(link.hash.slice(1))).filter(Boolean);
   const progress = document.querySelector('.reading-progress');
   let pending = false;

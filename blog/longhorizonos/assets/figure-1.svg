@@ -1,44 +1,33 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="900" height="408" viewBox="0 0 900 408" role="img" aria-labelledby="title desc">
-  <title id="title">目标机制示意：历史记录的适用条件</title>
-  <desc id="desc">已记录来源 f@A 绑定验证结果 T_A。来源 f 修改为版本 B 后，T_A 需要重新验证。其他已知来源未变化的记录继续保留，适用性仍需检查；未声明的依赖保持未知。</desc>
-  <defs>
-    <marker id="arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7" fill="none" stroke="#315e50" stroke-width="1.3"/></marker>
-    <marker id="changed" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7" fill="none" stroke="#ac4937" stroke-width="1.3"/></marker>
-  </defs>
-  <rect width="900" height="408" rx="8" fill="#f4f5ee"/>
-  <g font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif">
-    <text x="28" y="35" font-size="16" fill="#677568">目标机制示意 / 历史记录的适用条件</text>
-    <text x="28" y="73" font-size="16" fill="#677568">已记录来源</text>
-    <text x="210" y="73" font-size="16" fill="#677568">验证结果</text>
-    <text x="434" y="73" font-size="16" fill="#677568">局部变化</text>
-    <text x="682" y="73" font-size="16" fill="#677568">下一步可用性</text>
-
-    <path d="M140 120H202" fill="none" stroke="#315e50" stroke-width="1.7" marker-end="url(#arrow)"/>
-    <path d="M344 120H426" fill="none" stroke="#ac4937" stroke-width="1.7" marker-end="url(#changed)"/>
-    <path d="M606 120H674" fill="none" stroke="#ac4937" stroke-width="1.7" marker-end="url(#changed)"/>
-    <rect x="28" y="88" width="112" height="64" rx="7" fill="#fffefa" stroke="#d5dbd0" stroke-width="1.4"/>
-    <text x="84" y="128" text-anchor="middle" font-size="22" fill="#263c34">f@A</text>
-    <rect x="210" y="88" width="134" height="64" rx="7" fill="#fffefa" stroke="#315e50" stroke-width="1.4"/>
-    <text x="277" y="128" text-anchor="middle" font-size="22" fill="#263c34">T_A</text>
-    <rect x="434" y="88" width="172" height="64" rx="7" fill="#f7ece5" stroke="#ac4937" stroke-width="1.4"/>
-    <text x="520" y="127" text-anchor="middle" font-size="21" fill="#ac4937">f@A → f@B</text>
-    <rect x="682" y="88" width="190" height="64" rx="7" fill="#f7ece5" stroke="#ac4937" stroke-width="1.4"/>
-    <text x="777" y="128" text-anchor="middle" font-size="21" font-weight="550" fill="#ac4937">T_A 待重验</text>
-    <text x="682" y="179" font-size="16" fill="#677568">原始验证记录仍然保留</text>
-
-    <path d="M140 246H202" fill="none" stroke="#315e50" stroke-width="1.7" marker-end="url(#arrow)"/>
-    <path d="M344 246H674" fill="none" stroke="#315e50" stroke-width="1.7" marker-end="url(#arrow)"/>
-    <text x="506" y="231" text-anchor="middle" font-size="16" fill="#677568">已知来源未变</text>
-    <rect x="28" y="214" width="112" height="64" rx="7" fill="#fffefa" stroke="#d5dbd0" stroke-width="1.4"/>
-    <text x="84" y="254" text-anchor="middle" font-size="22" fill="#263c34">g@A</text>
-    <rect x="210" y="214" width="134" height="64" rx="7" fill="#fffefa" stroke="#315e50" stroke-width="1.4"/>
-    <text x="277" y="254" text-anchor="middle" font-size="22" fill="#263c34">U_A</text>
-    <rect x="682" y="207" width="190" height="78" rx="7" fill="#e9eee3" stroke="#315e50" stroke-width="1.4"/>
-    <text x="777" y="239" text-anchor="middle" font-size="21" font-weight="550" fill="#315e50">U_A 记录保留</text>
-    <text x="777" y="265" text-anchor="middle" font-size="16" fill="#677568">适用性仍需检查</text>
-
-    <path d="M28 312H872" stroke="#d5dbd0" stroke-width="1"/>
-    <text x="28" y="345" font-size="19" font-weight="550" fill="#647165">未声明依赖 → 保持未知</text>
-    <text x="28" y="376" font-size="16" fill="#677568">保留一条记录，不代表它已经满足当前行动的前提。</text>
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="340" viewBox="0 0 800 340" role="img" aria-labelledby="title desc">
+<title id="title">历史结论的适用条件</title><desc id="desc">目标机制示意。f由A变为B，使对应证据T_A待重验。其他历史记录仍保留但适用性需检查；未声明依赖保持未知。已声明关系并不是语义正确的证明。</desc>
+<defs><marker id="arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7" fill="none" stroke="#315e50" stroke-width="1.5"/></marker><marker id="changed" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7" fill="none" stroke="#ac4937" stroke-width="1.5"/></marker></defs>
+<rect width="800" height="340" fill="#fcfdfa"/>
+<g font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif">
+<text x="32" y="40" font-size="20" fill="#263c34" font-weight="600" text-anchor="start">历史结论的适用条件</text>
+<text x="768" y="40" font-size="16" fill="#ac4937" font-weight="400" text-anchor="end">局部修改 f：A → B</text>
+<text x="94" y="89" font-size="16" fill="#68766d" font-weight="400" text-anchor="middle">记录来源</text>
+<text x="342" y="89" font-size="16" fill="#68766d" font-weight="400" text-anchor="middle">历史证据</text>
+<text x="660" y="89" font-size="16" fill="#68766d" font-weight="400" text-anchor="middle">当前判断</text>
+<text x="94" y="138" font-size="20" fill="#263c34" font-weight="400" text-anchor="middle">f@A</text>
+<text x="342" y="138" font-size="20" fill="#263c34" font-weight="400" text-anchor="middle">T_A</text>
+<text x="660" y="138" font-size="20" fill="#ac4937" font-weight="600" text-anchor="middle">待重验</text>
+<path d="M154 131H282" fill="none" stroke="#315e50" stroke-width="1.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M402 131H566" fill="none" stroke="#ac4937" stroke-width="1.5" stroke-linejoin="round" marker-end="url(#changed)"/>
+<path d="M48 154L140 154" fill="none" stroke="#d7dfd8" stroke-width="1.5"/>
+<path d="M296 154L388 154" fill="none" stroke="#d7dfd8" stroke-width="1.5"/>
+<path d="M584 154L736 154" fill="none" stroke="#ac4937" stroke-width="1.5"/>
+<text x="94" y="230" font-size="20" fill="#263c34" font-weight="400" text-anchor="middle">g@A</text>
+<text x="342" y="230" font-size="20" fill="#263c34" font-weight="400" text-anchor="middle">U_A</text>
+<text x="660" y="230" font-size="20" fill="#315e50" font-weight="600" text-anchor="middle">历史保留</text>
+<path d="M154 223H282" fill="none" stroke="#315e50" stroke-width="1.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M402 223H566" fill="none" stroke="#315e50" stroke-width="1.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M48 246L140 246" fill="none" stroke="#d7dfd8" stroke-width="1.5"/>
+<path d="M296 246L388 246" fill="none" stroke="#d7dfd8" stroke-width="1.5"/>
+<path d="M584 246L736 246" fill="none" stroke="#315e50" stroke-width="1.5"/>
+<text x="660" y="178" font-size="16" fill="#68766d" font-weight="400" text-anchor="middle">来源版本已变化</text>
+<text x="660" y="270" font-size="16" fill="#68766d" font-weight="400" text-anchor="middle">适用性仍需检查</text>
+<path d="M32 296L768 296" fill="none" stroke="#d7dfd8" stroke-width="1.5"/>
+<text x="32" y="324" font-size="16" fill="#68766d" font-weight="400" text-anchor="start">未声明依赖 → 未知</text>
+<text x="768" y="324" font-size="16" fill="#68766d" font-weight="400" text-anchor="end">已声明关系 ≠ 语义证明</text>
+</g>
 </svg>

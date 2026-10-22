@@ -1,5 +1,22 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="420" height="737" viewBox="0 0 420 737" role="img" aria-labelledby="title desc">
-<title id="title">AI4AI 中的运行时职责，手机版</title><desc id="desc">Agent提出候选，运行时维护状态资源，独立评价给出结果，反馈进入下一轮。</desc>
-<defs><marker id="green" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7" fill="none" stroke="#315e50" stroke-width="1.3"/></marker><marker id="red" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7" fill="none" stroke="#ac4937" stroke-width="1.3"/></marker></defs>
-<rect width="420" height="737" rx="8" fill="#f4f5ee"/>
-<g font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif"><text x="22" y="32" font-size="18" fill="#677568" font-weight="400" text-anchor="start">AI4AI / 目标分工</text><path d="M210 193V251" fill="none" stroke="#315e50" stroke-width="1.7" stroke-linejoin="round" marker-end="url(#green)"/><text x="227" y="230" font-size="18" fill="#677568" font-weight="400" text-anchor="start">候选代码 / 策略</text><path d="M210 391V449" fill="none" stroke="#315e50" stroke-width="1.7" stroke-linejoin="round" marker-end="url(#green)"/><text x="227" y="429" font-size="18" fill="#677568" font-weight="400" text-anchor="start">执行记录</text><path d="M210 592V627H402V126H382" fill="none" stroke="#315e50" stroke-width="1.7" stroke-linejoin="round" marker-end="url(#green)"/><text x="210" y="657" font-size="18" fill="#315e50" font-weight="400" text-anchor="middle">结果、失败原因、完整成本</text><rect x="38" y="65" width="344" height="137" rx="7" fill="#fffefa" stroke="#d5dbd0" stroke-width="1.4"/><text x="60" y="94" font-size="14" fill="#677568" font-weight="400" text-anchor="start">AGENT</text><text x="60" y="134" font-size="26" fill="#263c34" font-weight="550" text-anchor="start">提出改进</text><text x="60" y="172" font-size="18" fill="#677568" font-weight="400" text-anchor="start">形成候选与下一轮假设</text><rect x="38" y="255" width="344" height="137" rx="7" fill="#e9eee3" stroke="#315e50" stroke-width="1.4"/><text x="60" y="284" font-size="14" fill="#677568" font-weight="400" text-anchor="start">LONGHORIZONOS</text><text x="60" y="324" font-size="26" fill="#263c34" font-weight="550" text-anchor="start">运行时管理</text><text x="60" y="362" font-size="18" fill="#677568" font-weight="400" text-anchor="start">状态、恢复、执行边界与预算</text><rect x="38" y="453" width="344" height="137" rx="7" fill="#fffefa" stroke="#d5dbd0" stroke-width="1.4"/><text x="60" y="482" font-size="14" fill="#677568" font-weight="400" text-anchor="start">EVALUATOR</text><text x="60" y="522" font-size="26" fill="#263c34" font-weight="550" text-anchor="start">独立评估</text><text x="60" y="560" font-size="18" fill="#677568" font-weight="400" text-anchor="start">固定任务与口径，检验实际结果</text><text x="210" y="707" font-size="22" fill="#263c34" font-weight="550" text-anchor="middle">同预算下的可验证进展</text></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="530" viewBox="0 0 360 530" role="img" aria-labelledby="title desc">
+<title id="title">AI4AI 目标分工</title><desc id="desc">目标职责示意。候选经运行时管理后由独立评估器判断，结果反馈下一轮。此图不是已实现递归自我改进或性能收益的声明。</desc>
+<defs><marker id="arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7" fill="none" stroke="#315e50" stroke-width="1.5"/></marker><marker id="changed" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7" fill="none" stroke="#ac4937" stroke-width="1.5"/></marker></defs>
+<rect width="360" height="530" fill="#fcfdfa"/>
+<g font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif">
+<text x="24" y="34" font-size="17" fill="#263c34" font-weight="600" text-anchor="start">AI4AI 目标分工</text>
+<rect x="44" y="76" width="254" height="88" rx="2" fill="#fcfdfa" stroke="#d7dfd8" stroke-width="1.5"/>
+<text x="171" y="111" font-size="17" fill="#263c34" font-weight="600" text-anchor="middle">Agent 候选</text>
+<text x="171" y="139" font-size="14" fill="#68766d" font-weight="400" text-anchor="middle">代码 / 策略</text>
+<rect x="44" y="206" width="254" height="88" rx="2" fill="#edf3ed" stroke="#315e50" stroke-width="1.5"/>
+<text x="171" y="241" font-size="17" fill="#263c34" font-weight="600" text-anchor="middle">LHOS 运行</text>
+<text x="171" y="269" font-size="14" fill="#68766d" font-weight="400" text-anchor="middle">版本 / 恢复 / 预算</text>
+<rect x="44" y="336" width="254" height="88" rx="2" fill="#fcfdfa" stroke="#d7dfd8" stroke-width="1.5"/>
+<text x="171" y="371" font-size="17" fill="#263c34" font-weight="600" text-anchor="middle">独立评估</text>
+<text x="171" y="399" font-size="14" fill="#68766d" font-weight="400" text-anchor="middle">固定口径，检验结果</text>
+<path d="M171 165V198" fill="none" stroke="#315e50" stroke-width="1.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M171 295V328" fill="none" stroke="#315e50" stroke-width="1.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M298 380H326V120H298" fill="none" stroke="#315e50" stroke-width="1.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<text x="180" y="471" font-size="14" fill="#315e50" font-weight="400" text-anchor="middle">评价结果反馈下一轮候选</text>
+<text x="180" y="506" font-size="14" fill="#68766d" font-weight="400" text-anchor="middle">同预算下的可验证进展</text>
+</g>
+</svg>
