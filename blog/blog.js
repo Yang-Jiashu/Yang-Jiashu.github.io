@@ -1,11 +1,12 @@
 (() => {
   const toc = document.querySelector('.toc');
-  if (!toc) return;
   const narrow = window.matchMedia('(max-width:800px)');
-  const setToc = () => { toc.open = !narrow.matches; };
-  setToc();
-  narrow.addEventListener('change', setToc);
-  const links = [...toc.querySelectorAll('a')];
+  if (toc) {
+    const setToc = () => { toc.open = !narrow.matches; };
+    setToc();
+    narrow.addEventListener('change', setToc);
+  }
+  const links = [...document.querySelectorAll('.toc a, .article-nav a')];
   const headings = links.map(link => document.getElementById(link.hash.slice(1))).filter(Boolean);
   const progress = document.querySelector('.reading-progress');
   let pending = false;

@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420" height="628" viewBox="0 0 420 628" role="img" aria-labelledby="title desc">
+  <title id="title">目标机制示意：历史记录的适用条件</title>
+  <desc id="desc">来源 f@A 绑定验证结果 T_A。局部修改 f@B 后，T_A 待重验，原记录保留。其他已知依赖未变的记录继续保留，但适用性仍需检查；未声明依赖保持未知。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7" fill="none" stroke="#315e50" stroke-width="1.3"/></marker>
+    <marker id="changed" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7" fill="none" stroke="#ac4937" stroke-width="1.3"/></marker>
+  </defs>
+  <rect width="420" height="628" rx="8" fill="#f4f5ee"/>
+  <g font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif">
+    <text x="24" y="33" font-size="16" fill="#677568">目标机制示意 / 适用条件</text>
+    <text x="24" y="73" font-size="18" fill="#677568">已记录来源</text>
+    <text x="234" y="73" font-size="18" fill="#677568">验证结果</text>
+    <path d="M144 118H226" fill="none" stroke="#315e50" stroke-width="1.8" marker-end="url(#arrow)"/>
+    <rect x="24" y="87" width="120" height="62" rx="7" fill="#fffefa" stroke="#d5dbd0" stroke-width="1.4"/>
+    <text x="84" y="127" text-anchor="middle" font-size="24" fill="#263c34">f@A</text>
+    <rect x="234" y="87" width="162" height="62" rx="7" fill="#fffefa" stroke="#315e50" stroke-width="1.4"/>
+    <text x="315" y="127" text-anchor="middle" font-size="24" fill="#263c34">T_A</text>
+
+    <rect x="24" y="179" width="372" height="66" rx="7" fill="#f7ece5" stroke="#ac4937" stroke-width="1.4"/>
+    <text x="210" y="220" text-anchor="middle" font-size="22" fill="#ac4937">局部修改：f@A → f@B</text>
+    <path d="M210 245V271" fill="none" stroke="#ac4937" stroke-width="1.8" marker-end="url(#changed)"/>
+    <rect x="24" y="279" width="372" height="87" rx="7" fill="#f7ece5" stroke="#ac4937" stroke-width="1.4"/>
+    <text x="210" y="315" text-anchor="middle" font-size="23" font-weight="550" fill="#ac4937">受影响的 T_A：待重验</text>
+    <text x="210" y="344" text-anchor="middle" font-size="18" fill="#677568">保留原记录，检查当前依据</text>
+
+    <rect x="24" y="400" width="372" height="87" rx="7" fill="#e9eee3" stroke="#315e50" stroke-width="1.4"/>
+    <text x="210" y="435" text-anchor="middle" font-size="22" font-weight="550" fill="#315e50">其他记录：保留历史</text>
+    <text x="210" y="465" text-anchor="middle" font-size="18" fill="#677568">已知依赖未变，适用性仍需检查</text>
+
+    <path d="M24 519H396" stroke="#d5dbd0" stroke-width="1"/>
+    <text x="210" y="555" text-anchor="middle" font-size="22" font-weight="550" fill="#647165">未声明依赖 → 未知</text>
+    <text x="210" y="588" text-anchor="middle" font-size="18" fill="#677568">不能当作当前前提已经满足</text>
+  </g>
+</svg>
