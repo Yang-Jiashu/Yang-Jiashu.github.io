@@ -3,11 +3,11 @@
 <head>
  <meta charset="utf-8">
  <meta name="viewport" content="width=device-width,initial-scale=1">
- <meta name="theme-color" content="#f8f7f2">
- <meta name="description" content="LongHorizonOS 的任务、资源与上下文调度：版本化状态图、联合选批、动态并行和记忆恢复。">
+ <meta name="theme-color" content="#ffffff">
+ <meta name="description" content="把状态准备与任务执行一起调度：LongHorizonOS 如何连接长程 Agent 的上下文、任务状态与资源预算。">
  <meta property="og:type" content="article">
- <meta property="og:title" content="LongHorizonOS 面向自我改进 Agent 的运行时">
- <meta property="og:description" content="LongHorizonOS 的任务、资源与上下文调度：版本化状态图、联合选批、动态并行和记忆恢复。">
+ <meta property="og:title" content="LongHorizonOS：把状态准备与任务执行一起调度">
+ <meta property="og:description" content="把状态准备与任务执行一起调度：LongHorizonOS 如何连接长程 Agent 的上下文、任务状态与资源预算。">
  <meta property="og:url" content="https://yang-jiashu.github.io/blog/longhorizonos/">
  <meta property="og:locale" content="zh_CN">
  <meta name="twitter:card" content="summary">
@@ -15,8 +15,8 @@
  <meta property="article:published_time" content="2026-10-22T00:00:00+08:00">
  <link rel="canonical" href="https://yang-jiashu.github.io/blog/longhorizonos/">
  <link rel="icon" href="/images/favicon.svg" type="image/svg+xml">
- <link rel="stylesheet" href="../blog.css?v=systems5">
- <title>LongHorizonOS 面向自我改进 Agent 的运行时 · Jiashu Yang</title>
+ <link rel="stylesheet" href="../blog.css?v=unified6">
+ <title>LongHorizonOS：把状态准备与任务执行一起调度 · Jiashu Yang</title>
 </head>
 <body class="visual-first">
  <a class="skip-link" href="#main">跳转到正文</a>
@@ -28,90 +28,65 @@
  </header>
  <main id="main" class="article-wrap">
   <header class="article-hero">
-   <h1><span class="project-name">LongHorizonOS</span>面向自我改进 Agent 的运行时</h1>
-   <p class="hero-deck">调度任务、上下文与预算，维护每轮行动的依据。</p>
+   <h1><span class="project-name">LongHorizonOS</span>把状态准备与任务执行一起调度</h1>
+   <p class="hero-deck">面向长程 Agent 的状态、上下文与资源运行时。</p>
    <div class="hero-meta"><div class="byline"><a href="/">Jiashu Yang</a><time datetime="2026-10-22">2026.10.22</time></div>
    <div class="article-links"><a href="https://github.com/Yang-Jiashu/LongHorizonOS" target="_blank" rel="noopener noreferrer">项目代码 ↗</a><a href="article.md">Markdown 原文 ↗</a><a href="implementation-notes.md">实现对照 ↗</a></div></div>
   </header>
   <div class="article-grid">
-   <article class="article-body" aria-label="博客正文"><p>长程 Agent 不只需要记住历史，还要决定：<strong>先做哪一步、并行多少、带入哪些信息，以及变更后从哪里恢复。</strong></p><p>LongHorizonOS 把任务、上下文与资源放进可检查的运行状态中，让调度决策能够追溯其依据。</p><h2 id="conditions">从依赖与版本确定当前状态</h2><p>“测试通过”应关联来源版本、配置和验证器。来源改变后，相关结论需要重验；其他历史仍保留，适用性另查。</p><figure class="article-figure" aria-labelledby="caption-1"><div class="native-diagram nd-dependencies" role="img" aria-label="目标示意：f 从 A 修改为 B，对应历史证据 T_A 待重验；g 的历史记录 U_A 保留，但仍需检查适用性。未声明依赖保持未知。">
-  <div class="nd-change"><svg class="nd-icon" viewBox="0 0 28 28" aria-hidden="true"><path d="M5 7h11M12 3l4 4-4 4M23 21H12M16 17l-4 4 4 4"/></svg><span>局部修改 f：A → B</span></div>
-  <div class="nd-lane nd-lane-changed">
-    <div class="nd-node nd-source"><svg class="nd-icon" viewBox="0 0 28 28" aria-hidden="true"><path d="M7 3h10l5 5v17H7zM17 3v6h5M11 14h7M11 19h7"/></svg><strong>f@A</strong></div>
-    <span class="nd-arrow" aria-hidden="true"></span>
-    <div class="nd-node nd-evidence"><svg class="nd-icon" viewBox="0 0 28 28" aria-hidden="true"><circle cx="14" cy="14" r="10"/><path d="m9 14 3 3 7-7"/></svg><strong>T_A</strong></div>
-    <span class="nd-arrow" aria-hidden="true"></span>
-    <div class="nd-outcome"><strong>待重验</strong><span>来源已变化</span></div>
-  </div>
-  <div class="nd-lane nd-lane-kept">
-    <div class="nd-node nd-source"><svg class="nd-icon" viewBox="0 0 28 28" aria-hidden="true"><path d="M7 3h10l5 5v17H7zM17 3v6h5M11 14h7M11 19h7"/></svg><strong>g@A</strong></div>
-    <span class="nd-arrow" aria-hidden="true"></span>
-    <div class="nd-node nd-evidence"><svg class="nd-icon" viewBox="0 0 28 28" aria-hidden="true"><circle cx="14" cy="14" r="10"/><path d="m9 14 3 3 7-7"/></svg><strong>U_A</strong></div>
-    <span class="nd-arrow" aria-hidden="true"></span>
-    <div class="nd-outcome"><strong>记录保留</strong><span>适用性另查</span></div>
-  </div>
-  <div class="nd-unknown"><span class="nd-dot" aria-hidden="true"></span><span>未声明依赖，仍为未知</span></div>
-</div><figcaption id="caption-1">图 1｜状态示意：失效沿已声明依赖传播；未知关系仍是未知，图本身不证明语义正确。</figcaption></figure><h2 id="scheduling">调度优化放在什么位置</h2><p>图分析产生就绪前沿与可选优先级信号；策略提出执行批次，Scheduler 再核对当前版本、所有权和实际容量。上下文组件为执行准备工作信息。</p><figure class="article-figure" aria-labelledby="caption-2"><div class="native-diagram sa-architecture" role="img" aria-label="现有模块关系：事件与来源变化更新版本化状态图；SDK 调度路径按配置策略排序候选，检查稳定性、冲突与容量、预算与并行度，再经版本和所有权准入派发执行与独立验证。结果和成本回写。上下文组件按不同 profile 提供工作材料，不表示所有路径已经统一接通。">
-  <div class="sa-input"><span class="sa-event-dot" aria-hidden="true"></span><strong>事件 / 来源变更</strong><span class="sa-input-arrow" aria-hidden="true">↓</span></div>
-  <div class="sa-columns">
-    <div class="sa-main">
-      <div class="sa-return" aria-hidden="true"></div>
-      <section class="sa-state">
-        <div class="sa-heading"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M8 8 24 8M8 8 16 24M24 8 16 24"/><circle cx="8" cy="8" r="4"/><circle cx="24" cy="8" r="4"/><circle cx="16" cy="24" r="4"/></svg><strong>版本化状态图</strong></div>
-        <div class="sa-state-details"><span>依赖 · 就绪前沿</span><span>可选：关键路径 / 解锁</span></div>
-      </section>
-      <div class="sa-down" aria-hidden="true">↓</div>
-      <section class="sa-scheduler">
-        <div class="sa-heading"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 8h22M5 16h22M5 24h22"/><circle cx="11" cy="8" r="3"/><circle cx="21" cy="16" r="3"/><circle cx="14" cy="24" r="3"/></svg><strong>SDK 联合选批</strong></div>
-        <ol class="sa-decisions">
-          <li><span class="sa-step" aria-hidden="true"></span><span>候选排序 / 稳定性</span></li>
-          <li><span class="sa-step" aria-hidden="true"></span><span>冲突 / 容量 / 预算</span></li>
-          <li><span class="sa-step" aria-hidden="true"></span><span>并行度 / 争用退避</span></li>
-        </ol>
-        <div class="sa-dispatch"><strong>策略提议</strong></div>
-      </section>
-      <div class="sa-down" aria-hidden="true">↓</div>
-      <section class="sa-gate"><strong>Scheduler 权威准入</strong><span>版本栅栏 · Claim / Lease</span></section>
-      <div class="sa-down" aria-hidden="true">↓</div>
-      <section class="sa-execute">
-        <div class="sa-heading"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="m9 6 15 10L9 26z"/></svg><strong>执行 / 独立验证</strong></div>
-        <span>工具与受支持的 Harness</span>
-      </section>
-      <div class="sa-writeback"><span aria-hidden="true">↶</span><span>状态 / 成本回写，按需补位</span></div>
+   <article class="article-body" aria-label="博客正文"><p>长程 Agent 持续改变代码、环境和计划，上下文却只能容纳有限信息。每一步既要决定<strong>做什么</strong>，也要决定<strong>凭什么继续做</strong>。</p><p>LongHorizonOS 探索一个统一问题：<strong>在有限上下文、时间和调用预算内，协同管理有效任务状态与执行，让预算转化为更多经验证的任务进展。</strong></p><h2 id="conditions">上下文与执行，为什么需要一起调度</h2><p>材料已经驻留、依据仍然有效时，一步任务可以直接推进；材料缺失或依据过期时，需要先加载、恢复或重验。执行次序与写入又会改变下一轮的工作集。</p><figure class="article-figure" aria-labelledby="caption-1"><div class="native-diagram ng-coupled" role="img" aria-label="设计目标：有效工作集的有效性和驻留决定任务步骤的准备成本；任务步骤的执行次序和写入反过来改变后续工作集需求。共同受上下文、时间和调用预算约束。">
+  <div class="ng-label">设计目标</div>
+  <div class="ng-coupling-row">
+    <div class="ng-domain"><strong>任务步骤</strong><span>选择 · 次序 · 写入</span></div>
+    <div class="ng-coupling-edges">
+      <div class="ng-edge ng-edge-left"><span>决定步骤成本</span><i aria-hidden="true"></i></div>
+      <div class="ng-edge ng-edge-right"><span>改变后续需求</span><i aria-hidden="true"></i></div>
     </div>
-    <aside class="sa-context">
-      <div class="sa-context-heading"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 9 16 4l11 5-11 5zM5 16l11 5 11-5M5 23l11 5 11-5"/></svg><strong>上下文管理组件</strong><span>按 profile 接入</span></div>
-      <div class="sa-context-flow">
-        <div class="sa-context-stage"><strong>语义记忆</strong><span>必需闭包 / 摘录</span></div>
-        <div class="sa-context-stage"><strong>需求规划</strong><span>覆盖分组 / 位集 DP</span></div>
-        <div class="sa-context-stage"><strong>驻留与换窗</strong><span>分页 / pin / 恢复门槛</span></div>
-        <div class="sa-context-stage"><strong>交接编译</strong><span>分组编码 / 往返校验</span></div>
-        <div class="sa-context-stage sa-prototype"><strong>动态需求</strong><span>条件合同 · SDK 原型</span></div>
-      </div>
-      <div class="sa-material"><span aria-hidden="true">←</span><span>提供执行材料</span></div>
-    </aside>
+    <div class="ng-domain"><strong>有效工作集</strong><span>有效性 · 驻留 · 上下文</span></div>
   </div>
-  <div class="sa-support"><strong>热路径与数据结构</strong><div><span>邻接索引</span><span>批量 / 增量图计算</span><span>局部失效</span><span>投影缓存</span></div></div>
-</div><figcaption id="caption-2">图 2｜实现模块图：不同入口按 profile 接入；右侧虚线组件不代表默认全部串联。</figcaption></figure><p>已有优化包括增量图分析、联合选批、争用退避、流式补位，以及记忆闭包、需求覆盖规划和受预算约束的驻留恢复。不同排序策略保持区分。</p><h2 id="selection">联合选批为什么有用</h2><p>分别挑选“无冲突任务”和“放得下的任务”，再取交集，可能漏掉可行批次。联合检查只为真正选中的任务扣减容量和预算。</p><figure class="article-figure" aria-labelledby="caption-3"><div class="native-diagram nd-selection" role="img" aria-label="联合选批规则示例，不是测评结果。资源容量为2，A请求3且与B和C冲突，B和C各请求1且相容。A不可行，跳过A后B和C可组成可行批次；规划不等于执行，派发前仍检查版本、资源和任务所有权。">
-  <div class="ns-condition"><strong>可用容量：2</strong><span>一个受约束选批示例</span></div>
-  <div class="ns-candidates">
-    <div class="ns-candidate ns-over"><div class="ns-task"><strong>A</strong><span>请求 3</span></div><div class="ns-units" aria-hidden="true"><i></i><i></i><i></i></div><span>与 B、C 冲突</span></div>
-    <div class="ns-candidate ns-fit"><div class="ns-task"><strong>B</strong><span>请求 1</span></div><div class="ns-units" aria-hidden="true"><i></i></div><span>与 C 相容</span></div>
-    <div class="ns-candidate ns-fit"><div class="ns-task"><strong>C</strong><span>请求 1</span></div><div class="ns-units" aria-hidden="true"><i></i></div><span>与 B 相容</span></div>
+  <div class="ng-constraint">共同约束：上下文容量、时间、调用预算</div>
+</div><figcaption id="caption-1">图 1｜问题结构：状态影响执行成本，执行改变后续状态。</figcaption></figure><h2 id="scheduling">一个闭环，管理准备与执行</h2><p>每轮形成同一份计划：推进哪个步骤、复用什么状态、补齐哪些材料、占用多少资源。执行结果再更新状态与下一轮调度。</p><figure class="article-figure" aria-labelledby="caption-2"><div class="native-diagram ng-system" role="img" aria-label="统一设计目标：状态图记录依赖、版本与驻留；联合计划同时选择动作、准备与资源；按计划准备工作集并执行；验证后将结果、状态和成本回写状态图，形成循环。支撑机制包括增量图和索引、需求覆盖和交接编码、容量准入和争用退避。不表示所有原生路径已经接通。">
+  <div class="ng-label">设计目标</div>
+  <div class="ng-system-flow">
+    <div class="ng-stage"><strong>状态图</strong><span>依赖与版本</span></div>
+    <i class="ng-flow-arrow" aria-hidden="true"></i>
+    <div class="ng-stage ng-stage-plan"><strong>联合计划</strong><span>动作与准备</span></div>
+    <i class="ng-flow-arrow" aria-hidden="true"></i>
+    <div class="ng-stage"><strong>准备 / 执行</strong><span>工作集与任务</span></div>
+    <i class="ng-flow-arrow" aria-hidden="true"></i>
+    <div class="ng-stage"><strong>验证回写</strong><span>结果与成本</span></div>
+    <div class="ng-system-return" aria-hidden="true"></div>
+    <span class="ng-system-return-label">状态变化进入下一轮</span>
   </div>
-  <div class="ns-transition"><span class="ns-down" aria-hidden="true">↓</span><span>跳过不可行的 A，继续检查后续候选</span></div>
-  <div class="ns-result"><strong>可行批次</strong><div class="ns-allocation"><span>B · 1</span><span>C · 1</span></div><strong>合计 2 / 2</strong></div>
-  <div class="ns-fence"><svg class="nd-icon" viewBox="0 0 28 28" aria-hidden="true"><path d="M7 12h14v12H7zM10 12V8a4 4 0 0 1 8 0v4M14 17v3"/></svg><span>派发前再查：图版本、实际资源、任务所有权</span></div>
-</div><figcaption id="caption-3">图 3｜规则示例：跳过放不下的 A，继续选 B、C。当前采用确定性贪心，不保证全局最优；这不是 reward 实验结果。</figcaption></figure><h2 id="ai4ai">为 AI4AI 提供运行基础</h2><p><a href="https://ydove0324.github.io/hx_resume/blog/researchboost/" target="_blank" rel="noopener noreferrer">ResearchBoost</a> 用可靠反馈推进训练代码优化，<a href="https://arxiv.org/abs/2505.22954" target="_blank" rel="noopener noreferrer">Darwin Gödel Machine</a> 探索 Agent 的代码自修改。LongHorizonOS 希望承担其中的运行责任：管理版本、执行、上下文和预算，由独立评估器判断改进。</p><figure class="article-figure" aria-labelledby="caption-4"><div class="native-diagram nd-ai4ai" role="img" aria-label="目标分工：Agent 提出候选，LongHorizonOS 管理版本、恢复与预算，独立评估器用固定口径检验效果，结果反馈下一轮候选。">
-  <div class="nd-roles">
-    <div class="nd-role nd-role-agent"><div class="nd-role-icon nd-blue"><svg class="nd-icon" viewBox="0 0 28 28" aria-hidden="true"><circle cx="14" cy="9" r="5"/><path d="M5 24v-3c0-5 18-5 18 0v3M5 12H2M26 12h-3"/></svg></div><strong>Agent</strong><span>提出代码候选</span></div>
-    <span class="nd-arrow" aria-hidden="true"></span>
-    <div class="nd-role nd-role-os"><div class="nd-role-icon nd-green"><svg class="nd-icon" viewBox="0 0 28 28" aria-hidden="true"><path d="M5 5h18v18H5zM10 10h8v8h-8zM10 1v4M18 1v4M10 23v4M18 23v4M1 10h4M1 18h4M23 10h4M23 18h4"/></svg></div><strong>LongHorizonOS</strong><span>安排运行与恢复</span><div class="nd-resource-track"><span>版本</span><span>恢复</span><span>预算</span></div></div>
-    <span class="nd-arrow" aria-hidden="true"></span>
-    <div class="nd-role nd-role-evaluator"><div class="nd-role-icon nd-blue"><svg class="nd-icon" viewBox="0 0 28 28" aria-hidden="true"><path d="M5 4h18v20H5zM9 9h10M9 14h4m2 5 2 2 4-5"/></svg></div><strong>独立评估</strong><span>固定口径检验</span></div>
-    <div class="nd-feedback" aria-hidden="true"></div><span class="nd-feedback-label">结果反馈</span>
+  <div class="ng-supports">
+    <div><strong>增量图 / 索引</strong><span>定位受影响状态</span></div>
+    <div><strong>覆盖 / 编码</strong><span>组织所需上下文</span></div>
+    <div><strong>容量 / 退避</strong><span>约束可行的执行</span></div>
   </div>
-</div><figcaption id="caption-4">图 4｜应用目标：候选生成、运行管理与效果评估各有职责。</figcaption></figure><h2 id="status">当前边界与验证目标</h2><p>这些机制已有代码基础，但接入范围不同：SDK 调度、原生 harness 记忆策略和动态需求原型不能混作同一条已验收路径。动态合同仍有条件观察范围的已知限制。</p><p>下一步要在相同信息与预算下，比较普通版本管理、checkpoint 和检索，核算完整 reward、墙钟时间、输入、缓存读取、输出及失败开销。整体收益仍待实验验证。</p><p><a href="https://arxiv.org/abs/2604.10352" target="_blank" rel="noopener noreferrer">ClawVM</a> 的驻留管理、<a href="https://arxiv.org/abs/2609.03340" target="_blank" rel="noopener noreferrer">PlanFence</a> 的版本准入是直接相关基础；系统增益需要在强基线上验证。</p><p>项目：<a href="https://github.com/Yang-Jiashu/LongHorizonOS" target="_blank" rel="noopener noreferrer">LongHorizonOS</a></p>
+</div><figcaption id="caption-2">图 2｜统一设计目标。现有模块接入范围不同，尚未在所有 harness 中统一验收。</figcaption></figure><p>Graph 记录显式依赖与适用条件，memory 保存持久状态，context 承载当前工作集。运行时负责准入、资源分配和结果提交；已声明依赖之外的关系仍需观察与验证。</p><h2 id="selection">调度优化，落到每一次决策</h2><p>已有实现包括<strong>增量图分析与倒排索引、记忆闭包与覆盖规划、联合选批与流式补位</strong>。它们分别减少重复计算、准备必要材料、安排可行执行；具体入口与开关见实现对照。</p><figure class="article-figure" aria-labelledby="caption-3"><div class="native-diagram ng-selection" role="img" aria-label="联合选批的规则示例，不是实验结果。可用容量为2。A请求3且与B、C冲突，因此不可行；B和C各请求1并相容，跳过A后可以选出B和C，合计使用2。派发前仍须检查实际状态和资源。">
+  <div class="ng-label">规则示例 · 可用容量 2</div>
+  <div class="ng-selection-row">
+    <table class="ng-candidate-table"><thead><tr><th scope="col">候选</th><th scope="col">请求</th><th scope="col">兼容性</th></tr></thead><tbody>
+      <tr class="ng-infeasible"><th scope="row">A</th><td>3</td><td>与 B、C 冲突</td></tr>
+      <tr><th scope="row">B</th><td>1</td><td>与 C 相容</td></tr>
+      <tr><th scope="row">C</th><td>1</td><td>与 B 相容</td></tr>
+    </tbody></table>
+    <i class="ng-flow-arrow" aria-hidden="true"></i>
+    <div class="ng-selected"><span>跳过不可行的 A</span><strong>B + C</strong><div class="ng-allocation" aria-hidden="true"><i></i><i></i></div><span>合计 2 / 2</span></div>
+  </div>
+  <div class="ng-selection-note">计划之后，派发前仍需核对实际状态与资源。</div>
+</div><figcaption id="caption-3">图 3｜规则示例：容量为 2，跳过请求 3 的 A，继续选择相容的 B、C。确定性贪心不保证全局最优。</figcaption></figure><h2 id="ai4ai">AI4AI：让长期改进有运行基础</h2><p><a href="https://ydove0324.github.io/hx_resume/blog/researchboost/" target="_blank" rel="noopener noreferrer">ResearchBoost</a> 通过可信反馈推进训练代码优化。LongHorizonOS 关注持续迭代的运行成本：跨轮次管理状态、上下文和资源，让独立评估器判断改进是否成立。</p><figure class="article-figure" aria-labelledby="caption-4"><div class="native-diagram ng-ai4ai" role="img" aria-label="设计目标：Agent提出候选，LongHorizonOS安排状态、准备、执行与资源，独立评估器按固定口径判断效果，评估结果反馈下一轮候选。">
+  <div class="ng-label">设计目标</div>
+  <div class="ng-role-flow">
+    <div class="ng-role"><strong>Agent</strong><span>提出候选</span></div>
+    <i class="ng-flow-arrow" aria-hidden="true"></i>
+    <div class="ng-role ng-role-runtime"><strong>LongHorizonOS</strong><span class="ng-role-detail-wide">状态 · 执行 · 资源</span><span class="ng-role-detail-compact">状态与资源</span></div>
+    <i class="ng-flow-arrow" aria-hidden="true"></i>
+    <div class="ng-role"><strong>独立评估</strong><span>固定口径检验</span></div>
+    <div class="ng-ai-return" aria-hidden="true"></div>
+    <span class="ng-ai-return-label">结果反馈下一轮</span>
+  </div>
+</div><figcaption id="caption-4">图 4｜应用目标：候选生成、运行管理与效果评估各有职责。</figcaption></figure><h2 id="status">怎样判断系统真的有效</h2><p>在相同模型、任务、信息权限和预算下，对比具备版本管理、checkpoint 与检索的强基线，检验联合管理是否带来净收益。</p><p>最终看任务质量、完成时间与完整 token 成本；准备、恢复、重验和失败开销全部计入。现有局部优化已有代码依据，整体 reward 与成本收益仍需真实任务验证。</p><p>项目：<a href="https://github.com/Yang-Jiashu/LongHorizonOS" target="_blank" rel="noopener noreferrer">LongHorizonOS</a></p>
    </article>
   </div>
  </main>
