@@ -7,60 +7,125 @@
 <meta property="og:locale" content="zh_CN"><meta name="author" content="Jiashu Yang">
 <meta property="article:published_time" content="2026-10-22T00:00:00+08:00"><meta property="article:modified_time" content="2026-10-24T00:00:00+08:00">
 <meta name="twitter:card" content="summary"><link rel="canonical" href="https://yang-jiashu.github.io/blog/longhorizonos/">
-<link rel="icon" href="/images/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../blog.css?v=evidence7-20261024">
+<link rel="icon" href="/images/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../blog.css?v=design8-20261024">
 <title>LongHorizonOS：把上下文准备成本纳入执行调度 · Jiashu Yang</title></head><body class="evidence-page">
 <a class="skip-link" href="#main">跳转到正文</a>
-<header class="site-header"><div class="header-inner">
-<a class="wordmark" href="/"><img src="/images/favicon.svg" alt="" width="24" height="24"><span>Jiashu Yang</span></a>
-<nav class="header-nav" aria-label="主导航"><a href="/">Home</a><a href="/blog/" aria-current="page">Blog</a><a class="repo-link" href="https://github.com/Yang-Jiashu">GitHub ↗</a></nav>
-</div></header><main id="main" class="article-wrap">
-<header class="article-hero"><p class="article-kicker">SYSTEMS RESEARCH · IMPLEMENTATION NOTE</p>
-<h1><span class="project-name">LongHorizonOS</span>把上下文准备成本纳入执行调度</h1>
-<p class="hero-deck">每一步的代价，包含把有效材料准备好的代价。</p>
+<main id="main" class="article-wrap">
+<header class="article-hero"><a class="back-link" href="/">← Jiashu Yang</a>
+<h1>LongHorizonOS</h1>
 <div class="hero-meta"><div class="byline"><a href="/">Jiashu Yang</a><time datetime="2026-10-24">更新 2026.10.24</time></div>
-<div class="article-links"><a href="https://github.com/Yang-Jiashu/LongHorizonOS">项目 ↗</a><a href="article.md">原文 ↗</a><a href="implementation-notes.md">代码与口径 ↗</a></div></div></header>
-<nav class="article-nav" aria-label="文章目录"><a href="#preparation">问题</a><a href="#boundary">接口</a><a href="#trace">轨迹</a><a href="#solver">求解器</a><a href="#experiments">实验</a></nav>
-<article class="article-body"><p>一个长程 Agent 完成一步工作之前，往往还要读取材料、恢复上下文，或重验已经过期的结论。这些准备也消耗预算，并且因下一步选什么而不同。</p><p><strong>LongHorizonOS 研究：在相同信息和预算下，把状态准备成本纳入动作选择，能否获得更多经验证的任务进展？</strong> 本文展示已接通的运行时、可复现的离线轨迹和局部求解器优化。真实模型收益仍待实验检验。</p><h2 id="preparation">准备成本会改变执行次序</h2><p>考虑三个独立动作。A 的声明进展较高，但需要额外准备；B、C 的材料已可用。即使两种策略都检查总预算，忽略准备成本的排序也可能先耗尽预算。</p><figure class="article-figure" aria-labelledby="caption-1"><div class="rf rf-example" aria-label="构造示例：在同样预算与可行性检查下，是否把准备成本计入排序会改变选择结果。">
-  <div class="rf-topline"><span class="rf-tag">构造示例</span><span>预算 5 · 声明工作单位</span></div>
-  <div class="rf-example-intro">同样检查 <var>P</var> + <var>E</var> 是否可行，排序分母不同，先做的动作就不同。</div>
-  <table class="rf-candidate-table">
-    <caption>三个独立动作；<var>G</var> 为声明进展，<var>P</var> 为准备，<var>E</var> 为执行</caption>
-    <thead><tr><th scope="col">动作</th><th scope="col"><var>G</var></th><th scope="col"><var>P</var></th><th scope="col"><var>E</var></th><th scope="col">总成本</th></tr></thead>
-    <tbody><tr><th scope="row">A</th><td>3</td><td>3</td><td>2</td><td>5</td></tr><tr><th scope="row">B</th><td>2</td><td>0</td><td>2</td><td>2</td></tr><tr><th scope="row">C</th><td>2</td><td>0</td><td>2</td><td>2</td></tr></tbody>
-  </table>
-  <div class="rf-budget-legend"><span><i class="rf-swatch rf-swatch-prep"></i>准备 <var>P</var></span><span><i class="rf-swatch rf-swatch-exec"></i>执行 <var>E</var></span><span>总条长 = 5 工作单位</span></div>
-  <div class="rf-budget-comparison">
-    <div class="rf-budget-row"><div class="rf-policy"><strong>只按 <var>G</var> / <var>E</var> 排序</strong><span>A = 1.5，B / C = 1</span></div><div class="rf-budget-bar" aria-label="先执行A：准备3、执行2，用满预算5"><span class="rf-segment rf-prep" style="--units:3">A 准备 3</span><span class="rf-segment rf-exec" style="--units:2">执行 2</span></div><div class="rf-budget-result"><strong>3</strong><span>声明进展</span></div></div>
-    <div class="rf-budget-row"><div class="rf-policy"><strong>按 <var>G</var> / (<var>P</var> + <var>E</var>) 排序</strong><span>B / C = 1，A = 0.6</span></div><div class="rf-budget-bar" aria-label="执行B和C：各执行2，剩余预算1"><span class="rf-segment rf-exec" style="--units:2">B 执行 2</span><span class="rf-segment rf-exec rf-exec-next" style="--units:2">C 执行 2</span><span class="rf-segment rf-unused" style="--units:1">余 1</span></div><div class="rf-budget-result"><strong>4</strong><span>声明进展</span></div></div>
+<div class="article-links"><a href="https://github.com/Yang-Jiashu/LongHorizonOS">代码 ↗</a><a href="assets/evidence.json">数据 ↗</a><a href="implementation-notes.md">实现说明 ↗</a></div></div></header>
+<article class="article-body"><p>一个长程 Agent 完成一步工作之前，往往还要读取材料、恢复上下文，或重验已经过期的结论。这些准备也消耗预算，并且因下一步选什么而不同。</p><p>LongHorizonOS 研究：在相同信息和预算下，<strong>把状态准备成本纳入动作选择</strong>，能否获得更多经验证的任务进展？本文展示实现与离线证据；真实模型收益仍待实验检验。</p><figure class="article-figure" aria-labelledby="caption-1"><div class="figure-example" role="group" aria-label="准备成本改变执行顺序。预算为五个工作单位。仅按执行成本排序先做 A，准备三、执行二，声明进展为三；准备感知排序先做 B 和 C，各执行二，剩余一，声明进展为四。这是构造示例，非实测奖励，不保证长期最优。">
+    <div class="ex-header">
+      <strong class="ex-title">准备成本改变执行顺序</strong>
+      <span class="ex-budget">同一预算 <b>5</b></span>
+    </div>
+    <div class="ex-legend" aria-hidden="true">
+      <span><i class="ex-key ex-key-prep"></i>准备</span>
+      <span><i class="ex-key ex-key-exec"></i>执行</span>
+      <span class="ex-unit">单位：工作量</span>
+    </div>
+
+    <div class="ex-chart">
+      <div class="ex-axis" aria-hidden="true"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>
+
+      <div class="ex-label ex-label-baseline"><strong>执行排序</strong><span>G / E</span></div>
+      <div class="ex-track ex-track-baseline" aria-label="执行排序：A 准备三，执行二，用尽预算。">
+        <span class="ex-segment ex-prep ex-three">A 准备 3</span>
+        <span class="ex-segment ex-exec ex-two">A 执行 2</span>
+      </div>
+      <div class="ex-score ex-score-baseline"><span>声明进展</span><strong>3</strong></div>
+
+      <div class="ex-label ex-label-joint"><strong>准备感知</strong><span>G / (P + E)</span></div>
+      <div class="ex-track ex-track-joint" aria-label="准备感知排序：B 执行二，C 执行二，剩余预算一。">
+        <span class="ex-segment ex-exec ex-two">B 执行 2</span>
+        <span class="ex-segment ex-exec ex-two">C 执行 2</span>
+        <span class="ex-segment ex-idle ex-one">余 1</span>
+      </div>
+      <div class="ex-score ex-score-joint"><span>声明进展</span><strong>4</strong></div>
+    </div>
+
+    <div class="ex-footer">
+      <p class="ex-caveat">构造示例，非实测奖励，不保证长期最优。</p>
+      <details class="ex-details">
+        <summary>数值条件</summary>
+        <div class="ex-conditions">
+          <p>三个独立动作；G 为声明进展，P 为准备成本，E 为执行成本。两种排序都以 P + E 检查预算。</p>
+          <dl><div><dt>A</dt><dd>G = 3 · P = 3 · E = 2</dd></div><div><dt>B、C</dt><dd>各 G = 2 · P = 0 · E = 2</dd></div></dl>
+          <p>执行排序：A 的 G / E = 1.5，高于 B、C 的 1。准备感知：B、C 的 G / (P + E) = 1，高于 A 的 0.6。</p>
+        </div>
+      </details>
+    </div>
+  </div><figcaption id="caption-1">图 1｜构造示例，所有数字均为声明单位。相同预算、相同可行性检查，仅排序不同。它说明一种错选可能，不是真实 reward 结果；该启发式也有更差的反例，见复现材料。</figcaption></figure><h2 id="preparation"><span class="section-number" aria-hidden="true">01</span>准备成本会改变执行次序</h2><p>考虑三个独立动作。A 的声明进展较高，但需要额外准备；B、C 的材料已可用。即使两种策略都检查总预算，忽略准备成本的排序也可能先耗尽预算。</p><p>我们比较执行成本排序 <code>G/E</code> 与准备感知排序 <code>G/(P+E)</code>。G 是声明进展，P、E 是同单位的准备与执行估计。上下文容量、完整请求大小和资源准入仍分别检查。这个规则只看当前一步，不保证长程全局最优。</p><h2 id="boundary"><span class="section-number" aria-hidden="true">02</span>一次决策实际控制什么</h2><p>输入是当前版本、活跃需求和可用材料；输出同时绑定<strong>执行哪个动作、交付哪些材料、预留多少预算</strong>。Graph 维护显式依赖，持久状态保留来源，context 承载本轮输入。</p><figure class="article-figure" aria-labelledby="caption-2"><div class="figure-architecture" role="img" aria-label="LongHorizonOS 控制平面。版本绑定的来源、材料与显式依赖进入状态图；联合计划选择动作、上下文与预算，OS 检查准入、预留资源并取得 Claim 和 Lease，再派发原生 DSH phase。DSH 内部模型与工具调用不透明。独立测试和版本检查通过后 commit，回写状态图并进入下一轮。">
+    <div class="vx-map">
+      <svg class="vx-wires vx-desktop-wires" viewBox="0 0 840 296" preserveAspectRatio="none" aria-hidden="true">
+        <defs><marker id="vx-arrow-d" viewBox="0 0 6 6" refX="5" refY="3" markerWidth="6" markerHeight="6" orient="auto"><path d="M1 1 5 3 1 5"/></marker></defs>
+        <path class="vx-wire" d="M92 105 V159" marker-end="url(#vx-arrow-d)"/>
+        <path class="vx-wire" d="M254 192 H290" marker-end="url(#vx-arrow-d)"/>
+        <path class="vx-wire" d="M498 191 H551 V91 H584" marker-end="url(#vx-arrow-d)"/>
+        <path class="vx-wire" d="M711 119 V159" marker-end="url(#vx-arrow-d)"/>
+        <path class="vx-return-wire" d="M713 230 V269 H23 V91 H37" marker-end="url(#vx-arrow-d)"/>
+      </svg>
+      <svg class="vx-wires vx-mobile-wires" viewBox="0 0 360 408" preserveAspectRatio="none" aria-hidden="true">
+        <defs><marker id="vx-arrow-m" viewBox="0 0 6 6" refX="5" refY="3" markerWidth="6" markerHeight="6" orient="auto"><path d="M1 1 5 3 1 5"/></marker></defs>
+        <path class="vx-wire" d="M83 104 V161" marker-end="url(#vx-arrow-m)"/>
+        <path class="vx-wire" d="M153 188 H192" marker-end="url(#vx-arrow-m)"/>
+        <path class="vx-wire" d="M273 221 V248" marker-end="url(#vx-arrow-m)"/>
+        <path class="vx-wire" d="M201 293 H168" marker-end="url(#vx-arrow-m)"/>
+        <path class="vx-return-wire" d="M88 325 V365 H10 V89 H28" marker-end="url(#vx-arrow-m)"/>
+      </svg>
+
+      <div class="vx-state">
+        <div class="vx-heading">版本绑定的状态图</div>
+        <div class="vx-graph">
+          <svg viewBox="0 0 400 76" preserveAspectRatio="none" aria-hidden="true"><path d="M78 43 159 21 M236 21 309 43 M78 43 H309"/><circle cx="78" cy="43" r="3"/><circle cx="159" cy="21" r="3"/><circle cx="236" cy="21" r="3"/><circle cx="309" cy="43" r="3"/></svg>
+          <span class="vx-node vx-source">来源 <b>v2</b></span>
+          <span class="vx-node vx-material">材料 <b>@v2</b></span>
+          <span class="vx-node vx-action">动作</span>
+          <span class="vx-edge-label">显式依赖</span>
+        </div>
+      </div>
+
+      <div class="vx-native">
+        <div class="vx-heading">原生 DSH phase</div>
+        <div class="vx-native-inside"><span>model</span><i aria-hidden="true">···</i><span>tool</span><i aria-hidden="true">···</i></div>
+        <span class="vx-small vx-opaque">内部调用不透明</span>
+      </div>
+
+      <div class="vx-plane-label">OS 控制平面</div>
+      <div class="vx-control-rule" aria-hidden="true"></div>
+      <div class="vx-plan">
+        <div class="vx-heading">联合计划</div>
+        <div class="vx-small vx-plan-components"><span>动作</span><b>+</b><span class="vx-context">上下文</span><b>+</b><span>预算</span></div>
+      </div>
+      <div class="vx-admission">
+        <div class="vx-heading">准入 · 资源预留</div>
+        <div class="vx-small">Claim / Lease</div>
+      </div>
+      <div class="vx-commit">
+        <div class="vx-heading">独立验收 <span class="vx-commit-arrow">→</span> commit</div>
+        <div class="vx-small">测试 + 版本检查</div>
+      </div>
+      <div class="vx-return-label"><span>提交后更新图</span><i aria-hidden="true">·</i><span>下一轮决策</span></div>
+    </div>
+  </div><figcaption id="caption-2">图 2｜候选实现的实际路径。控制边界是一个 native DSH phase，内部可以包含多次模型与工具调用；不是逐次接管内部工具。</figcaption></figure><p>OS 的职责落在版本生命周期、资源准入、执行所有权与结果提交上。结果经过独立测试和版本检查后才推进状态；中断保留成本与未决请求。语义依赖由应用合同声明，内部 shell 读写仍有明确标记的不可见范围。</p><h2 id="trace"><span class="section-number" aria-hidden="true">03</span>从日志检查干预是否生效</h2><p>下图来自相同初始材料的真实离线控制运行：使用合成候选与测试结果，不调用模型。两种排序选择了不同的首步；v1 完成后，合同切换到 v2，三条受影响任务重新执行，audit 保留。</p><figure class="article-figure" aria-labelledby="caption-3"><div class="figure-trace" aria-label="从同一初始输入出发，两种排序在v1交换前两步，在v2执行相同后续；累计外部请求包大小几乎一致。">
+  <div class="tr-eyebrow"><span>离线执行轨迹</span><span>同一初始输入 · v1 → v2</span></div>
+  <div class="tr-mount"><p class="tr-loading">正在读取记录…</p></div>
+  <noscript><p class="tr-loading">轨迹需要 JavaScript；数据与完整账本可在文末下载。</p></noscript>
+</div><figcaption id="caption-3">图 3｜两条路径并排比较，完整阶段记录可展开。请求大小是外部调用参数的 UTF-8 字节，不是 token。18/18 离线试次完成，真实效果对数为 0。</figcaption></figure><p>两臂七步累计请求分别为 31,092 与 31,093 字节，基本相同。首步选择变了，累计请求并未节省；这条记录支持控制路径已运行，尚不能证明更长程的上下文复用收益。</p><h2 id="solver"><span class="section-number" aria-hidden="true">04</span>图结构减少规划中的重复工作</h2><p>材料覆盖求解器先拆分独立的“需求—表示”子图，各自求解后合并 Pareto 前沿。共享表示会连接子图；不能拆分的实例仍保留原来的最坏情况。</p><figure class="article-figure" aria-labelledby="caption-4"><div class="figure-scaling cx-scaling" data-cx-scaling aria-label="图分解与整体求解的 DP 转移次数微基准">
+  <div class="cx-scaling-header">
+    <span class="cx-scaling-unit">DP 转移次数 <span>· 对数坐标</span></span>
+    <div class="cx-scaling-legend" aria-label="图例">
+      <span><i class="cx-legend-line cx-legend-factor" aria-hidden="true"></i>图分解</span>
+      <span><i class="cx-legend-line cx-legend-whole" aria-hidden="true"></i>整体求解</span>
+      <span><i class="cx-legend-cap" aria-hidden="true"></i>未完成</span>
+    </div>
   </div>
-  <p class="rf-note">这里只说明排序可能改变；<var>G</var> 是预先声明的数值，不是模型实测收益。</p>
-</div><figcaption id="caption-1">图 1｜构造示例，所有数字均为声明单位。相同预算、相同可行性检查，仅排序不同。它说明一种错选可能，不是真实 reward 结果；该启发式也有更差的反例，见复现材料。</figcaption></figure><p>我们比较执行成本排序 <code>G/E</code> 与准备感知排序 <code>G/(P+E)</code>。G 是声明进展，P、E 是同单位的准备与执行估计。上下文容量、完整请求大小和资源准入仍分别检查。这个规则只看当前一步，不保证长程全局最优。</p><h2 id="boundary">一次决策实际控制什么</h2><p>输入是当前版本、活跃需求和可用材料；输出同时绑定<strong>执行哪个动作、交付哪些材料、预留多少预算</strong>。Graph 维护显式依赖，持久状态保留来源，context 承载本轮输入。</p><figure class="article-figure" aria-labelledby="caption-2"><div class="rf rf-boundary" aria-label="真实接口：外部SDK控制器读取当前版本和显式需求，planner选择action与cover并计费，派发一个原生DSH phase，独立测试和SDK commit后，控制器发布新source快照并更新依赖状态。">
-  <div class="rf-topline"><span class="rf-tag">实际接口</span><span>调度发生在 phase 边界</span></div>
-  <div class="rf-interface-input"><strong>当前输入</strong><span>source 版本 <var>v</var> · 活跃动作的 guard · 所选动作的 read 需求</span></div>
-  <div class="rf-interface-flow">
-    <div class="rf-interface-step rf-controller-step"><span class="rf-step-number">01</span><strong>Planner</strong><span>选择一个动作与当前有效的覆盖</span><code><span>action_id</span><span>cover.selected_ids</span><span>P + E / context cost</span></code></div>
-    <div class="rf-phase-port"><span class="rf-port-label">准入<br>派发</span><i aria-hidden="true">→</i></div>
-    <div class="rf-interface-step rf-native-step"><span class="rf-step-number">02</span><strong>Native DSH phase</strong><span>接收显式输入，修改 workspace</span><div class="rf-native-detail">内部 model / tool steps<br>由 DSH 执行</div></div>
-    <div class="rf-phase-port"><span class="rf-port-label">返回<br>验收</span><i aria-hidden="true">→</i></div>
-    <div class="rf-interface-step rf-controller-step"><span class="rf-step-number">03</span><strong>独立测试 + SDK commit</strong><span>检查动作结果与受保护输入</span><div class="rf-commit-detail">测试通过后，接受结果</div></div>
+  <div class="cx-scaling-content" data-cx-scaling-content aria-live="polite">
+    <p class="cx-scaling-unavailable">数据载入中…</p>
   </div>
-  <div class="rf-feedback"><span class="rf-feedback-arrow" aria-hidden="true">↶</span><span><strong>进入下一轮：</strong>commit 后由控制器发布新 source 快照，更新版本与依赖状态，再重新规划。</span></div>
-  <p class="rf-note">派发前检查预算、预留资源并取得 Claim / Lease；结果由独立测试与版本检查约束。边界实现：<code>joint_dispatch.py</code> → <code>native_dsh_phase.py</code>。</p>
-</div><figcaption id="caption-2">图 2｜候选实现的实际路径。控制边界是一个 native DSH phase，内部可以包含多次模型与工具调用；不是逐次接管内部工具。</figcaption></figure><p>OS 的职责落在版本生命周期、资源准入、执行所有权与结果提交上。结果经过独立测试和版本检查后才推进状态；中断保留成本与未决请求。语义依赖由应用合同声明，内部 shell 读写仍有明确标记的不可见范围。</p><h2 id="trace">从日志检查干预是否生效</h2><p>下图来自相同初始材料的真实离线控制运行：使用合成候选与测试结果，不调用模型。两种排序选择了不同的首步；v1 完成后，合同切换到 v2，三条受影响任务重新执行，audit 保留。</p><figure class="article-figure" aria-labelledby="caption-3"><div class="rf rf-trace" data-evidence-view="trace">
-  <div class="rf-topline"><span class="rf-tag">离线执行记录</span><span data-trace-meta>读取离线记录…</span></div>
-  <div class="rf-trace-heading"><strong>同一 fixture，排序改变了第一个动作</strong><span>两臂共享版本、覆盖、可行性检查与验证；切换查看执行顺序。</span></div>
-  <div class="rf-arm-switch" role="group" aria-label="选择离线轨迹" data-arm-switch></div>
-  <div class="rf-trace-content" data-trace-content aria-live="polite"><p class="rf-unavailable">not available · 离线记录尚未载入</p></div>
-  <p class="rf-note">大小是序列化外部调用参数的 UTF-8 字节，不是 HTTP wire 或模型 token。这条轨迹记录排序干预与版本切换，不提供在线模型收益的证据。</p>
-  <div class="rf-provenance">数据：<code>evidence.json / offline_trace</code> · <span data-trace-provenance>not available</span></div>
-  <noscript><p class="rf-unavailable">not available · 需要 JavaScript 读取 evidence.json；原始证据可从文末下载。</p></noscript>
-</div><figcaption id="caption-3">图 3｜可切换查看两臂。数字来自已保存的计划与账本；请求大小是 UTF-8 字节，不是 token。18/18 离线试次完成，真实效果对数为 0。</figcaption></figure><p>两臂七步累计请求分别为 31,092 与 31,093 字节，基本相同。首步选择变了，累计请求并未节省；这条记录支持控制路径已运行，尚不能证明更长程的上下文复用收益。</p><h2 id="solver">图结构减少规划中的重复工作</h2><p>材料覆盖求解器先拆分独立的“需求—表示”子图，各自求解后合并 Pareto 前沿。共享表示会连接子图；不能拆分的实例仍保留原来的最坏情况。</p><figure class="article-figure" aria-labelledby="caption-4"><div class="rf rf-scaling" data-evidence-view="scaling">
-  <div class="rf-topline"><span class="rf-tag">零 API 微基准</span><span data-scaling-meta>读取 Pareto DP 记录…</span></div>
-  <div class="rf-scaling-heading"><strong>同一求解器，分解前后需要多少 DP 转移？</strong><span>计数来自 labels_explored 字段；不是去重状态数。两侧使用相同上限。</span></div>
-  <div data-scaling-content><p class="rf-unavailable">not available · 微基准记录尚未载入</p></div>
-  <p class="rf-note">条长按 DP 转移次数线性绘制。capped 表示达到复杂度上限，不能证明不可行，也不能据此计算时间加速。</p>
-  <div class="rf-provenance">数据：<code>evidence.json / planner_scaling</code> · <span data-scaling-provenance>not available</span></div>
-  <noscript><p class="rf-unavailable">not available · 需要 JavaScript 读取 evidence.json；原始证据可从文末下载。</p></noscript>
-</div><figcaption id="caption-4">图 4｜相同输入、相同求解器、相同 20,000 次转移上限。可解实例核对覆盖与成本一致；触及上限表示未解，不能当作加速倍数。包含连通实例作为边界对照。</figcaption></figure><p>8 个独立需求下，转移计数从 1,280 降到 31；连通的 8 需求实例两者都是 1,281。分解是经典算法手段，这里报告工程效果，不将它包装成原创算法或模型收益。</p><h2 id="experiments">真实实验需要回答什么</h2><p>已准备的 coding pilot 使用两种排序、300/900/1800 秒预算，各重复三次，共 18 个试次。两臂共享版本、材料覆盖、可行性检查和独立测试，只改变准备成本是否参与排序。</p><p>需要判断的是：把控制、准备、重验、失败和所有调用计入之后，reward、耗时与完整 token 的权衡是否改善。P 目前是声明代理量，尚未校准为真实时间或 token；该对照也不能代表所有 checkpoint 或检索系统。</p><p>AI4AI 的持续代码与实验迭代，是这种运行时的一个应用场景。跨工作流收益、前瞻调度和自动识别全部语义依赖，都需要额外证据。</p><p class="source-links"><a href="implementation-notes.md">实现与实验口径</a> · <a href="assets/evidence.json">数据与来源</a> · <a href="assets/planner-scaling.csv">微基准 CSV</a> · <a href="assets/verify_example.py">核算示例复现</a></p><p class="references">写作与问题组织参考：<a href="https://xingjianbai.com/reactive-optimizers/">Reactive Optimizers</a> 与 <a href="https://ydove0324.github.io/hx_resume/blog/researchboost/">ResearchBoost</a>。项目：<a href="https://github.com/Yang-Jiashu/LongHorizonOS">LongHorizonOS</a>。</p></article></main>
+  <p class="cx-scaling-source">来源：合成声明实例的真实求解记录；两侧上限均为 20,000 次，空心三角表示触顶未完成。</p>
+  <noscript><p class="cx-scaling-unavailable">数据不可用：需要 JavaScript 读取微基准记录。</p></noscript>
+</div><figcaption id="caption-4">图 4｜相同输入、相同求解器、相同 20,000 次转移上限。可解实例核对覆盖与成本一致；触及上限表示未解，不能当作加速倍数。包含连通实例作为边界对照。</figcaption></figure><p>8 个独立需求下，转移计数从 1,280 降到 31；连通的 8 需求实例两者都是 1,281。分解是经典算法手段，这里报告工程效果，不将它包装成原创算法或模型收益。</p><h2 id="experiments"><span class="section-number" aria-hidden="true">05</span>真实实验需要回答什么</h2><p>已准备的 coding pilot 使用两种排序、300/900/1800 秒预算，各重复三次，共 18 个试次。两臂共享版本、材料覆盖、可行性检查和独立测试，只改变准备成本是否参与排序。</p><p>需要判断的是：把控制、准备、重验、失败和所有调用计入之后，reward、耗时与完整 token 的权衡是否改善。P 目前是声明代理量，尚未校准为真实时间或 token；该对照也不能代表所有 checkpoint 或检索系统。</p><p>AI4AI 的持续代码与实验迭代，是这种运行时的一个应用场景。跨工作流收益、前瞻调度和自动识别全部语义依赖，都需要额外证据。</p><p class="source-links"><a href="implementation-notes.md">实现与实验口径</a> · <a href="assets/evidence.json">数据与来源</a> · <a href="assets/planner-scaling.csv">微基准 CSV</a> · <a href="assets/verify_example.py">核算示例复现</a></p><p class="references">写作与问题组织参考：<a href="https://xingjianbai.com/reactive-optimizers/">Reactive Optimizers</a> 与 <a href="https://ydove0324.github.io/hx_resume/blog/researchboost/">ResearchBoost</a>。项目：<a href="https://github.com/Yang-Jiashu/LongHorizonOS">LongHorizonOS</a>。</p></article></main>
 <footer class="site-footer"><span>Jiashu Yang · Research notes</span><a href="/blog/">所有文章 ←</a></footer>
-<script defer src="assets/research-figures.js?v=evidence7-20261024"></script></body></html>
+<script defer src="assets/figure-3.js?v=design8-20261024"></script><script defer src="assets/figure-4.js?v=design8-20261024"></script></body></html>
