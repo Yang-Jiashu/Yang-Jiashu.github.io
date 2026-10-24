@@ -52,6 +52,6 @@ OS 的职责落在版本生命周期、资源准入、执行所有权与结果�
 
 AI4AI 的持续代码与实验迭代，是这种运行时的一个应用场景。跨工作流收益、前瞻调度和自动识别全部语义依赖，都需要额外证据。
 
-[实现与实验口径](implementation-notes.md) · [原始证据](assets/evidence.json) · [微基准 CSV](assets/planner-scaling.csv) · [核算示例复现](assets/verify_example.py)
+[实现与实验口径](implementation-notes.md) · [数据与来源](assets/evidence.json) · [微基准 CSV](assets/planner-scaling.csv) · [核算示例复现](assets/verify_example.py)
 
 写作与问题组织参考：[Reactive Optimizers](https://xingjianbai.com/reactive-optimizers/) 与 [ResearchBoost](https://ydove0324.github.io/hx_resume/blog/researchboost/)。项目：[LongHorizonOS](https://github.com/Yang-Jiashu/LongHorizonOS)。

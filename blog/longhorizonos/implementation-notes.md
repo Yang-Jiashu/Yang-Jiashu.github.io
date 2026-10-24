@@ -61,7 +61,7 @@ PYTHONPATH=src:. python3 /path/to/verify_example.py --output /tmp/lhos-declared-
 
 离线轨迹中的 v1 次序分别为 `core→audit→api→integration` 与 `audit→core→api→integration`。v2 只重做 `core→api→integration`，audit 保留；变化发生在全部 v1 完成之后。因此这条轨迹主要证明首步排序与局部失效接线，不能证明前瞻调度或长期复用带来的收益。
 
-微基准的 `labels_explored` 是实际执行的 DP 转移计数，非不同状态数。分解与不分解使用相同 20,000 上限；触及上限记为未解。连通图仍可能出现指数开销，8需求实例两者均1,281次，12需求实例两者均触上限。该分解是经典图结构优化。
+微基准的 `labels_explored` 是实际执行的 DP 转移计数，非不同状态数。分解与不分解使用相同 20,000 上限；触及上限记为未解。连通图仍可能出现指数开销，8需求实例两者均1,281次，12需求实例两者均触上限。该分解是经典图结构优化。下载 CSV 仅将 CRLF 换行规范化为 LF，所有数值保持不变；数据 JSON 的 sources 记录原始文件 SHA-256。
 
 ## 付费 pilot 的固定对照
 
