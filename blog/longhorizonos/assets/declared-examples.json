@@ -1,0 +1,104 @@
+{
+  "schema": "lhos.blog-declared-examples.v1",
+  "provider_calls": 0,
+  "measurement_kind": "constructed_declared_units_not_agent_reward",
+  "planner_sha256": "e69203bb8b06d5f8ba7cbe663a9bc3a4d23005d84629a6b3d406365165808153",
+  "cases": {
+    "preparation_changes_choice": {
+      "budget": 5,
+      "actions": {
+        "A": {
+          "G": 3,
+          "P": 3,
+          "E": 2
+        },
+        "B": {
+          "G": 2,
+          "P": 0,
+          "E": 2
+        },
+        "C": {
+          "G": 2,
+          "P": 0,
+          "E": 2
+        }
+      },
+      "execution_cost_order": {
+        "sequence": [
+          {
+            "action": "A",
+            "G": 3,
+            "P": 3,
+            "E": 2,
+            "total": 5
+          }
+        ],
+        "declared_progress": 3,
+        "work_consumed": 5
+      },
+      "preparation_aware_order": {
+        "sequence": [
+          {
+            "action": "B",
+            "G": 2,
+            "P": 0,
+            "E": 2,
+            "total": 2
+          },
+          {
+            "action": "C",
+            "G": 2,
+            "P": 0,
+            "E": 2,
+            "total": 2
+          }
+        ],
+        "declared_progress": 4,
+        "work_consumed": 4
+      },
+      "exhaustive_optimum": 4
+    },
+    "one_step_heuristic_can_lose": {
+      "budget": 6,
+      "actions": {
+        "A": {
+          "G": 10,
+          "P": 5,
+          "E": 1
+        },
+        "B": {
+          "G": 7,
+          "P": 2,
+          "E": 2
+        }
+      },
+      "execution_cost_order": {
+        "sequence": [
+          {
+            "action": "A",
+            "G": 10,
+            "P": 5,
+            "E": 1,
+            "total": 6
+          }
+        ],
+        "declared_progress": 10,
+        "work_consumed": 6
+      },
+      "preparation_aware_order": {
+        "sequence": [
+          {
+            "action": "B",
+            "G": 7,
+            "P": 2,
+            "E": 2,
+            "total": 4
+          }
+        ],
+        "declared_progress": 7,
+        "work_consumed": 4
+      },
+      "exhaustive_optimum": 10
+    }
+  }
+}

@@ -1,0 +1,2309 @@
+{
+  "schema": "lhos.blog-evidence.v1",
+  "extracted_on": "2026-10-24",
+  "scope": "Existing finite-contract controller traces and synthetic solver microbenchmark. No new runtime execution or provider calls.",
+  "offline_trace": {
+    "task": "dynamic_pricing",
+    "budget_seconds": 10,
+    "seed": 17,
+    "measurement_kind": "offline_fixture",
+    "measurement_valid": false,
+    "provider_calls": 0,
+    "units": {
+      "request_bytes": "Measured serialized model-adapter call JSON in UTF-8 bytes; not tokens or paid API cost.",
+      "context_bytes": "UTF-8 bytes of the selected context representation text, including separators.",
+      "declared_work_units": "Declared preparation work plus fixed execution estimate; not elapsed time, tokens or money."
+    },
+    "initial_basis": {
+      "same_initial_input_artifacts": true,
+      "artifacts": [
+        {
+          "artifact": "actions/audit.json",
+          "version": 1,
+          "sha256": "641f5da224368fcd67d8c0339baa61f8750f1a9b59cbde96b36d6d896b846f63"
+        },
+        {
+          "artifact": "actions/integration.json",
+          "version": 1,
+          "sha256": "8045ab7548e5f396858b34cdde88c0b0ed65dd5f374ef16e9e228a5a34365567"
+        },
+        {
+          "artifact": "actions/pricing_api.json",
+          "version": 1,
+          "sha256": "3f594048792c7e45afc0140c5cb54cfee720b3016f3129c74db89c17c87cc54b"
+        },
+        {
+          "artifact": "actions/pricing_core.json",
+          "version": 1,
+          "sha256": "b7b6ce3919b56b5a64dc724f79908f577f8db9e44846b2660e8afbc22e4b020f"
+        },
+        {
+          "artifact": "control.json",
+          "version": 1,
+          "sha256": "61be2f9f289c16bb6186600ef3eb5751c817d213ad12a8aad1007dd0db2fa3aa"
+        }
+      ],
+      "same_candidate_costs": true,
+      "same_declared_budgets": true,
+      "budgets": {
+        "action_order": [
+          "pricing_core",
+          "audit",
+          "pricing_api",
+          "integration"
+        ],
+        "available_resource_units": 1,
+        "context_budget_units": 40000,
+        "remaining_work_units": 100000000,
+        "max_labels": 100000
+      },
+      "policy_input_hashes_expected_to_differ": true,
+      "reason": "Planner input identity includes selection_policy; equality is checked on all five initial input artifacts, candidate costs and declared budgets separately.",
+      "source_refs": [
+        "checkpoint_retrieval_sdk_journal",
+        "joint_sdk_journal",
+        "checkpoint_retrieval_progress",
+        "joint_progress",
+        "source_joint"
+      ]
+    },
+    "dependencies": {
+      "audit": [],
+      "integration": [
+        "pricing_api",
+        "audit"
+      ],
+      "pricing_api": [
+        "pricing_core"
+      ],
+      "pricing_core": []
+    },
+    "arms": [
+      {
+        "arm": "checkpoint_retrieval",
+        "public_label": "执行成本排序（忽略 P）",
+        "trial_id": "dynamic_pricing-10s-r1-checkpoint_retrieval-3333ce791f",
+        "selection_policy": "checkpoint_retrieval",
+        "phases": [
+          {
+            "phase": 1,
+            "version": 1,
+            "action_id": "pricing_core",
+            "status": "verified",
+            "reason": "sdk_verified",
+            "request_bytes": 4193,
+            "context_bytes": 3322,
+            "declared_work_units": 4308,
+            "preparation_cost_units": 3308,
+            "execution_cost_units": 1000,
+            "required_inputs": [
+              "action.audit.done",
+              "action.audit.ready",
+              "action.integration.done",
+              "action.integration.ready",
+              "action.pricing_api.done",
+              "action.pricing_api.ready",
+              "action.pricing_core.done",
+              "action.pricing_core.ready",
+              "inputs.protected",
+              "phase.version",
+              "task.pricing_core.current_code",
+              "task.pricing_core.dependency_code",
+              "task.pricing_core.instruction",
+              "task.pricing_core.public_tests",
+              "task.pricing_core.requirements"
+            ],
+            "selected_cover": [
+              "study-control:field:action.audit.done",
+              "study-control:field:action.audit.ready",
+              "study-control:field:action.integration.done",
+              "study-control:field:action.integration.ready",
+              "study-control:field:action.pricing_api.done",
+              "study-control:field:action.pricing_api.ready",
+              "study-control:field:action.pricing_core.done",
+              "study-control:field:action.pricing_core.ready",
+              "study-control:field:inputs.protected",
+              "study-control:field:phase.version",
+              "study-pricing_core:field:task.pricing_core.current_code",
+              "study-pricing_core:field:task.pricing_core.dependency_code",
+              "study-pricing_core:field:task.pricing_core.instruction",
+              "study-pricing_core:field:task.pricing_core.public_tests",
+              "study-pricing_core:field:task.pricing_core.requirements"
+            ],
+            "source_versions": [
+              [
+                "__lhos_field_contract__:study-control",
+                "340f9f68e1e088d615eb0f01b009a304f5178221885e6a01e313988534d4c501"
+              ],
+              [
+                "__lhos_field_contract__:study-pricing_core",
+                "b66675028128485abc569778b34a6e1983739a714f2939e9a09c128253de8ce7"
+              ],
+              [
+                "study-control",
+                "86e63313355031ee73133b809391c4e03827113ab75a1dcda9dc8bdff4f3413b"
+              ],
+              [
+                "study-pricing_core",
+                "037cf2d8239bdc8b323e43e8e1c8cd92a9b31000b3271da74ccca55a2f0a41ff"
+              ]
+            ],
+            "state_before": {
+              "done_actions": [],
+              "ready_actions": [
+                "audit",
+                "pricing_core"
+              ],
+              "protected_inputs": true
+            },
+            "resource_units": 1,
+            "available_resource_units": 1,
+            "remaining_work_units_after": 99995692,
+            "remaining_request_bytes_after": 31995807,
+            "independent_test_pass": true,
+            "fixture": true,
+            "source_refs": [
+              "checkpoint_retrieval_ledger",
+              "checkpoint_retrieval_progress"
+            ]
+          },
+          {
+            "phase": 2,
+            "version": 1,
+            "action_id": "audit",
+            "status": "verified",
+            "reason": "sdk_verified",
+            "request_bytes": 3561,
+            "context_bytes": 2742,
+            "declared_work_units": 3728,
+            "preparation_cost_units": 2728,
+            "execution_cost_units": 1000,
+            "required_inputs": [
+              "action.audit.done",
+              "action.audit.ready",
+              "action.integration.done",
+              "action.integration.ready",
+              "action.pricing_api.done",
+              "action.pricing_api.ready",
+              "action.pricing_core.done",
+              "action.pricing_core.ready",
+              "inputs.protected",
+              "phase.version",
+              "task.audit.current_code",
+              "task.audit.dependency_code",
+              "task.audit.instruction",
+              "task.audit.public_tests",
+              "task.audit.requirements"
+            ],
+            "selected_cover": [
+              "study-audit:field:task.audit.current_code",
+              "study-audit:field:task.audit.dependency_code",
+              "study-audit:field:task.audit.instruction",
+              "study-audit:field:task.audit.public_tests",
+              "study-audit:field:task.audit.requirements",
+              "study-control:field:action.audit.done",
+              "study-control:field:action.audit.ready",
+              "study-control:field:action.integration.done",
+              "study-control:field:action.integration.ready",
+              "study-control:field:action.pricing_api.done",
+              "study-control:field:action.pricing_api.ready",
+              "study-control:field:action.pricing_core.done",
+              "study-control:field:action.pricing_core.ready",
+              "study-control:field:inputs.protected",
+              "study-control:field:phase.version"
+            ],
+            "source_versions": [
+              [
+                "__lhos_field_contract__:study-audit",
+                "0749b4ff1e8e1040225146e13a93890bbad635c34ad0ab5e05c2cb90005dc682"
+              ],
+              [
+                "__lhos_field_contract__:study-control",
+                "340f9f68e1e088d615eb0f01b009a304f5178221885e6a01e313988534d4c501"
+              ],
+              [
+                "study-audit",
+                "beb43887e34a15f5de12b3d3b4057ca7c684606dc38b073a2fc9783ae2084ed7"
+              ],
+              [
+                "study-control",
+                "460bba0f598498b1fd858f9f959b531f57ebaa54a72d53efc85a6c3005f2d315"
+              ]
+            ],
+            "state_before": {
+              "done_actions": [
+                "pricing_core"
+              ],
+              "ready_actions": [
+                "audit",
+                "pricing_api"
+              ],
+              "protected_inputs": true
+            },
+            "resource_units": 1,
+            "available_resource_units": 1,
+            "remaining_work_units_after": 99991964,
+            "remaining_request_bytes_after": 31992246,
+            "independent_test_pass": true,
+            "fixture": true,
+            "source_refs": [
+              "checkpoint_retrieval_ledger",
+              "checkpoint_retrieval_progress"
+            ]
+          },
+          {
+            "phase": 3,
+            "version": 1,
+            "action_id": "pricing_api",
+            "status": "verified",
+            "reason": "sdk_verified",
+            "request_bytes": 4348,
+            "context_bytes": 3457,
+            "declared_work_units": 4443,
+            "preparation_cost_units": 3443,
+            "execution_cost_units": 1000,
+            "required_inputs": [
+              "action.audit.done",
+              "action.audit.ready",
+              "action.integration.done",
+              "action.integration.ready",
+              "action.pricing_api.done",
+              "action.pricing_api.ready",
+              "action.pricing_core.done",
+              "action.pricing_core.ready",
+              "inputs.protected",
+              "phase.version",
+              "task.pricing_api.current_code",
+              "task.pricing_api.dependency_code",
+              "task.pricing_api.instruction",
+              "task.pricing_api.public_tests",
+              "task.pricing_api.requirements"
+            ],
+            "selected_cover": [
+              "study-control:field:action.audit.done",
+              "study-control:field:action.audit.ready",
+              "study-control:field:action.integration.done",
+              "study-control:field:action.integration.ready",
+              "study-control:field:action.pricing_api.done",
+              "study-control:field:action.pricing_api.ready",
+              "study-control:field:action.pricing_core.done",
+              "study-control:field:action.pricing_core.ready",
+              "study-control:field:inputs.protected",
+              "study-control:field:phase.version",
+              "study-pricing_api:field:task.pricing_api.current_code",
+              "study-pricing_api:field:task.pricing_api.dependency_code",
+              "study-pricing_api:field:task.pricing_api.instruction",
+              "study-pricing_api:field:task.pricing_api.public_tests",
+              "study-pricing_api:field:task.pricing_api.requirements"
+            ],
+            "source_versions": [
+              [
+                "__lhos_field_contract__:study-control",
+                "340f9f68e1e088d615eb0f01b009a304f5178221885e6a01e313988534d4c501"
+              ],
+              [
+                "__lhos_field_contract__:study-pricing_api",
+                "4b0ef824aa720fcc3dcc3ebce1d74e69ba401e8db17b2d618903b4e5733524dd"
+              ],
+              [
+                "study-control",
+                "af07e90d7b5111b7b12f5427a0b633c1deaca41eabdb47d60a0caae35245934e"
+              ],
+              [
+                "study-pricing_api",
+                "ec3c04988feed932312b25e6e575ea8f0b25e8fc2fa71ecdd364a012c433ba50"
+              ]
+            ],
+            "state_before": {
+              "done_actions": [
+                "audit",
+                "pricing_core"
+              ],
+              "ready_actions": [
+                "pricing_api"
+              ],
+              "protected_inputs": true
+            },
+            "resource_units": 1,
+            "available_resource_units": 1,
+            "remaining_work_units_after": 99987521,
+            "remaining_request_bytes_after": 31987898,
+            "independent_test_pass": true,
+            "fixture": true,
+            "source_refs": [
+              "checkpoint_retrieval_ledger",
+              "checkpoint_retrieval_progress"
+            ]
+          },
+          {
+            "phase": 4,
+            "version": 1,
+            "action_id": "integration",
+            "status": "verified",
+            "reason": "sdk_verified",
+            "request_bytes": 4170,
+            "context_bytes": 3320,
+            "declared_work_units": 4306,
+            "preparation_cost_units": 3306,
+            "execution_cost_units": 1000,
+            "required_inputs": [
+              "action.audit.done",
+              "action.audit.ready",
+              "action.integration.done",
+              "action.integration.ready",
+              "action.pricing_api.done",
+              "action.pricing_api.ready",
+              "action.pricing_core.done",
+              "action.pricing_core.ready",
+              "inputs.protected",
+              "phase.version",
+              "task.integration.current_code",
+              "task.integration.dependency_code",
+              "task.integration.instruction",
+              "task.integration.public_tests",
+              "task.integration.requirements"
+            ],
+            "selected_cover": [
+              "study-control:field:action.audit.done",
+              "study-control:field:action.audit.ready",
+              "study-control:field:action.integration.done",
+              "study-control:field:action.integration.ready",
+              "study-control:field:action.pricing_api.done",
+              "study-control:field:action.pricing_api.ready",
+              "study-control:field:action.pricing_core.done",
+              "study-control:field:action.pricing_core.ready",
+              "study-control:field:inputs.protected",
+              "study-control:field:phase.version",
+              "study-integration:field:task.integration.current_code",
+              "study-integration:field:task.integration.dependency_code",
+              "study-integration:field:task.integration.instruction",
+              "study-integration:field:task.integration.public_tests",
+              "study-integration:field:task.integration.requirements"
+            ],
+            "source_versions": [
+              [
+                "__lhos_field_contract__:study-control",
+                "340f9f68e1e088d615eb0f01b009a304f5178221885e6a01e313988534d4c501"
+              ],
+              [
+                "__lhos_field_contract__:study-integration",
+                "d084aec75689b4b739829178e7eb419770f78c67abad70c9635fec8cc717982d"
+              ],
+              [
+                "study-control",
+                "858f6be066d0cafdab2d85861ee3b60372af25326866540c7f9ce9ea0b848e3a"
+              ],
+              [
+                "study-integration",
+                "d6f9c93ab863846df5f4388913682eb57954eb601f757ec18a5609a31d904f63"
+              ]
+            ],
+            "state_before": {
+              "done_actions": [
+                "audit",
+                "pricing_api",
+                "pricing_core"
+              ],
+              "ready_actions": [
+                "integration"
+              ],
+              "protected_inputs": true
+            },
+            "resource_units": 1,
+            "available_resource_units": 1,
+            "remaining_work_units_after": 99983215,
+            "remaining_request_bytes_after": 31983728,
+            "independent_test_pass": true,
+            "fixture": true,
+            "source_refs": [
+              "checkpoint_retrieval_ledger",
+              "checkpoint_retrieval_progress"
+            ]
+          },
+          {
+            "phase": 5,
+            "version": 2,
+            "action_id": "pricing_core",
+            "status": "verified",
+            "reason": "sdk_verified",
+            "request_bytes": 5263,
+            "context_bytes": 4253,
+            "declared_work_units": 5239,
+            "preparation_cost_units": 4239,
+            "execution_cost_units": 1000,
+            "required_inputs": [
+              "action.audit.done",
+              "action.audit.ready",
+              "action.integration.done",
+              "action.integration.ready",
+              "action.pricing_api.done",
+              "action.pricing_api.ready",
+              "action.pricing_core.done",
+              "action.pricing_core.ready",
+              "inputs.protected",
+              "phase.version",
+              "task.pricing_core.current_code",
+              "task.pricing_core.dependency_code",
+              "task.pricing_core.instruction",
+              "task.pricing_core.public_tests",
+              "task.pricing_core.requirements"
+            ],
+            "selected_cover": [
+              "study-control:field:action.audit.done",
+              "study-control:field:action.audit.ready",
+              "study-control:field:action.integration.done",
+              "study-control:field:action.integration.ready",
+              "study-control:field:action.pricing_api.done",
+              "study-control:field:action.pricing_api.ready",
+              "study-control:field:action.pricing_core.done",
+              "study-control:field:action.pricing_core.ready",
+              "study-control:field:inputs.protected",
+              "study-control:field:phase.version",
+              "study-pricing_core:field:task.pricing_core.current_code",
+              "study-pricing_core:field:task.pricing_core.dependency_code",
+              "study-pricing_core:field:task.pricing_core.instruction",
+              "study-pricing_core:field:task.pricing_core.public_tests",
+              "study-pricing_core:field:task.pricing_core.requirements"
+            ],
+            "source_versions": [
+              [
+                "__lhos_field_contract__:study-control",
+                "340f9f68e1e088d615eb0f01b009a304f5178221885e6a01e313988534d4c501"
+              ],
+              [
+                "__lhos_field_contract__:study-pricing_core",
+                "b66675028128485abc569778b34a6e1983739a714f2939e9a09c128253de8ce7"
+              ],
+              [
+                "study-control",
+                "e5d2ed57eb275cc330fe374f091f3e5a83c7fb7ee3f850bb8635e2b0f66ba521"
+              ],
+              [
+                "study-pricing_core",
+                "d6010ad108494c14f9f3c296e0d2261c28beb1a839a5a9fde2ee9ef15d958533"
+              ]
+            ],
+            "state_before": {
+              "done_actions": [
+                "audit"
+              ],
+              "ready_actions": [
+                "pricing_core"
+              ],
+              "protected_inputs": true
+            },
+            "resource_units": 1,
+            "available_resource_units": 1,
+            "remaining_work_units_after": 99977976,
+            "remaining_request_bytes_after": 31978465,
+            "independent_test_pass": true,
+            "fixture": true,
+            "source_refs": [
+              "checkpoint_retrieval_ledger",
+              "checkpoint_retrieval_progress"
+            ]
+          },
+          {
+            "phase": 6,
+            "version": 2,
+            "action_id": "pricing_api",
+            "status": "verified",
+            "reason": "sdk_verified",
+            "request_bytes": 5049,
+            "context_bytes": 4040,
+            "declared_work_units": 5026,
+            "preparation_cost_units": 4026,
+            "execution_cost_units": 1000,
+            "required_inputs": [
+              "action.audit.done",
+              "action.audit.ready",
+              "action.integration.done",
+              "action.integration.ready",
+              "action.pricing_api.done",
+              "action.pricing_api.ready",
+              "action.pricing_core.done",
+              "action.pricing_core.ready",
+              "inputs.protected",
+              "phase.version",
+              "task.pricing_api.current_code",
+              "task.pricing_api.dependency_code",
+              "task.pricing_api.instruction",
+              "task.pricing_api.public_tests",
+              "task.pricing_api.requirements"
+            ],
+            "selected_cover": [
+              "study-control:field:action.audit.done",
+              "study-control:field:action.audit.ready",
+              "study-control:field:action.integration.done",
+              "study-control:field:action.integration.ready",
+              "study-control:field:action.pricing_api.done",
+              "study-control:field:action.pricing_api.ready",
+              "study-control:field:action.pricing_core.done",
+              "study-control:field:action.pricing_core.ready",
+              "study-control:field:inputs.protected",
+              "study-control:field:phase.version",
+              "study-pricing_api:field:task.pricing_api.current_code",
+              "study-pricing_api:field:task.pricing_api.dependency_code",
+              "study-pricing_api:field:task.pricing_api.instruction",
+              "study-pricing_api:field:task.pricing_api.public_tests",
+              "study-pricing_api:field:task.pricing_api.requirements"
+            ],
+            "source_versions": [
+              [
+                "__lhos_field_contract__:study-control",
+                "340f9f68e1e088d615eb0f01b009a304f5178221885e6a01e313988534d4c501"
+              ],
+              [
+                "__lhos_field_contract__:study-pricing_api",
+                "4b0ef824aa720fcc3dcc3ebce1d74e69ba401e8db17b2d618903b4e5733524dd"
+              ],
+              [
+                "study-control",
+                "f2cbf5dd52577e35dff64ce9ac1b2ef37f0507c73ff76e2be404dd1254bc8794"
+              ],
+              [
+                "study-pricing_api",
+                "e6092260725524fc88defba01555fc49c0b2d3c453cb8e80abeacdb3deb04fc6"
+              ]
+            ],
+            "state_before": {
+              "done_actions": [
+                "audit",
+                "pricing_core"
+              ],
+              "ready_actions": [
+                "pricing_api"
+              ],
+              "protected_inputs": true
+            },
+            "resource_units": 1,
+            "available_resource_units": 1,
+            "remaining_work_units_after": 99972950,
+            "remaining_request_bytes_after": 31973416,
+            "independent_test_pass": true,
+            "fixture": true,
+            "source_refs": [
+              "checkpoint_retrieval_ledger",
+              "checkpoint_retrieval_progress"
+            ]
+          },
+          {
+            "phase": 7,
+            "version": 2,
+            "action_id": "integration",
+            "status": "verified",
+            "reason": "sdk_verified",
+            "request_bytes": 4508,
+            "context_bytes": 3599,
+            "declared_work_units": 4585,
+            "preparation_cost_units": 3585,
+            "execution_cost_units": 1000,
+            "required_inputs": [
+              "action.audit.done",
+              "action.audit.ready",
+              "action.integration.done",
+              "action.integration.ready",
+              "action.pricing_api.done",
+              "action.pricing_api.ready",
+              "action.pricing_core.done",
+              "action.pricing_core.ready",
+              "inputs.protected",
+              "phase.version",
+              "task.integration.current_code",
+              "task.integration.dependency_code",
+              "task.integration.instruction",
+              "task.integration.public_tests",
+              "task.integration.requirements"
+            ],
+            "selected_cover": [
+              "study-control:field:action.audit.done",
+              "study-control:field:action.audit.ready",
+              "study-control:field:action.integration.done",
+              "study-control:field:action.integration.ready",
+              "study-control:field:action.pricing_api.done",
+              "study-control:field:action.pricing_api.ready",
+              "study-control:field:action.pricing_core.done",
+              "study-control:field:action.pricing_core.ready",
+              "study-control:field:inputs.protected",
+              "study-control:field:phase.version",
+              "study-integration:field:task.integration.current_code",
+              "study-integration:field:task.integration.dependency_code",
+              "study-integration:field:task.integration.instruction",
+              "study-integration:field:task.integration.public_tests",
+              "study-integration:field:task.integration.requirements"
+            ],
+            "source_versions": [
+              [
+                "__lhos_field_contract__:study-control",
+                "340f9f68e1e088d615eb0f01b009a304f5178221885e6a01e313988534d4c501"
+              ],
+              [
+                "__lhos_field_contract__:study-integration",
+                "d084aec75689b4b739829178e7eb419770f78c67abad70c9635fec8cc717982d"
+              ],
+              [
+                "study-control",
+                "ab354787c59cb15401c4ceab823d1e743d09c92d2572cc859a48d51164578952"
+              ],
+              [
+                "study-integration",
+                "ac51248caf4c44cbc3fae99715f25549d336e923c6b5f116958e37525c68296f"
+              ]
+            ],
+            "state_before": {
+              "done_actions": [
+                "audit",
+                "pricing_api",
+                "pricing_core"
+              ],
+              "ready_actions": [
+                "integration"
+              ],
+              "protected_inputs": true
+            },
+            "resource_units": 1,
+            "available_resource_units": 1,
+            "remaining_work_units_after": 99968365,
+            "remaining_request_bytes_after": 31968908,
+            "independent_test_pass": true,
+            "fixture": true,
+            "source_refs": [
+              "checkpoint_retrieval_ledger",
+              "checkpoint_retrieval_progress"
+            ]
+          }
+        ],
+        "contract_change": {
+          "after_phase": 4,
+          "from_version": 1,
+          "to_version": 2,
+          "changed_files": [
+            "requirements/pricing_contract.json",
+            "tests_public/test_api.py",
+            "tests_public/test_core.py",
+            "tests_public/test_integration.py"
+          ],
+          "audit_contract_unchanged": true,
+          "source_ref": "checkpoint_retrieval_progress"
+        },
+        "final": {
+          "status": "completed",
+          "latest_version": 2,
+          "verified_phase_count": 7,
+          "v1_verified_milestones": [
+            "audit",
+            "integration",
+            "pricing_api",
+            "pricing_core"
+          ],
+          "v2_done_count": 4,
+          "declared_work_units": 31635,
+          "request_bytes": 31092,
+          "independent_test_pass": true,
+          "public_test_pass": true,
+          "hidden_test_pass": true,
+          "done_actions": [
+            "audit",
+            "integration",
+            "pricing_api",
+            "pricing_core"
+          ],
+          "protected_inputs_unchanged": true,
+          "resources_released": true,
+          "leases_released": true,
+          "pending_requests": 0,
+          "measurement_valid": false,
+          "fixture_reward": {
+            "value": 1.0,
+            "measurement_valid": false,
+            "interpretation": "Fixture bookkeeping only; never plot as model efficacy."
+          },
+          "source_refs": [
+            "checkpoint_retrieval_result",
+            "checkpoint_retrieval_verifier",
+            "checkpoint_retrieval_final_control",
+            "checkpoint_retrieval_ledger"
+          ]
+        },
+        "first_step_candidates": [
+          {
+            "action_id": "audit",
+            "allowed": true,
+            "declared_progress_units": 1,
+            "execution_cost_units": 1000,
+            "preparation_cost_units": 2729,
+            "context_bytes": 2743,
+            "declared_work_units": 3729,
+            "resource_units": 1,
+            "reason": "eligible_not_selected"
+          },
+          {
+            "action_id": "pricing_core",
+            "allowed": true,
+            "declared_progress_units": 1,
+            "execution_cost_units": 1000,
+            "preparation_cost_units": 3308,
+            "context_bytes": 3322,
+            "declared_work_units": 4308,
+            "resource_units": 1,
+            "reason": "selected"
+          }
+        ]
+      },
+      {
+        "arm": "joint",
+        "public_label": "准备感知排序（joint）",
+        "trial_id": "dynamic_pricing-10s-r1-joint-d284510797",
+        "selection_policy": "joint",
+        "phases": [
+          {
+            "phase": 1,
+            "version": 1,
+            "action_id": "audit",
+            "status": "verified",
+            "reason": "sdk_verified",
+            "request_bytes": 3562,
+            "context_bytes": 2743,
+            "declared_work_units": 3729,
+            "preparation_cost_units": 2729,
+            "execution_cost_units": 1000,
+            "required_inputs": [
+              "action.audit.done",
+              "action.audit.ready",
+              "action.integration.done",
+              "action.integration.ready",
+              "action.pricing_api.done",
+              "action.pricing_api.ready",
+              "action.pricing_core.done",
+              "action.pricing_core.ready",
+              "inputs.protected",
+              "phase.version",
+              "task.audit.current_code",
+              "task.audit.dependency_code",
+              "task.audit.instruction",
+              "task.audit.public_tests",
+              "task.audit.requirements"
+            ],
+            "selected_cover": [
+              "study-audit:field:task.audit.current_code",
+              "study-audit:field:task.audit.dependency_code",
+              "study-audit:field:task.audit.instruction",
+              "study-audit:field:task.audit.public_tests",
+              "study-audit:field:task.audit.requirements",
+              "study-control:field:action.audit.done",
+              "study-control:field:action.audit.ready",
+              "study-control:field:action.integration.done",
+              "study-control:field:action.integration.ready",
+              "study-control:field:action.pricing_api.done",
+              "study-control:field:action.pricing_api.ready",
+              "study-control:field:action.pricing_core.done",
+              "study-control:field:action.pricing_core.ready",
+              "study-control:field:inputs.protected",
+              "study-control:field:phase.version"
+            ],
+            "source_versions": [
+              [
+                "__lhos_field_contract__:study-audit",
+                "0749b4ff1e8e1040225146e13a93890bbad635c34ad0ab5e05c2cb90005dc682"
+              ],
+              [
+                "__lhos_field_contract__:study-control",
+                "340f9f68e1e088d615eb0f01b009a304f5178221885e6a01e313988534d4c501"
+              ],
+              [
+                "study-audit",
+                "beb43887e34a15f5de12b3d3b4057ca7c684606dc38b073a2fc9783ae2084ed7"
+              ],
+              [
+                "study-control",
+                "86e63313355031ee73133b809391c4e03827113ab75a1dcda9dc8bdff4f3413b"
+              ]
+            ],
+            "state_before": {
+              "done_actions": [],
+              "ready_actions": [
+                "audit",
+                "pricing_core"
+              ],
+              "protected_inputs": true
+            },
+            "resource_units": 1,
+            "available_resource_units": 1,
+            "remaining_work_units_after": 99996271,
+            "remaining_request_bytes_after": 31996438,
+            "independent_test_pass": true,
+            "fixture": true,
+            "source_refs": [
+              "joint_ledger",
+              "joint_progress"
+            ]
+          },
+          {
+            "phase": 2,
+            "version": 1,
+            "action_id": "pricing_core",
+            "status": "verified",
+            "reason": "sdk_verified",
+            "request_bytes": 4193,
+            "context_bytes": 3322,
+            "declared_work_units": 4308,
+            "preparation_cost_units": 3308,
+            "execution_cost_units": 1000,
+            "required_inputs": [
+              "action.audit.done",
+              "action.audit.ready",
+              "action.integration.done",
+              "action.integration.ready",
+              "action.pricing_api.done",
+              "action.pricing_api.ready",
+              "action.pricing_core.done",
+              "action.pricing_core.ready",
+              "inputs.protected",
+              "phase.version",
+              "task.pricing_core.current_code",
+              "task.pricing_core.dependency_code",
+              "task.pricing_core.instruction",
+              "task.pricing_core.public_tests",
+              "task.pricing_core.requirements"
+            ],
+            "selected_cover": [
+              "study-control:field:action.audit.done",
+              "study-control:field:action.audit.ready",
+              "study-control:field:action.integration.done",
+              "study-control:field:action.integration.ready",
+              "study-control:field:action.pricing_api.done",
+              "study-control:field:action.pricing_api.ready",
+              "study-control:field:action.pricing_core.done",
+              "study-control:field:action.pricing_core.ready",
+              "study-control:field:inputs.protected",
+              "study-control:field:phase.version",
+              "study-pricing_core:field:task.pricing_core.current_code",
+              "study-pricing_core:field:task.pricing_core.dependency_code",
+              "study-pricing_core:field:task.pricing_core.instruction",
+              "study-pricing_core:field:task.pricing_core.public_tests",
+              "study-pricing_core:field:task.pricing_core.requirements"
+            ],
+            "source_versions": [
+              [
+                "__lhos_field_contract__:study-control",
+                "340f9f68e1e088d615eb0f01b009a304f5178221885e6a01e313988534d4c501"
+              ],
+              [
+                "__lhos_field_contract__:study-pricing_core",
+                "b66675028128485abc569778b34a6e1983739a714f2939e9a09c128253de8ce7"
+              ],
+              [
+                "study-control",
+                "e5fc14a2008864d509ae9668163a359b4d9b46f924743c2408ba21e5ef2f94b9"
+              ],
+              [
+                "study-pricing_core",
+                "037cf2d8239bdc8b323e43e8e1c8cd92a9b31000b3271da74ccca55a2f0a41ff"
+              ]
+            ],
+            "state_before": {
+              "done_actions": [
+                "audit"
+              ],
+              "ready_actions": [
+                "pricing_core"
+              ],
+              "protected_inputs": true
+            },
+            "resource_units": 1,
+            "available_resource_units": 1,
+            "remaining_work_units_after": 99991963,
+            "remaining_request_bytes_after": 31992245,
+            "independent_test_pass": true,
+            "fixture": true,
+            "source_refs": [
+              "joint_ledger",
+              "joint_progress"
+            ]
+          },
+          {
+            "phase": 3,
+            "version": 1,
+            "action_id": "pricing_api",
+            "status": "verified",
+            "reason": "sdk_verified",
+            "request_bytes": 4348,
+            "context_bytes": 3457,
+            "declared_work_units": 4443,
+            "preparation_cost_units": 3443,
+            "execution_cost_units": 1000,
+            "required_inputs": [
+              "action.audit.done",
+              "action.audit.ready",
+              "action.integration.done",
+              "action.integration.ready",
+              "action.pricing_api.done",
+              "action.pricing_api.ready",
+              "action.pricing_core.done",
+              "action.pricing_core.ready",
+              "inputs.protected",
+              "phase.version",
+              "task.pricing_api.current_code",
+              "task.pricing_api.dependency_code",
+              "task.pricing_api.instruction",
+              "task.pricing_api.public_tests",
+              "task.pricing_api.requirements"
+            ],
+            "selected_cover": [
+              "study-control:field:action.audit.done",
+              "study-control:field:action.audit.ready",
+              "study-control:field:action.integration.done",
+              "study-control:field:action.integration.ready",
+              "study-control:field:action.pricing_api.done",
+              "study-control:field:action.pricing_api.ready",
+              "study-control:field:action.pricing_core.done",
+              "study-control:field:action.pricing_core.ready",
+              "study-control:field:inputs.protected",
+              "study-control:field:phase.version",
+              "study-pricing_api:field:task.pricing_api.current_code",
+              "study-pricing_api:field:task.pricing_api.dependency_code",
+              "study-pricing_api:field:task.pricing_api.instruction",
+              "study-pricing_api:field:task.pricing_api.public_tests",
+              "study-pricing_api:field:task.pricing_api.requirements"
+            ],
+            "source_versions": [
+              [
+                "__lhos_field_contract__:study-control",
+                "340f9f68e1e088d615eb0f01b009a304f5178221885e6a01e313988534d4c501"
+              ],
+              [
+                "__lhos_field_contract__:study-pricing_api",
+                "4b0ef824aa720fcc3dcc3ebce1d74e69ba401e8db17b2d618903b4e5733524dd"
+              ],
+              [
+                "study-control",
+                "af07e90d7b5111b7b12f5427a0b633c1deaca41eabdb47d60a0caae35245934e"
+              ],
+              [
+                "study-pricing_api",
+                "ec3c04988feed932312b25e6e575ea8f0b25e8fc2fa71ecdd364a012c433ba50"
+              ]
+            ],
+            "state_before": {
+              "done_actions": [
+                "audit",
+                "pricing_core"
+              ],
+              "ready_actions": [
+                "pricing_api"
+              ],
+              "protected_inputs": true
+            },
+            "resource_units": 1,
+            "available_resource_units": 1,
+            "remaining_work_units_after": 99987520,
+            "remaining_request_bytes_after": 31987897,
+            "independent_test_pass": true,
+            "fixture": true,
+            "source_refs": [
+              "joint_ledger",
+              "joint_progress"
+            ]
+          },
+          {
+            "phase": 4,
+            "version": 1,
+            "action_id": "integration",
+            "status": "verified",
+            "reason": "sdk_verified",
+            "request_bytes": 4170,
+            "context_bytes": 3320,
+            "declared_work_units": 4306,
+            "preparation_cost_units": 3306,
+            "execution_cost_units": 1000,
+            "required_inputs": [
+              "action.audit.done",
+              "action.audit.ready",
+              "action.integration.done",
+              "action.integration.ready",
+              "action.pricing_api.done",
+              "action.pricing_api.ready",
+              "action.pricing_core.done",
+              "action.pricing_core.ready",
+              "inputs.protected",
+              "phase.version",
+              "task.integration.current_code",
+              "task.integration.dependency_code",
+              "task.integration.instruction",
+              "task.integration.public_tests",
+              "task.integration.requirements"
+            ],
+            "selected_cover": [
+              "study-control:field:action.audit.done",
+              "study-control:field:action.audit.ready",
+              "study-control:field:action.integration.done",
+              "study-control:field:action.integration.ready",
+              "study-control:field:action.pricing_api.done",
+              "study-control:field:action.pricing_api.ready",
+              "study-control:field:action.pricing_core.done",
+              "study-control:field:action.pricing_core.ready",
+              "study-control:field:inputs.protected",
+              "study-control:field:phase.version",
+              "study-integration:field:task.integration.current_code",
+              "study-integration:field:task.integration.dependency_code",
+              "study-integration:field:task.integration.instruction",
+              "study-integration:field:task.integration.public_tests",
+              "study-integration:field:task.integration.requirements"
+            ],
+            "source_versions": [
+              [
+                "__lhos_field_contract__:study-control",
+                "340f9f68e1e088d615eb0f01b009a304f5178221885e6a01e313988534d4c501"
+              ],
+              [
+                "__lhos_field_contract__:study-integration",
+                "d084aec75689b4b739829178e7eb419770f78c67abad70c9635fec8cc717982d"
+              ],
+              [
+                "study-control",
+                "858f6be066d0cafdab2d85861ee3b60372af25326866540c7f9ce9ea0b848e3a"
+              ],
+              [
+                "study-integration",
+                "d6f9c93ab863846df5f4388913682eb57954eb601f757ec18a5609a31d904f63"
+              ]
+            ],
+            "state_before": {
+              "done_actions": [
+                "audit",
+                "pricing_api",
+                "pricing_core"
+              ],
+              "ready_actions": [
+                "integration"
+              ],
+              "protected_inputs": true
+            },
+            "resource_units": 1,
+            "available_resource_units": 1,
+            "remaining_work_units_after": 99983214,
+            "remaining_request_bytes_after": 31983727,
+            "independent_test_pass": true,
+            "fixture": true,
+            "source_refs": [
+              "joint_ledger",
+              "joint_progress"
+            ]
+          },
+          {
+            "phase": 5,
+            "version": 2,
+            "action_id": "pricing_core",
+            "status": "verified",
+            "reason": "sdk_verified",
+            "request_bytes": 5263,
+            "context_bytes": 4253,
+            "declared_work_units": 5239,
+            "preparation_cost_units": 4239,
+            "execution_cost_units": 1000,
+            "required_inputs": [
+              "action.audit.done",
+              "action.audit.ready",
+              "action.integration.done",
+              "action.integration.ready",
+              "action.pricing_api.done",
+              "action.pricing_api.ready",
+              "action.pricing_core.done",
+              "action.pricing_core.ready",
+              "inputs.protected",
+              "phase.version",
+              "task.pricing_core.current_code",
+              "task.pricing_core.dependency_code",
+              "task.pricing_core.instruction",
+              "task.pricing_core.public_tests",
+              "task.pricing_core.requirements"
+            ],
+            "selected_cover": [
+              "study-control:field:action.audit.done",
+              "study-control:field:action.audit.ready",
+              "study-control:field:action.integration.done",
+              "study-control:field:action.integration.ready",
+              "study-control:field:action.pricing_api.done",
+              "study-control:field:action.pricing_api.ready",
+              "study-control:field:action.pricing_core.done",
+              "study-control:field:action.pricing_core.ready",
+              "study-control:field:inputs.protected",
+              "study-control:field:phase.version",
+              "study-pricing_core:field:task.pricing_core.current_code",
+              "study-pricing_core:field:task.pricing_core.dependency_code",
+              "study-pricing_core:field:task.pricing_core.instruction",
+              "study-pricing_core:field:task.pricing_core.public_tests",
+              "study-pricing_core:field:task.pricing_core.requirements"
+            ],
+            "source_versions": [
+              [
+                "__lhos_field_contract__:study-control",
+                "340f9f68e1e088d615eb0f01b009a304f5178221885e6a01e313988534d4c501"
+              ],
+              [
+                "__lhos_field_contract__:study-pricing_core",
+                "b66675028128485abc569778b34a6e1983739a714f2939e9a09c128253de8ce7"
+              ],
+              [
+                "study-control",
+                "e5d2ed57eb275cc330fe374f091f3e5a83c7fb7ee3f850bb8635e2b0f66ba521"
+              ],
+              [
+                "study-pricing_core",
+                "d6010ad108494c14f9f3c296e0d2261c28beb1a839a5a9fde2ee9ef15d958533"
+              ]
+            ],
+            "state_before": {
+              "done_actions": [
+                "audit"
+              ],
+              "ready_actions": [
+                "pricing_core"
+              ],
+              "protected_inputs": true
+            },
+            "resource_units": 1,
+            "available_resource_units": 1,
+            "remaining_work_units_after": 99977975,
+            "remaining_request_bytes_after": 31978464,
+            "independent_test_pass": true,
+            "fixture": true,
+            "source_refs": [
+              "joint_ledger",
+              "joint_progress"
+            ]
+          },
+          {
+            "phase": 6,
+            "version": 2,
+            "action_id": "pricing_api",
+            "status": "verified",
+            "reason": "sdk_verified",
+            "request_bytes": 5049,
+            "context_bytes": 4040,
+            "declared_work_units": 5026,
+            "preparation_cost_units": 4026,
+            "execution_cost_units": 1000,
+            "required_inputs": [
+              "action.audit.done",
+              "action.audit.ready",
+              "action.integration.done",
+              "action.integration.ready",
+              "action.pricing_api.done",
+              "action.pricing_api.ready",
+              "action.pricing_core.done",
+              "action.pricing_core.ready",
+              "inputs.protected",
+              "phase.version",
+              "task.pricing_api.current_code",
+              "task.pricing_api.dependency_code",
+              "task.pricing_api.instruction",
+              "task.pricing_api.public_tests",
+              "task.pricing_api.requirements"
+            ],
+            "selected_cover": [
+              "study-control:field:action.audit.done",
+              "study-control:field:action.audit.ready",
+              "study-control:field:action.integration.done",
+              "study-control:field:action.integration.ready",
+              "study-control:field:action.pricing_api.done",
+              "study-control:field:action.pricing_api.ready",
+              "study-control:field:action.pricing_core.done",
+              "study-control:field:action.pricing_core.ready",
+              "study-control:field:inputs.protected",
+              "study-control:field:phase.version",
+              "study-pricing_api:field:task.pricing_api.current_code",
+              "study-pricing_api:field:task.pricing_api.dependency_code",
+              "study-pricing_api:field:task.pricing_api.instruction",
+              "study-pricing_api:field:task.pricing_api.public_tests",
+              "study-pricing_api:field:task.pricing_api.requirements"
+            ],
+            "source_versions": [
+              [
+                "__lhos_field_contract__:study-control",
+                "340f9f68e1e088d615eb0f01b009a304f5178221885e6a01e313988534d4c501"
+              ],
+              [
+                "__lhos_field_contract__:study-pricing_api",
+                "4b0ef824aa720fcc3dcc3ebce1d74e69ba401e8db17b2d618903b4e5733524dd"
+              ],
+              [
+                "study-control",
+                "f2cbf5dd52577e35dff64ce9ac1b2ef37f0507c73ff76e2be404dd1254bc8794"
+              ],
+              [
+                "study-pricing_api",
+                "e6092260725524fc88defba01555fc49c0b2d3c453cb8e80abeacdb3deb04fc6"
+              ]
+            ],
+            "state_before": {
+              "done_actions": [
+                "audit",
+                "pricing_core"
+              ],
+              "ready_actions": [
+                "pricing_api"
+              ],
+              "protected_inputs": true
+            },
+            "resource_units": 1,
+            "available_resource_units": 1,
+            "remaining_work_units_after": 99972949,
+            "remaining_request_bytes_after": 31973415,
+            "independent_test_pass": true,
+            "fixture": true,
+            "source_refs": [
+              "joint_ledger",
+              "joint_progress"
+            ]
+          },
+          {
+            "phase": 7,
+            "version": 2,
+            "action_id": "integration",
+            "status": "verified",
+            "reason": "sdk_verified",
+            "request_bytes": 4508,
+            "context_bytes": 3599,
+            "declared_work_units": 4585,
+            "preparation_cost_units": 3585,
+            "execution_cost_units": 1000,
+            "required_inputs": [
+              "action.audit.done",
+              "action.audit.ready",
+              "action.integration.done",
+              "action.integration.ready",
+              "action.pricing_api.done",
+              "action.pricing_api.ready",
+              "action.pricing_core.done",
+              "action.pricing_core.ready",
+              "inputs.protected",
+              "phase.version",
+              "task.integration.current_code",
+              "task.integration.dependency_code",
+              "task.integration.instruction",
+              "task.integration.public_tests",
+              "task.integration.requirements"
+            ],
+            "selected_cover": [
+              "study-control:field:action.audit.done",
+              "study-control:field:action.audit.ready",
+              "study-control:field:action.integration.done",
+              "study-control:field:action.integration.ready",
+              "study-control:field:action.pricing_api.done",
+              "study-control:field:action.pricing_api.ready",
+              "study-control:field:action.pricing_core.done",
+              "study-control:field:action.pricing_core.ready",
+              "study-control:field:inputs.protected",
+              "study-control:field:phase.version",
+              "study-integration:field:task.integration.current_code",
+              "study-integration:field:task.integration.dependency_code",
+              "study-integration:field:task.integration.instruction",
+              "study-integration:field:task.integration.public_tests",
+              "study-integration:field:task.integration.requirements"
+            ],
+            "source_versions": [
+              [
+                "__lhos_field_contract__:study-control",
+                "340f9f68e1e088d615eb0f01b009a304f5178221885e6a01e313988534d4c501"
+              ],
+              [
+                "__lhos_field_contract__:study-integration",
+                "d084aec75689b4b739829178e7eb419770f78c67abad70c9635fec8cc717982d"
+              ],
+              [
+                "study-control",
+                "ab354787c59cb15401c4ceab823d1e743d09c92d2572cc859a48d51164578952"
+              ],
+              [
+                "study-integration",
+                "ac51248caf4c44cbc3fae99715f25549d336e923c6b5f116958e37525c68296f"
+              ]
+            ],
+            "state_before": {
+              "done_actions": [
+                "audit",
+                "pricing_api",
+                "pricing_core"
+              ],
+              "ready_actions": [
+                "integration"
+              ],
+              "protected_inputs": true
+            },
+            "resource_units": 1,
+            "available_resource_units": 1,
+            "remaining_work_units_after": 99968364,
+            "remaining_request_bytes_after": 31968907,
+            "independent_test_pass": true,
+            "fixture": true,
+            "source_refs": [
+              "joint_ledger",
+              "joint_progress"
+            ]
+          }
+        ],
+        "contract_change": {
+          "after_phase": 4,
+          "from_version": 1,
+          "to_version": 2,
+          "changed_files": [
+            "requirements/pricing_contract.json",
+            "tests_public/test_api.py",
+            "tests_public/test_core.py",
+            "tests_public/test_integration.py"
+          ],
+          "audit_contract_unchanged": true,
+          "source_ref": "joint_progress"
+        },
+        "final": {
+          "status": "completed",
+          "latest_version": 2,
+          "verified_phase_count": 7,
+          "v1_verified_milestones": [
+            "audit",
+            "integration",
+            "pricing_api",
+            "pricing_core"
+          ],
+          "v2_done_count": 4,
+          "declared_work_units": 31636,
+          "request_bytes": 31093,
+          "independent_test_pass": true,
+          "public_test_pass": true,
+          "hidden_test_pass": true,
+          "done_actions": [
+            "audit",
+            "integration",
+            "pricing_api",
+            "pricing_core"
+          ],
+          "protected_inputs_unchanged": true,
+          "resources_released": true,
+          "leases_released": true,
+          "pending_requests": 0,
+          "measurement_valid": false,
+          "fixture_reward": {
+            "value": 1.0,
+            "measurement_valid": false,
+            "interpretation": "Fixture bookkeeping only; never plot as model efficacy."
+          },
+          "source_refs": [
+            "joint_result",
+            "joint_verifier",
+            "joint_final_control",
+            "joint_ledger"
+          ]
+        },
+        "first_step_candidates": [
+          {
+            "action_id": "audit",
+            "allowed": true,
+            "declared_progress_units": 1,
+            "execution_cost_units": 1000,
+            "preparation_cost_units": 2729,
+            "context_bytes": 2743,
+            "declared_work_units": 3729,
+            "resource_units": 1,
+            "reason": "selected"
+          },
+          {
+            "action_id": "pricing_core",
+            "allowed": true,
+            "declared_progress_units": 1,
+            "execution_cost_units": 1000,
+            "preparation_cost_units": 3308,
+            "context_bytes": 3322,
+            "declared_work_units": 4308,
+            "resource_units": 1,
+            "reason": "eligible_not_selected"
+          }
+        ]
+      }
+    ],
+    "interpretation": "The policies choose different first actions under identical declared initial inputs and candidate estimates. Seven verified fixture phases exercise version change, dependency repair and resource release. This is a control-path test, not model benefit evidence."
+  },
+  "planner_scaling": {
+    "provider_calls": 0,
+    "data_kind": "synthetic_declared_contracts_not_agent_reward",
+    "reference": "same Pareto solver with obligation graph forced into one component",
+    "cap": 20000,
+    "cap_identical": true,
+    "classical_factorization_not_originality_claim": true,
+    "repeats_per_case": 3,
+    "labels_explored_unit": "DP 转移次数（seed/generated useful DP transitions），不是去重后的 distinct states。保留原始字段名 labels_explored 便于核验。",
+    "status_definitions": {
+      "exact": "allowed=true, reason=ready: solver returned a cover within the declared finite instance and identical label cap.",
+      "capped": "reason=complexity_limit: stopped at 20000 labels; no solved reference, no selected cover or cost, no speedup ratio."
+    },
+    "cost_units": "Synthetic declared representation/preparation units (small=1, large=2), including context separator accounting; not bytes, model tokens, API fees or agent reward.",
+    "wall_time_units": "Relative observed median wall time only, factorized=1 within each case, and only when both solve; machine-specific microbenchmark, not a general speedup claim.",
+    "rows": [
+      {
+        "topology": "disconnected",
+        "required_inputs": 1,
+        "factorized": {
+          "status": "exact",
+          "allowed": true,
+          "reason": "ready",
+          "capped": false,
+          "labels_explored": 3,
+          "max_labels": 20000,
+          "selected_ids": [
+            "small-0000"
+          ],
+          "preparation_cost": 1,
+          "context_cost": 1,
+          "relative_wall_to_factorized": 1.0
+        },
+        "monolithic_same_solver": {
+          "status": "exact",
+          "allowed": true,
+          "reason": "ready",
+          "capped": false,
+          "labels_explored": 3,
+          "max_labels": 20000,
+          "selected_ids": [
+            "small-0000"
+          ],
+          "preparation_cost": 1,
+          "context_cost": 1,
+          "relative_wall_to_factorized": 0.7649561170285664
+        },
+        "solved_comparison_available": true,
+        "same_solution_when_comparable": true
+      },
+      {
+        "topology": "disconnected",
+        "required_inputs": 4,
+        "factorized": {
+          "status": "exact",
+          "allowed": true,
+          "reason": "ready",
+          "capped": false,
+          "labels_explored": 15,
+          "max_labels": 20000,
+          "selected_ids": [
+            "small-0000",
+            "small-0001",
+            "small-0002",
+            "small-0003"
+          ],
+          "preparation_cost": 4,
+          "context_cost": 7,
+          "relative_wall_to_factorized": 1.0
+        },
+        "monolithic_same_solver": {
+          "status": "exact",
+          "allowed": true,
+          "reason": "ready",
+          "capped": false,
+          "labels_explored": 48,
+          "max_labels": 20000,
+          "selected_ids": [
+            "small-0000",
+            "small-0001",
+            "small-0002",
+            "small-0003"
+          ],
+          "preparation_cost": 4,
+          "context_cost": 7,
+          "relative_wall_to_factorized": 1.129206611821905
+        },
+        "solved_comparison_available": true,
+        "same_solution_when_comparable": true
+      },
+      {
+        "topology": "disconnected",
+        "required_inputs": 8,
+        "factorized": {
+          "status": "exact",
+          "allowed": true,
+          "reason": "ready",
+          "capped": false,
+          "labels_explored": 31,
+          "max_labels": 20000,
+          "selected_ids": [
+            "small-0000",
+            "small-0001",
+            "small-0002",
+            "small-0003",
+            "small-0004",
+            "small-0005",
+            "small-0006",
+            "small-0007"
+          ],
+          "preparation_cost": 8,
+          "context_cost": 15,
+          "relative_wall_to_factorized": 1.0
+        },
+        "monolithic_same_solver": {
+          "status": "exact",
+          "allowed": true,
+          "reason": "ready",
+          "capped": false,
+          "labels_explored": 1280,
+          "max_labels": 20000,
+          "selected_ids": [
+            "small-0000",
+            "small-0001",
+            "small-0002",
+            "small-0003",
+            "small-0004",
+            "small-0005",
+            "small-0006",
+            "small-0007"
+          ],
+          "preparation_cost": 8,
+          "context_cost": 15,
+          "relative_wall_to_factorized": 8.541723911821645
+        },
+        "solved_comparison_available": true,
+        "same_solution_when_comparable": true
+      },
+      {
+        "topology": "disconnected",
+        "required_inputs": 12,
+        "factorized": {
+          "status": "exact",
+          "allowed": true,
+          "reason": "ready",
+          "capped": false,
+          "labels_explored": 47,
+          "max_labels": 20000,
+          "selected_ids": [
+            "small-0000",
+            "small-0001",
+            "small-0002",
+            "small-0003",
+            "small-0004",
+            "small-0005",
+            "small-0006",
+            "small-0007",
+            "small-0008",
+            "small-0009",
+            "small-0010",
+            "small-0011"
+          ],
+          "preparation_cost": 12,
+          "context_cost": 23,
+          "relative_wall_to_factorized": null
+        },
+        "monolithic_same_solver": {
+          "status": "capped",
+          "allowed": false,
+          "reason": "complexity_limit",
+          "capped": true,
+          "labels_explored": 20000,
+          "max_labels": 20000,
+          "selected_ids": null,
+          "preparation_cost": null,
+          "context_cost": null,
+          "relative_wall_to_factorized": null
+        },
+        "solved_comparison_available": false,
+        "same_solution_when_comparable": false
+      },
+      {
+        "topology": "disconnected",
+        "required_inputs": 16,
+        "factorized": {
+          "status": "exact",
+          "allowed": true,
+          "reason": "ready",
+          "capped": false,
+          "labels_explored": 63,
+          "max_labels": 20000,
+          "selected_ids": [
+            "small-0000",
+            "small-0001",
+            "small-0002",
+            "small-0003",
+            "small-0004",
+            "small-0005",
+            "small-0006",
+            "small-0007",
+            "small-0008",
+            "small-0009",
+            "small-0010",
+            "small-0011",
+            "small-0012",
+            "small-0013",
+            "small-0014",
+            "small-0015"
+          ],
+          "preparation_cost": 16,
+          "context_cost": 31,
+          "relative_wall_to_factorized": null
+        },
+        "monolithic_same_solver": {
+          "status": "capped",
+          "allowed": false,
+          "reason": "complexity_limit",
+          "capped": true,
+          "labels_explored": 20000,
+          "max_labels": 20000,
+          "selected_ids": null,
+          "preparation_cost": null,
+          "context_cost": null,
+          "relative_wall_to_factorized": null
+        },
+        "solved_comparison_available": false,
+        "same_solution_when_comparable": false
+      },
+      {
+        "topology": "disconnected",
+        "required_inputs": 32,
+        "factorized": {
+          "status": "exact",
+          "allowed": true,
+          "reason": "ready",
+          "capped": false,
+          "labels_explored": 127,
+          "max_labels": 20000,
+          "selected_ids": [
+            "small-0000",
+            "small-0001",
+            "small-0002",
+            "small-0003",
+            "small-0004",
+            "small-0005",
+            "small-0006",
+            "small-0007",
+            "small-0008",
+            "small-0009",
+            "small-0010",
+            "small-0011",
+            "small-0012",
+            "small-0013",
+            "small-0014",
+            "small-0015",
+            "small-0016",
+            "small-0017",
+            "small-0018",
+            "small-0019",
+            "small-0020",
+            "small-0021",
+            "small-0022",
+            "small-0023",
+            "small-0024",
+            "small-0025",
+            "small-0026",
+            "small-0027",
+            "small-0028",
+            "small-0029",
+            "small-0030",
+            "small-0031"
+          ],
+          "preparation_cost": 32,
+          "context_cost": 63,
+          "relative_wall_to_factorized": null
+        },
+        "monolithic_same_solver": {
+          "status": "capped",
+          "allowed": false,
+          "reason": "complexity_limit",
+          "capped": true,
+          "labels_explored": 20000,
+          "max_labels": 20000,
+          "selected_ids": null,
+          "preparation_cost": null,
+          "context_cost": null,
+          "relative_wall_to_factorized": null
+        },
+        "solved_comparison_available": false,
+        "same_solution_when_comparable": false
+      },
+      {
+        "topology": "disconnected",
+        "required_inputs": 64,
+        "factorized": {
+          "status": "exact",
+          "allowed": true,
+          "reason": "ready",
+          "capped": false,
+          "labels_explored": 255,
+          "max_labels": 20000,
+          "selected_ids": [
+            "small-0000",
+            "small-0001",
+            "small-0002",
+            "small-0003",
+            "small-0004",
+            "small-0005",
+            "small-0006",
+            "small-0007",
+            "small-0008",
+            "small-0009",
+            "small-0010",
+            "small-0011",
+            "small-0012",
+            "small-0013",
+            "small-0014",
+            "small-0015",
+            "small-0016",
+            "small-0017",
+            "small-0018",
+            "small-0019",
+            "small-0020",
+            "small-0021",
+            "small-0022",
+            "small-0023",
+            "small-0024",
+            "small-0025",
+            "small-0026",
+            "small-0027",
+            "small-0028",
+            "small-0029",
+            "small-0030",
+            "small-0031",
+            "small-0032",
+            "small-0033",
+            "small-0034",
+            "small-0035",
+            "small-0036",
+            "small-0037",
+            "small-0038",
+            "small-0039",
+            "small-0040",
+            "small-0041",
+            "small-0042",
+            "small-0043",
+            "small-0044",
+            "small-0045",
+            "small-0046",
+            "small-0047",
+            "small-0048",
+            "small-0049",
+            "small-0050",
+            "small-0051",
+            "small-0052",
+            "small-0053",
+            "small-0054",
+            "small-0055",
+            "small-0056",
+            "small-0057",
+            "small-0058",
+            "small-0059",
+            "small-0060",
+            "small-0061",
+            "small-0062",
+            "small-0063"
+          ],
+          "preparation_cost": 64,
+          "context_cost": 127,
+          "relative_wall_to_factorized": null
+        },
+        "monolithic_same_solver": {
+          "status": "capped",
+          "allowed": false,
+          "reason": "complexity_limit",
+          "capped": true,
+          "labels_explored": 20000,
+          "max_labels": 20000,
+          "selected_ids": null,
+          "preparation_cost": null,
+          "context_cost": null,
+          "relative_wall_to_factorized": null
+        },
+        "solved_comparison_available": false,
+        "same_solution_when_comparable": false
+      },
+      {
+        "topology": "disconnected",
+        "required_inputs": 128,
+        "factorized": {
+          "status": "exact",
+          "allowed": true,
+          "reason": "ready",
+          "capped": false,
+          "labels_explored": 511,
+          "max_labels": 20000,
+          "selected_ids": [
+            "small-0000",
+            "small-0001",
+            "small-0002",
+            "small-0003",
+            "small-0004",
+            "small-0005",
+            "small-0006",
+            "small-0007",
+            "small-0008",
+            "small-0009",
+            "small-0010",
+            "small-0011",
+            "small-0012",
+            "small-0013",
+            "small-0014",
+            "small-0015",
+            "small-0016",
+            "small-0017",
+            "small-0018",
+            "small-0019",
+            "small-0020",
+            "small-0021",
+            "small-0022",
+            "small-0023",
+            "small-0024",
+            "small-0025",
+            "small-0026",
+            "small-0027",
+            "small-0028",
+            "small-0029",
+            "small-0030",
+            "small-0031",
+            "small-0032",
+            "small-0033",
+            "small-0034",
+            "small-0035",
+            "small-0036",
+            "small-0037",
+            "small-0038",
+            "small-0039",
+            "small-0040",
+            "small-0041",
+            "small-0042",
+            "small-0043",
+            "small-0044",
+            "small-0045",
+            "small-0046",
+            "small-0047",
+            "small-0048",
+            "small-0049",
+            "small-0050",
+            "small-0051",
+            "small-0052",
+            "small-0053",
+            "small-0054",
+            "small-0055",
+            "small-0056",
+            "small-0057",
+            "small-0058",
+            "small-0059",
+            "small-0060",
+            "small-0061",
+            "small-0062",
+            "small-0063",
+            "small-0064",
+            "small-0065",
+            "small-0066",
+            "small-0067",
+            "small-0068",
+            "small-0069",
+            "small-0070",
+            "small-0071",
+            "small-0072",
+            "small-0073",
+            "small-0074",
+            "small-0075",
+            "small-0076",
+            "small-0077",
+            "small-0078",
+            "small-0079",
+            "small-0080",
+            "small-0081",
+            "small-0082",
+            "small-0083",
+            "small-0084",
+            "small-0085",
+            "small-0086",
+            "small-0087",
+            "small-0088",
+            "small-0089",
+            "small-0090",
+            "small-0091",
+            "small-0092",
+            "small-0093",
+            "small-0094",
+            "small-0095",
+            "small-0096",
+            "small-0097",
+            "small-0098",
+            "small-0099",
+            "small-0100",
+            "small-0101",
+            "small-0102",
+            "small-0103",
+            "small-0104",
+            "small-0105",
+            "small-0106",
+            "small-0107",
+            "small-0108",
+            "small-0109",
+            "small-0110",
+            "small-0111",
+            "small-0112",
+            "small-0113",
+            "small-0114",
+            "small-0115",
+            "small-0116",
+            "small-0117",
+            "small-0118",
+            "small-0119",
+            "small-0120",
+            "small-0121",
+            "small-0122",
+            "small-0123",
+            "small-0124",
+            "small-0125",
+            "small-0126",
+            "small-0127"
+          ],
+          "preparation_cost": 128,
+          "context_cost": 255,
+          "relative_wall_to_factorized": null
+        },
+        "monolithic_same_solver": {
+          "status": "capped",
+          "allowed": false,
+          "reason": "complexity_limit",
+          "capped": true,
+          "labels_explored": 20000,
+          "max_labels": 20000,
+          "selected_ids": null,
+          "preparation_cost": null,
+          "context_cost": null,
+          "relative_wall_to_factorized": null
+        },
+        "solved_comparison_available": false,
+        "same_solution_when_comparable": false
+      },
+      {
+        "topology": "connected",
+        "required_inputs": 4,
+        "factorized": {
+          "status": "exact",
+          "allowed": true,
+          "reason": "ready",
+          "capped": false,
+          "labels_explored": 49,
+          "max_labels": 20000,
+          "selected_ids": [
+            "small-0000",
+            "small-0001",
+            "small-0002",
+            "small-0003"
+          ],
+          "preparation_cost": 4,
+          "context_cost": 7,
+          "relative_wall_to_factorized": 1.0
+        },
+        "monolithic_same_solver": {
+          "status": "exact",
+          "allowed": true,
+          "reason": "ready",
+          "capped": false,
+          "labels_explored": 49,
+          "max_labels": 20000,
+          "selected_ids": [
+            "small-0000",
+            "small-0001",
+            "small-0002",
+            "small-0003"
+          ],
+          "preparation_cost": 4,
+          "context_cost": 7,
+          "relative_wall_to_factorized": 0.6119526315789474
+        },
+        "solved_comparison_available": true,
+        "same_solution_when_comparable": true
+      },
+      {
+        "topology": "connected",
+        "required_inputs": 8,
+        "factorized": {
+          "status": "exact",
+          "allowed": true,
+          "reason": "ready",
+          "capped": false,
+          "labels_explored": 1281,
+          "max_labels": 20000,
+          "selected_ids": [
+            "small-0000",
+            "small-0001",
+            "small-0002",
+            "small-0003",
+            "small-0004",
+            "small-0005",
+            "small-0006",
+            "small-0007"
+          ],
+          "preparation_cost": 8,
+          "context_cost": 15,
+          "relative_wall_to_factorized": 1.0
+        },
+        "monolithic_same_solver": {
+          "status": "exact",
+          "allowed": true,
+          "reason": "ready",
+          "capped": false,
+          "labels_explored": 1281,
+          "max_labels": 20000,
+          "selected_ids": [
+            "small-0000",
+            "small-0001",
+            "small-0002",
+            "small-0003",
+            "small-0004",
+            "small-0005",
+            "small-0006",
+            "small-0007"
+          ],
+          "preparation_cost": 8,
+          "context_cost": 15,
+          "relative_wall_to_factorized": 0.8906783033306015
+        },
+        "solved_comparison_available": true,
+        "same_solution_when_comparable": true
+      },
+      {
+        "topology": "connected",
+        "required_inputs": 12,
+        "factorized": {
+          "status": "capped",
+          "allowed": false,
+          "reason": "complexity_limit",
+          "capped": true,
+          "labels_explored": 20000,
+          "max_labels": 20000,
+          "selected_ids": null,
+          "preparation_cost": null,
+          "context_cost": null,
+          "relative_wall_to_factorized": null
+        },
+        "monolithic_same_solver": {
+          "status": "capped",
+          "allowed": false,
+          "reason": "complexity_limit",
+          "capped": true,
+          "labels_explored": 20000,
+          "max_labels": 20000,
+          "selected_ids": null,
+          "preparation_cost": null,
+          "context_cost": null,
+          "relative_wall_to_factorized": null
+        },
+        "solved_comparison_available": false,
+        "same_solution_when_comparable": false
+      }
+    ],
+    "source_refs": [
+      "planner_scaling_json",
+      "planner_scaling_csv",
+      "source_planner_microbenchmark",
+      "source_joint"
+    ]
+  },
+  "acceptance": {
+    "passed": true,
+    "package_files_checked": 1237,
+    "source_regression": {
+      "passed": 2615,
+      "skipped": 2,
+      "failed": 0
+    },
+    "exact_extracted_package_regression": {
+      "tests": 546,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "offline_matrix": {
+      "completed": 18,
+      "planned": 18,
+      "zero_api": true,
+      "fixture_measurement_valid": false,
+      "complete_v1_v2_seven_phase_trials": 18,
+      "differentiated_policy_pair_blocks": 9,
+      "first_actions": {
+        "checkpoint_retrieval": [
+          "pricing_core"
+        ],
+        "joint": [
+          "audit"
+        ]
+      },
+      "host_admission_concurrency": 1,
+      "host_admission_reason": "memory_unknown_serial_only"
+    },
+    "summary": {
+      "attempt_count": 18,
+      "planned_trials": 18,
+      "status_counts": {
+        "completed": 18
+      },
+      "eligible_reward_pairs": 0,
+      "eligible_token_pairs": 0,
+      "physical_api_calls_known_sum": 0,
+      "offline_fixture_contract_passed": true,
+      "execution_complete": true,
+      "effect_evidence_complete": false
+    },
+    "separate_parallel_control": {
+      "actual_peak_driver_processes": 3,
+      "completed_trials": 18,
+      "resource_snapshot": "read-only mac vm_stat free/inactive/speculative proxy; offline fixture only",
+      "production_linux_admission_verified_live": false
+    },
+    "production_plan_only": {
+      "trials": 18,
+      "dependency_installation": false,
+      "output_created": false,
+      "provider_calls": 0
+    },
+    "local_real_provider_calls": 0,
+    "local_real_docker_runs": 0,
+    "scope": "Finite-contract dynamic coding pilot. No claimed real-model efficacy, no replacement for original 46-case evaluation.",
+    "source_refs": [
+      "delivery_acceptance",
+      "extracted_package_acceptance",
+      "offline_summary"
+    ]
+  },
+  "claims": {
+    "supported": [
+      "Same declared input basis, two policy choices, real recorded offline controller order.",
+      "v1 to v2 mutation, dependency-specific redo, independent fixture verification, and lease/resource release.",
+      "Exact finite solver results and label-cap behavior on 11 recorded synthetic cases; same solved covers/costs where comparable.",
+      "Recorded source/package regression and offline acceptance counts within their stated scope."
+    ],
+    "unsupported": [
+      "Real-model reward, token savings, paid API cost reduction or efficacy.",
+      "General wall-time speedup, asymptotic performance guarantee, or solved-reference ratios for capped cases.",
+      "Live production Linux resource admission, real Docker verification, or replacement of the original 46-case evaluation.",
+      "Model token or monetary interpretation of request bytes or declared work units."
+    ]
+  },
+  "sources": [
+    {
+      "id": "checkpoint_retrieval_final_control",
+      "path": "outputs/LongHorizonOS-remote-study-20261022/package-offline-study/trials/dynamic_pricing-10s-r1-checkpoint_retrieval-3333ce791f/attempt-001/output/case/runtime-inputs/control.json",
+      "sha256": "79f7af7d2757f3a75984e8b0e7868c048e30c97d90ec316d1fc0addf1811c86e"
+    },
+    {
+      "id": "checkpoint_retrieval_ledger",
+      "path": "outputs/LongHorizonOS-remote-study-20261022/package-offline-study/trials/dynamic_pricing-10s-r1-checkpoint_retrieval-3333ce791f/attempt-001/output/controller-ledger.json",
+      "sha256": "567141dd34e846e348d722037b550745ab3af153ae430b01edac8e46e0a8982c"
+    },
+    {
+      "id": "checkpoint_retrieval_phase_receipts",
+      "path": "outputs/LongHorizonOS-remote-study-20261022/package-offline-study/trials/dynamic_pricing-10s-r1-checkpoint_retrieval-3333ce791f/attempt-001/output/native-phase-receipts.json",
+      "sha256": "1404b919cbfd34a803d34eba87f6e46d570a8c5cdff45c0d899b09a51e56214f"
+    },
+    {
+      "id": "checkpoint_retrieval_progress",
+      "path": "outputs/LongHorizonOS-remote-study-20261022/package-offline-study/trials/dynamic_pricing-10s-r1-checkpoint_retrieval-3333ce791f/attempt-001/output/progress.json",
+      "sha256": "d615ce5a63b5a6552ff97fbc95f87eaeb8f55f9f2e58f01add93440acfd97544"
+    },
+    {
+      "id": "checkpoint_retrieval_result",
+      "path": "outputs/LongHorizonOS-remote-study-20261022/package-offline-study/trials/dynamic_pricing-10s-r1-checkpoint_retrieval-3333ce791f/attempt-001/output/result.json",
+      "sha256": "6df9ccaaeeee26c1e63132a68507cb4b493ec956cf545780c380cb13692af1cb"
+    },
+    {
+      "id": "checkpoint_retrieval_sdk_journal",
+      "path": "outputs/LongHorizonOS-remote-study-20261022/package-offline-study/trials/dynamic_pricing-10s-r1-checkpoint_retrieval-3333ce791f/attempt-001/output/joint-control.sqlite3.sdk.sqlite3",
+      "sha256": "e91ebcd2e3b85304760efeba682b4e7d74f218dda3ec3ba1d9096153e2f216af"
+    },
+    {
+      "id": "checkpoint_retrieval_verifier",
+      "path": "outputs/LongHorizonOS-remote-study-20261022/package-offline-study/trials/dynamic_pricing-10s-r1-checkpoint_retrieval-3333ce791f/attempt-001/output/verifier-result.json",
+      "sha256": "d94534d610693f923295b81a1b471cfc5464186227aa20dcd97481327987b9d4"
+    },
+    {
+      "id": "delivery_acceptance",
+      "path": "outputs/LongHorizonOS-remote-study-20261022/delivery.json",
+      "sha256": "5f1a023fadc4ffcfe1669ed352ab70704be62f7d09a282045ea4b1c44bf5ffed"
+    },
+    {
+      "id": "extracted_package_acceptance",
+      "path": "outputs/LongHorizonOS-remote-study-20261022/package-acceptance/acceptance.json",
+      "sha256": "af90cc80c491a06e0e89ab51478349eb72dbebcd42bf2a37f35c2c9b80427db6"
+    },
+    {
+      "id": "joint_final_control",
+      "path": "outputs/LongHorizonOS-remote-study-20261022/package-offline-study/trials/dynamic_pricing-10s-r1-joint-d284510797/attempt-001/output/case/runtime-inputs/control.json",
+      "sha256": "79f7af7d2757f3a75984e8b0e7868c048e30c97d90ec316d1fc0addf1811c86e"
+    },
+    {
+      "id": "joint_ledger",
+      "path": "outputs/LongHorizonOS-remote-study-20261022/package-offline-study/trials/dynamic_pricing-10s-r1-joint-d284510797/attempt-001/output/controller-ledger.json",
+      "sha256": "6820b16bf40bc319efa6b279d23daf3d4bbcea2baf1f46c25a450c67628b1a0a"
+    },
+    {
+      "id": "joint_phase_receipts",
+      "path": "outputs/LongHorizonOS-remote-study-20261022/package-offline-study/trials/dynamic_pricing-10s-r1-joint-d284510797/attempt-001/output/native-phase-receipts.json",
+      "sha256": "4f1cae821f01a5d3cbbb6532c4c40622a68d22567017ce4bf9a0df98b6d25701"
+    },
+    {
+      "id": "joint_progress",
+      "path": "outputs/LongHorizonOS-remote-study-20261022/package-offline-study/trials/dynamic_pricing-10s-r1-joint-d284510797/attempt-001/output/progress.json",
+      "sha256": "eb21757874b6979658d5085354437cb1d01cc77c9ca54b869430897ca406be2b"
+    },
+    {
+      "id": "joint_result",
+      "path": "outputs/LongHorizonOS-remote-study-20261022/package-offline-study/trials/dynamic_pricing-10s-r1-joint-d284510797/attempt-001/output/result.json",
+      "sha256": "7899c794bc6a2fb5d969b970f500408806bcf37b5f372a534aea3e9d50f36bc9"
+    },
+    {
+      "id": "joint_sdk_journal",
+      "path": "outputs/LongHorizonOS-remote-study-20261022/package-offline-study/trials/dynamic_pricing-10s-r1-joint-d284510797/attempt-001/output/joint-control.sqlite3.sdk.sqlite3",
+      "sha256": "bcadc28608bdb8e33e1d6df508e66339d26486395969e8701ec71ae6a016aae3"
+    },
+    {
+      "id": "joint_verifier",
+      "path": "outputs/LongHorizonOS-remote-study-20261022/package-offline-study/trials/dynamic_pricing-10s-r1-joint-d284510797/attempt-001/output/verifier-result.json",
+      "sha256": "d99769d1085c447940d36565ede743ae975f1b81b09bd745de81c570eff70d81"
+    },
+    {
+      "id": "offline_summary",
+      "path": "outputs/LongHorizonOS-remote-study-20261022/package-offline-study/summary.json",
+      "sha256": "31be7fc9877736fe01654ce745c9d31de347eef65a9500c94dc6084c9b241291"
+    },
+    {
+      "id": "planner_scaling_csv",
+      "path": "work/LongHorizonOS-harness-neutral-20260923/reports/joint-planner-scaling-20261022/planner-scaling.csv",
+      "sha256": "94bc781a854210535e2de7913e88b3dbb0e111571683bdc0f1c7d830d9aea151"
+    },
+    {
+      "id": "planner_scaling_json",
+      "path": "work/LongHorizonOS-harness-neutral-20260923/reports/joint-planner-scaling-20261022/planner-scaling.json",
+      "sha256": "f20b9151374459085aa085d04b308a51ed5b695c9b3e2db4e7459dfbcd0979c9"
+    },
+    {
+      "id": "source_demand_executor",
+      "path": "work/LongHorizonOS-harness-neutral-20260923/src/lhos/integrations/models/demand_executor.py",
+      "sha256": "7186c4dbe7115a94a120f7d3369bd09beca1c070e50ddb5a6ec2ee122571643b"
+    },
+    {
+      "id": "source_joint",
+      "path": "work/LongHorizonOS-harness-neutral-20260923/src/lhos/agent_os/context/joint.py",
+      "sha256": "e69203bb8b06d5f8ba7cbe663a9bc3a4d23005d84629a6b3d406365165808153"
+    },
+    {
+      "id": "source_joint_dispatch",
+      "path": "work/LongHorizonOS-harness-neutral-20260923/src/lhos/integrations/models/joint_dispatch.py",
+      "sha256": "7ee85a045ddf277281d577268bf2d162faf2099511d57e7f0bf1982c97889a08"
+    },
+    {
+      "id": "source_joint_study",
+      "path": "work/LongHorizonOS-harness-neutral-20260923/src/lhos/benchmarks/joint_study.py",
+      "sha256": "a1982bee78f3517363748d7ea2b298757b025cc4b03e60c3c8c629299492c55b"
+    },
+    {
+      "id": "source_joint_study_case",
+      "path": "work/LongHorizonOS-harness-neutral-20260923/src/lhos/benchmarks/joint_study_case.py",
+      "sha256": "65db94ac95553f97681e92f462118c02cccad07067a6d1e62bafe0adcfd6e423"
+    },
+    {
+      "id": "source_native_dsh_phase",
+      "path": "work/LongHorizonOS-harness-neutral-20260923/src/lhos/integrations/harness/native_dsh_phase.py",
+      "sha256": "66538135214f3de2ca5a6ca8ac39e173d06e1ca13db70b192ad17f49ad79045b"
+    },
+    {
+      "id": "source_planner_microbenchmark",
+      "path": "work/LongHorizonOS-harness-neutral-20260923/scripts/benchmark_joint_planner.py",
+      "sha256": "fcc74b448c7fd450d6389c25066b77674370c6ae011eeaeaaa0c3d34cdf828e6"
+    }
+  ]
+}

@@ -1,42 +1,84 @@
-# LongHorizonOS：图中机制与实现对照
+# LongHorizonOS：机制、证据与实验口径
 
-核对日期：2026-10-22。此表对应本地候选工作源的代码审阅；公开仓库的不同分支或旧版本不一定包含同一实现。表中“已有实现”不等于默认启用、所有入口统一接通、经过真实模型收益验证，亦不等于原创算法贡献。
+更新于 2026-10-24。对应 2026-10-22 本地候选实现及其冻结实验包。公开仓库的旧版本不一定包含同一实现；代码位置不是在线效果证据。可公开的逐项证据与原文件 SHA-256 见 `assets/evidence.json`。
 
-## 执行与资源调度
+## 一个可以被推翻的命题
 
-| 图中机制 | 实现位置（相对 `src/lhos/`） | 范围与边界 |
+在相同输入、候选可行集、验证方式和时间预算下，让上下文准备成本参与动作排序，能否改善已验证进展与完整时间/token 成本之间的经验权衡？
+
+若只改变了顺序，而任务质量没有改善、总成本没有下降，或效果变差，该工作流就不支持收益命题。本文不声称所有 harness 都存在同一损失，也不将该问题称为首次发现。
+
+## 代码究竟控制什么
+
+以下路径相对候选源码根目录；精确哈希由证据清单记录。
+
+| 环节 | 实现 | 输入与输出 |
 | --- | --- | --- |
-| 就绪前沿、关键路径与解锁值 | `sdk/graph_analysis.py:404`，`IncrementalGraphAnalyzer` | 缓存结构索引与分析结果；有效性变化时更新相关区域，结构变化时重建。分析谓词等价的状态转换可跳过无效重算，不抑制真实失效。 |
-| 邻接索引与批量图计算 | `graph/queries.py:34`；`graph/critical_path.py:57,90` | 入/出边按邻接度查询，关键路径用拓扑 DP；解锁计数采用位集并释放不再需要的中间掩码。关键路径 DP 为 O(V+E)，不能把全部位集计算也写成这个复杂度。 |
-| 可选图效用排序 | `sdk/frontier_policy.py:154,290` | 默认修复优先并使用确定性字典序；graph-utility 是显式可选策略，利用关键路径位置与即时解锁值。 |
-| 估计进展与计算预算排序 | `sdk/compute_budget.py:681` | 修复优先，再比较 `(进展×成功率×稳定率)/(成本+预期返工)` 的声明估计；估计来自调用方，未知保持未知。与 legacy `runtime/cost_aware_scheduler.py` 的加权打分属于不同 profile。 |
-| 冲突、预算、资源联合选批 | `sdk/unified_policy.py:177,398` | 同一选批过程检查已声明约束；仅实际选中者扣减预算与逻辑容量。策略无副作用，规划不等于取得执行权。确定性贪心，不保证全局最优。 |
-| 稳定性过滤、并行度与退避 | `sdk/parallelism_policy.py:221,245`；`sdk/streaming_policy.py:49,119` | 选批前考虑上游反复变化及在途冲突；退避降低并行度后重新选批记账。未知读写不能当作独立访问。 |
-| 流式补位 | `sdk/os.py:4432` | 显式启用 streaming 与 adaptive 后，工作槽释放时取得最新状态并重新准入，避免整批屏障；不退回未过滤派发。容量释放不退还已经发生的计算成本。 |
-| 权威准入与执行所有权 | `runtimes/multi_agent/scheduler.py:1276,1684,1929` | 在调度锁内重新检查 graph version、ready 状态、进程与资源，预留容量并取得 Claim/Lease；执行成功与语义验证分开，不能由策略提议直接宣告完成。 |
+| 动态需求 | `src/lhos/agent_os/context/lifecycle.py`、`src/lhos/integrations/models/lifecycle_workspace.py` | 按已注册的 source→signal→rule 更新需求；依赖由应用声明，非任意自然语言依赖的自动发现。 |
+| 联合计划 | `src/lhos/agent_os/context/joint.py`，`JointActionContextPlanner.plan` | 输入动作、版本绑定表示、声明估计和容量；输出 `action_id`、`context_plan.selected_ids`、`total_work_units` 及拒绝原因。 |
+| 持久执行 | `src/lhos/integrations/models/joint_dispatch.py`、`joint_journal.py` | 同一次决策绑定材料与动作；执行前预留，验证后提交，异常保留已发生成本。未决请求阻止不确定重放。 |
+| 原生 phase | `src/lhos/integrations/harness/native_dsh_phase.py`，`NativeDSHPhaseExecutor.execute` | 在真实 SDK execution context 内调用既有 DSH adapter。一个 phase 可包含多次 provider/tool 调用，不能当作一个 HTTP 请求。 |
+| 独立验证 | `src/lhos/benchmarks/joint_study.py`，`IndependentPytest` | 模型 UID 65534、验证器 UID 65533；输出测试与版本检查分开。native 使用 audit provenance，shell 内部 I/O 仍有 opaque 范围。 |
 
-## 上下文与恢复
+Graph 维护显式依赖与来源有效性；memory 保留持久材料；context 交付本轮输入。OS 的职责是管理这些状态的生命周期、资源准入、执行所有权、故障恢复及提交边界。它不能证明任意模型推理正确。
 
-这些是不同入口可选的组件，图中虚线框刻意不表示它们已在一个默认原生 harness 中全部串联。
+## 排序与单位
 
-| 图中机制 | 实现位置（相对 `src/lhos/`） | 范围与边界 |
+为每个动作求满足当前版本、上下文容量、完整请求容量、工作预算和逻辑资源约束的材料覆盖，再比较声明进展与成本。联合策略采用 `G/(P+E)`，对照采用 `G/E`。分数使用精确 Fraction，平局按确定性规则处理。
+
+- G：声明进展，不是独立评估器测到的真实 reward。
+- P 与 E：必须使用同一种声明工作单位，分别表示准备和执行估计。
+- context/request：默认核算 UTF-8 字节，不按字符比例猜 token。
+- provider usage：另记完整输入和输出；未知保留 unknown 与已知下界。
+
+这是一轮决策的启发式。材料覆盖求解的精确性只针对有限、可加的声明成本模型，不推出长期全局最优。当前 pilot 的动作统一使用 G=1、E=1000、slot=1，P 默认来自表示 footprint；P 尚未校准为实测时间、token 或货币费用。
+
+## 构造示例与相反案例
+
+`assets/verify_example.py` 使用候选实现的真实 planner 复现两例，并用小规模穷举核对最优声明进展。它不调用 API/Docker。
+
+| 示例 | 预算 | 动作（G/P/E） | 执行成本排序 | 准备感知排序 |
+| --- | --- | --- | --- | --- |
+| 正例 | 5 | A=3/3/2，B=C=2/0/2 | A，进展3、耗费5 | B+C，进展4、耗费4 |
+| 反例 | 6 | A=10/5/1，B=7/2/2 | A，进展10、耗费6 | B，进展7、耗费4，剩余不足以执行A |
+
+两例中两策略均检查完整成本能否容纳。反例表明，准备感知的单步比值也可能更差。原始结果见 `assets/declared-examples.json`。
+
+复现命令（在冻结候选源码目录，Python 3.11+ 与依赖就绪后）：
+
+```bash
+PYTHONPATH=src:. python3 /path/to/verify_example.py --output /tmp/lhos-declared-examples.json
+```
+
+## 已有数据支持到哪里
+
+| 证据 | 已支持 | 不支持 |
 | --- | --- | --- |
-| 语义记忆与依赖闭包 | `integrations/harness/semantic_memory.py:1056,1211` | 先保留必需约束、活跃 next_step 与完整依赖闭包，再按匹配/图信号/陈旧度选择可选闭包并展开原始摘录。必需闭包放不下时拒绝不完整交接。Agent 声明不自动升级为外部验证证据。 |
-| 交接分组编码 | `integrations/harness/handoff_compiler.py:439,537` | 在受限来源分区和加性成本模型下选择单项/分组编码；限时、解码往返校验，长度不增才应用，否则回退。是可选 compiler profile，默认 legacy；不宣称普遍最优压缩。 |
-| 需求覆盖规划 | `agent_os/context/demand.py:243,267,397` | 按当前来源版本过滤表示；按需求—表示关联拆组件，同覆盖保留低成本表示，再用位集 DP；有内容寻址 LRU 和复杂度上限。优化的是声明成本，常用字节，不等于供应商 token 最优；不默认由所有入口启用。 |
-| 分页、驻留与快照恢复 | `agent_os/context/service.py:69,435,571,627,780` | 复用不可变版本字节/哈希，required 与 pinned 页受保护；恢复重新核对来源与页哈希。各淘汰 policy 单独选择，不是同时运行。 |
-| 换窗准入 | `integrations/harness/context_transition.py:39`；`working_set_adapter.py:366,447` | 检查记忆覆盖和语义缺口；剩余墙钟时间须容纳残余准备与一次调用的耗时代理。未满足时 resume；已完成准备不重复扣计。不是 reward 预测器或精确 token 最优器。 |
-| 有限合同下的动态需求 | `agent_os/context/lifecycle.py:189,336` | 使用 source→signal→rule 和按值倒排索引，只重算相关规则；冲突值拒绝，旧观察变 stale。是 SDK/JSON 合同原型；`lifecycle_workspace.py:254` 仍提前读取所有 guard sources，不声称按可达分支延迟观察已经实现。 |
+| 最终包 546 项测试；相关源码回归 2615 passed、2个平台专属 skipped | 已测试的控制与异常合同 | 全项目绝无漏洞；在线模型兼容与效果 |
+| 最终包 18/18 离线运行 | v1→v2、7 phase、不同首步、资源/lease释放 | 真实 reward/token/时间收益；所有试次均 `measurement_valid=false` |
+| 两臂相同初始 artifact SHA 与候选成本 | 所示排序干预在同一声明输入基础上发生 | provider 内部随机性一致；两种策略最终效果相同或更优 |
+| 图分解微基准 | 同一求解器在独立需求结构上的转移减少；两者均可解时覆盖与成本相同 | 任意结构都加速；触上限实例的时间加速比；原创算法或 Agent 效果 |
 
-## 图 3 的含义
+离线轨迹中的 v1 次序分别为 `core→audit→api→integration` 与 `audit→core→api→integration`。v2 只重做 `core→api→integration`，audit 保留；变化发生在全部 v1 完成之后。因此这条轨迹主要证明首步排序与局部失效接线，不能证明前瞻调度或长期复用带来的收益。
 
-图 3 是按联合准入约束构造的规则示例：总容量 2，A 请求 3 且分别与 B/C 冲突；B、C 各请求 1 且互相相容。跳过 A 后可以选 B+C。它说明为何不能独立选取后简单求交集，不是 benchmark、吞吐或 reward 的测量结果，也不证明贪心在任意实例中最优。
+微基准的 `labels_explored` 是实际执行的 DP 转移计数，非不同状态数。分解与不分解使用相同 20,000 上限；触及上限记为未解。连通图仍可能出现指数开销，8需求实例两者均1,281次，12需求实例两者均触上限。该分解是经典图结构优化。
 
-## 实际接入边界
+## 付费 pilot 的固定对照
 
-- SDK 的预算、资源、自适应并行和 streaming 已有组合接线，仍需显式配置和有效声明输入。
-- 原生 DSH 的 working-set 默认关闭，启用受 memory-first 条件约束；交接 compiler 默认 legacy。
-- 动态需求可经 `LifecycleSDKDispatcher` 接 SDK/模型端口和独立验证，文件明确为 opt-in workspace/JSON contract，不能据此宣称已经接管任意第三方 CLI 的隐藏状态与副作用。
-- 真实系统收益须比较相同信息、相同模型与预算，保留输入总量、未缓存输入、缓存读取、输出、时间、失败和恢复成本；provider cache_read 不是本系统 memory/LRU 命中。
+默认是两种排序 × 300/900/1800秒 × 三次重复，共18 trials。两臂共享版本观察、上下文覆盖、可行性、验证、估计和资源，唯一干预是排序是否包含P。
 
-实现、算法新颖性和真实收益需要不同证据；此表仅记录机制实现与接入范围。
+代码中的对照标识是 `checkpoint_retrieval`，网页称“执行成本排序（忽略P）”。它是共享同一上下文机制的受控排序消融；本轮G/E相同，等价于既定次序。不能将它描述为击败通用checkpoint/检索系统的强基线。seed17/29/43是配对重复标签，不声称控制了provider内部随机种子。
+
+Reward为 `(v1四个公开里程碑 + v2四个公开里程碑 + 最终隐藏测试)/9`。保留全部调用与失败成本，token未知不填0，任务超时保留，基础设施异常单独报告。旧46-case测评分数与此指标不可混用。
+
+这轮真实实验能给出单工作流初步预算曲线。若要支持更广的系统贡献，还需区分：共享准备或未来材料需求是否真正改变决策成本；估计P与实测开销的对应关系；局部来源变化时的增量处理；相同信息下其他准备感知策略的表现。不能仅靠这18个试次声称这些问题均已解决。
+
+## 既有系统优化的角色
+
+增量图分析、邻接/倒排索引、需求覆盖、语义记忆闭包、准入、Claim/Lease、并行退避和流式补位，构成现有运行时基础。它们的入口和启用条件不同；本次主线只追踪联合计划到native phase这一路径。模块数量不能代替核心机制的归因实验，也不表示每项都是原创贡献。
+
+## 来源
+
+- 博客机制与成本表达参考：[Reactive Optimizers](https://xingjianbai.com/reactive-optimizers/)。它的在线结果属于原作者的实验，不属于本项目。
+- 自动研究迭代场景参考：[ResearchBoost](https://ydove0324.github.io/hx_resume/blog/researchboost/)。
+- 数据依据：冻结实验包验收记录、离线控制器账本/进度/SDK数据库，以及同求解器分解消融。完整相对来源与哈希在 `assets/evidence.json`。
